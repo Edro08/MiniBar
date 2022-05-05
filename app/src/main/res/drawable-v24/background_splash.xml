@@ -3,6 +3,6 @@
     <item
         android:drawable="@color/white"/>
     <item
-        android:drawable="@mipmap/ic_launcher"
+        android:drawable="@mipmap/logo_puro_surf"
         android:gravity="center"/>
 </layer-list>
