@@ -32,13 +32,26 @@
         </activity>
 
         <activity
-            android:name="com.purosurf.minibar.Vista.InicioSesion.RecuperarCuenta"
+            android:name="com.purosurf.minibar.Vista.Empleado.DetalleConfirmarConsumo"
+            android:exported="false" />
+        <activity
+            android:name="com.purosurf.minibar.Vista.AdministradorEmpleado.GestionarInventarios"
             android:exported="false" />
         <activity
             android:name="com.purosurf.minibar.Vista.InicioSesion.IniciarSesion"
             android:exported="true"/>
+        <activity android:name="com.purosurf.minibar.Vista.Empleado.MenuEmpleado"
+            android:exported="false" />
+        <activity android:name="com.purosurf.minibar.Vista.InicioSesion.RecuperarCuenta"
+            android:exported="false" />
         <activity
             android:name="com.purosurf.minibar.Vista.InicioSesion.ReestablecerContrasena"
+            android:exported="false" />
+        <activity android:name="com.purosurf.minibar.Vista.Empleado.RegistrarConsumos"
+            android:exported="false" />
+        <activity android:name="com.purosurf.minibar.Vista.Administrador.SeleccionarGestion"
+            android:exported="false" />
+        <activity android:name="com.purosurf.minibar.Vista.Empleado.SeleccionarHabitacion"
             android:exported="false" />
     </application>
 

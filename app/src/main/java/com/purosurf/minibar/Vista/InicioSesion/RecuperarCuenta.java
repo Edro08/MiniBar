@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -71,8 +70,8 @@ public class RecuperarCuenta extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == RESULT_OK){
+                        setResult(RESULT_OK);
                         finish();
-                        Toast.makeText(getApplicationContext(), "Cambio de contraseña existoso", Toast.LENGTH_LONG).show();
                     }
                 }
             }
