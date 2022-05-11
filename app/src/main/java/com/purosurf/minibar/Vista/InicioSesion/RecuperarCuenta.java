@@ -23,7 +23,7 @@ public class RecuperarCuenta extends AppCompatActivity {
     //ELEMENTOS
     TextInputLayout tilCorreoRC; //contenedor EDT
     TextInputEditText edtCorreoRC; //EditText
-    Button btnReestablecerRC; //Boton para pasar a la siguiente pantalla
+    Button btnReestablecerRC, btnRegresarRC; //Boton para pasar a la siguiente pantalla
 
     //variables
     String correo;
@@ -37,6 +37,7 @@ public class RecuperarCuenta extends AppCompatActivity {
         tilCorreoRC = findViewById(R.id.tilCorreoRC);
         edtCorreoRC = findViewById(R.id.edtCorreoRecuperarCuenta);
         btnReestablecerRC = findViewById(R.id.btnReestablecerRecuperarCuenta);
+        btnRegresarRC = findViewById(R.id.btnRegresarRecuperarCuenta);
 
 
         //metodo del boton
@@ -46,6 +47,13 @@ public class RecuperarCuenta extends AppCompatActivity {
                 validarCorreo();
                 Intent reestablecer = new Intent(getApplicationContext(), ReestablecerContrasena.class);
                 lanzarActividad.launch(reestablecer);
+            }
+        });
+
+        btnRegresarRC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

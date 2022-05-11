@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Vista.Administrador.GestionProductos.DeshabilitarProductos">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="40dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/azulPalido">
+
+                <Button
+                    android:id="@+id/btnRegresarDP"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:drawableLeft="@drawable/ic_icono_regresar"
+                    android:drawableTint="@color/azulOscuro"
+                    app:rippleColor="@color/azulClaro" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deshabilitar Producto"
+                    android:textColor="@color/azulOscuro"
+                    android:textSize="20sp" />
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/tvProductoDP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="3dp"
+            android:text="Seleccione el estado"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/grisFondo" />
+
+        <Switch
+            android:id="@+id/swActivoDP"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:checked="true"
+            android:showText="false"
+            android:splitTrack="false"
+            android:text="Activo"
+            android:textSize="18sp"
+            android:thumbTint="@color/azul"
+            android:trackTint="@color/azulClaro"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/grisFondo" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnConfirmarDP"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_margin="15dp"
+        android:backgroundTint="@color/azul"
+        android:text="Confirmar"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:rippleColor="@color/azulVerde" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,8 +9,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="64dp">
+        >
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/azulPalido">
+
+                <Button
+                    android:id="@+id/btnRegresarReesC"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:drawableLeft="@drawable/ic_icono_regresar"
+                    android:drawableTint="@color/azulOscuro"
+                    app:rippleColor="@color/azulClaro" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reestablecer Contraseña"
+                    android:textSize="20sp"
+                    android:textColor="@color/azulOscuro"
+                    />
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
             android:id="@+id/tvIngreseReesC"

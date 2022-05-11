@@ -40,7 +40,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginEnd="10dp"
-                        app:srcCompat="@drawable/ic_icono_gestionar_productos"
+                        app:srcCompat="@drawable/ic_icono_lista"
                         app:tint="@color/white" />
 
                     <TextView
@@ -75,7 +75,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginEnd="10dp"
-                        app:srcCompat="@drawable/ic_icono_gestionar_productos"
+                        app:srcCompat="@drawable/ic_icono_lista"
                         app:tint="@color/white" />
 
                     <TextView
@@ -110,7 +110,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginEnd="10dp"
-                        app:srcCompat="@drawable/ic_icono_gestionar_productos"
+                        app:srcCompat="@drawable/ic_icono_lista"
                         app:tint="@color/white" />
 
                     <TextView
@@ -145,7 +145,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginEnd="10dp"
-                        app:srcCompat="@drawable/ic_icono_gestionar_productos"
+                        app:srcCompat="@drawable/ic_icono_lista"
                         app:tint="@color/white" />
 
                     <TextView

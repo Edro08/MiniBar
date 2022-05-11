@@ -25,7 +25,7 @@ public class IniciarSesion extends AppCompatActivity {
     //ELEMENTOS
     TextInputEditText edtUsuarioLogin, edtPasswordLogin; //EditText
     TextInputLayout tilUsuarioLogin, tilPasswordLogin;   //Contenedor del EditText
-    Button btnIngresarLogin, btnRecuperarLogin;
+    Button btnIngresarAdmi, btnIngresarEmpleado,btnRecuperarLogin;
 
     String user, pass;
 
@@ -40,17 +40,25 @@ public class IniciarSesion extends AppCompatActivity {
         edtPasswordLogin = findViewById(R.id.edtPasswordLogin);
         tilUsuarioLogin = findViewById(R.id.tilUsuarioLogin);
         tilPasswordLogin = findViewById(R.id.tilPasswordLogin);
-        btnIngresarLogin = findViewById(R.id.btnIngresarLogin);
+        btnIngresarAdmi = findViewById(R.id.btnIngresarAdmi);
+        btnIngresarEmpleado = findViewById(R.id.btnIngresarEmpleado);
         btnRecuperarLogin = findViewById(R.id.btnRecuperarLogin);
 
 
         //botones
-        btnIngresarLogin.setOnClickListener(new View.OnClickListener() {
+        btnIngresarAdmi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validarCaptura();
-                //Intent menu = new Intent(getApplicationContext(), MenuEmpleado.class);
                 Intent menu = new Intent(getApplicationContext(), SeleccionarGestion.class);
+                startActivity(menu);
+            }
+        });
+        btnIngresarEmpleado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validarCaptura();
+                Intent menu = new Intent(getApplicationContext(), MenuEmpleado.class);
                 startActivity(menu);
             }
         });

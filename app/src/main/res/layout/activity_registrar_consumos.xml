@@ -22,7 +22,7 @@
                 <com.google.android.material.appbar.MaterialToolbar
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white">
+                    android:background="@color/azulPalido">
 
                     <Button
                         android:id="@+id/btnRegresarRegCons"
@@ -32,13 +32,13 @@
                         android:drawableLeft="@drawable/ic_icono_regresar"
                         android:drawableTint="@color/azulOscuro"
                         app:rippleColor="@color/azulClaro" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Registrar Consumos"
-                        android:textSize="20sp"
                         android:textColor="@color/azulOscuro"
-                        />
+                        android:textSize="20sp" />
                 </com.google.android.material.appbar.MaterialToolbar>
 
             </com.google.android.material.appbar.AppBarLayout>
@@ -55,12 +55,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
+                android:gravity="center"
                 android:text="Habitacion #"
-                android:textColor="@color/black"
-                android:textSize="23sp" />
+                android:textColor="@color/azulOscuro"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvInventarioRegCons"

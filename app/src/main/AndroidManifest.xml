@@ -9,6 +9,24 @@
         android:roundIcon="@mipmap/logo_puro_surf_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniBar">
+        <activity
+            android:name=".Vista.Administrador.GestionProductos.ActualizarProductos"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionProductos.DeshabilitarProductos"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionProductos.SeleccionarProducto"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionProductos.ConfirmarDetalleProducto"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionProductos.AdicionarProductos"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionProductos.GestionarProductos"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -30,28 +48,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.purosurf.minibar.Vista.Empleado.DetalleConfirmarConsumo"
-            android:exported="false" />
-        <activity
-            android:name="com.purosurf.minibar.Vista.AdministradorEmpleado.GestionarInventarios"
+            android:name=".Vista.Empleado.DetalleConfirmarConsumo"
             android:exported="false" />
         <activity
-            android:name="com.purosurf.minibar.Vista.InicioSesion.IniciarSesion"
-            android:exported="true"/>
-        <activity android:name="com.purosurf.minibar.Vista.Empleado.MenuEmpleado"
-            android:exported="false" />
-        <activity android:name="com.purosurf.minibar.Vista.InicioSesion.RecuperarCuenta"
+            android:name=".Vista.AdministradorEmpleado.GestionarInventarios"
             android:exported="false" />
         <activity
-            android:name="com.purosurf.minibar.Vista.InicioSesion.ReestablecerContrasena"
+            android:name=".Vista.InicioSesion.IniciarSesion"
+            android:exported="true" />
+        <activity
+            android:name=".Vista.Empleado.MenuEmpleado"
             android:exported="false" />
-        <activity android:name="com.purosurf.minibar.Vista.Empleado.RegistrarConsumos"
+        <activity
+            android:name=".Vista.InicioSesion.RecuperarCuenta"
             android:exported="false" />
-        <activity android:name="com.purosurf.minibar.Vista.Administrador.SeleccionarGestion"
+        <activity
+            android:name=".Vista.InicioSesion.ReestablecerContrasena"
             android:exported="false" />
-        <activity android:name="com.purosurf.minibar.Vista.Empleado.SeleccionarHabitacion"
+        <activity
+            android:name=".Vista.Empleado.RegistrarConsumos"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.SeleccionarGestion"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Empleado.SeleccionarHabitacion"
             android:exported="false" />
     </application>
 

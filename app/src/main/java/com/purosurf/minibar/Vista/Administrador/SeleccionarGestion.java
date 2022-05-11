@@ -3,6 +3,7 @@ package com.purosurf.minibar.Vista.Administrador;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionProductos.GestionarProductos;
 
 public class SeleccionarGestion extends AppCompatActivity {
 
@@ -25,7 +27,11 @@ public class SeleccionarGestion extends AppCompatActivity {
             cvGestionarUsuariosSG;
     FloatingActionButton fabCerrarSesionSG;
 
-    FrameLayout flGestionarProductosSG;
+    FrameLayout flGestionarProductosSG; //modal
+
+
+    //intent para seleccionar la gestion
+    Intent gestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,9 @@ public class SeleccionarGestion extends AppCompatActivity {
         cvGestionarProductoSG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showBottomSheetDialog();
+                //showBottomSheetDialog();
+                gestion = new Intent(getApplicationContext(), GestionarProductos.class);
+                startActivity(gestion);
             }
         });
 
@@ -82,7 +90,7 @@ public class SeleccionarGestion extends AppCompatActivity {
         });
     }
 
-    //
+    //Mostrar modal
     private void showBottomSheetDialog() {
 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);

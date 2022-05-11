@@ -72,14 +72,26 @@
 
 
         <Button
-            android:id="@+id/btnIngresarLogin"
+            android:id="@+id/btnIngresarAdmi"
             style="@style/Widget.Material3.Button"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:backgroundTint="@color/azul"
-            android:text="Ingresar"
+            android:text="Ingresar Admin"
+            android:textSize="18sp"
+            app:rippleColor="@color/azulVerde" />
+
+        <Button
+            android:id="@+id/btnIngresarEmpleado"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/azul"
+            android:text="Ingresar Empleado"
             android:textSize="18sp"
             app:rippleColor="@color/azulVerde" />
 

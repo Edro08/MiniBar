@@ -21,6 +21,7 @@ import com.purosurf.minibar.Presentador.Adaptadores.RegistrarConsumoAdapter;
 import com.purosurf.minibar.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrarConsumos extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class RegistrarConsumos extends AppCompatActivity {
     Button btnProcesarRegCons, btnRegresarRegCons;
 
     //Lista de productos de la habitacion
-    ArrayList<DetalleConsumo> listadoInventario;
+    List<DetalleConsumo> listadoInventario;
 
     //Adaptador para RecyclerView
     RegistrarConsumoAdapter lsInventarioRV;

@@ -19,7 +19,7 @@ public class DetalleConfirmarConsumo extends AppCompatActivity {
 
     //ELEMENTOS
     TableLayout tblDetalleDCC;
-    Button btnConfirmarDCC, btnCancelarDCC;
+    Button btnConfirmarDCC, btnRegresarDCC;
 
     Bundle datos;
     ArrayList<String> listadoConsumo;
@@ -35,7 +35,7 @@ public class DetalleConfirmarConsumo extends AppCompatActivity {
 
         //ASIGNAR ELEMENTOS
         btnConfirmarDCC = findViewById(R.id.btnConfirmarDCC);
-        btnCancelarDCC = findViewById(R.id.btnCancelarDCC);
+        btnRegresarDCC = findViewById(R.id.btnRegresarDCC);
 
         llenarFilas();
 
@@ -49,7 +49,7 @@ public class DetalleConfirmarConsumo extends AppCompatActivity {
             }
         });
 
-        btnCancelarDCC.setOnClickListener(new View.OnClickListener() {
+        btnRegresarDCC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

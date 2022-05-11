@@ -15,10 +15,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.purosurf.minibar.Modelo.Habitacion;
-import com.purosurf.minibar.Presentador.Adaptadores.HabitacionAdapter;
+import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarHabitacionAdapter;
 import com.purosurf.minibar.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SeleccionarHabitacion extends AppCompatActivity {
 
@@ -27,10 +28,10 @@ public class SeleccionarHabitacion extends AppCompatActivity {
     Button btnRegresarSH; //boton regresar pantalla anterior
 
     //Adaptador RecyclerView
-    HabitacionAdapter lsHabitacionesRV;
+    SeleccionarHabitacionAdapter lsHabitacionesRV;
 
     //Listado de habitaciones
-    ArrayList <Habitacion> listadoHabitacion;
+    List<Habitacion> listadoHabitacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +50,19 @@ public class SeleccionarHabitacion extends AppCompatActivity {
 
 
         //Asignar adaptador a RecyclerView
-        lsHabitacionesRV = new HabitacionAdapter(listadoHabitacion, this); //asignamos el adaptador
+        lsHabitacionesRV = new SeleccionarHabitacionAdapter(listadoHabitacion, this); //asignamos el adaptador
         rvSeleccionarSH.setHasFixedSize(false);
         rvSeleccionarSH.setLayoutManager(new LinearLayoutManager(this));
         rvSeleccionarSH.setAdapter(lsHabitacionesRV); //asignamos adaptador a RecyclerView
 
-    // seleccionar elemento del recyclerview
+        // seleccionar elemento del recyclerview (metodo del adaptador)
         lsHabitacionesRV.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
               Intent registrar = new Intent(getApplicationContext(), RegistrarConsumos.class);
               registrarConsumo.launch(registrar);
-              Toast.makeText(getApplicationContext(), listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getNombreHabitacion(), Toast.LENGTH_LONG).show();
+              listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getIdHabitaccion();  // obtener ID de la habitacion seleccionada
+              Toast.makeText(getApplicationContext(), ""+listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getNombreHabitacion(), Toast.LENGTH_LONG).show();
           }
         });
 
@@ -86,9 +88,4 @@ public class SeleccionarHabitacion extends AppCompatActivity {
                 }
             }
     );
-
-
-
-
-
 }

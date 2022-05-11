@@ -14,7 +14,7 @@ import com.purosurf.minibar.R;
 
 import java.util.List;
 
-public class HabitacionAdapter  extends RecyclerView.Adapter<HabitacionAdapter.ViewHolder> implements View.OnClickListener {
+public class SeleccionarHabitacionAdapter extends RecyclerView.Adapter<SeleccionarHabitacionAdapter.ViewHolder> implements View.OnClickListener {
 
     //Declarar elemento de click
     private View.OnClickListener listener;
@@ -24,7 +24,7 @@ public class HabitacionAdapter  extends RecyclerView.Adapter<HabitacionAdapter.V
     private Context context;
 
     //constructor
-    public HabitacionAdapter (List<Habitacion> itemList, Context context){
+    public SeleccionarHabitacionAdapter(List<Habitacion> itemList, Context context){
         this.minFlater = LayoutInflater.from(context);
         this.context = context;
         this.mData = itemList;
@@ -36,18 +36,18 @@ public class HabitacionAdapter  extends RecyclerView.Adapter<HabitacionAdapter.V
 
     // Seleccionar el contenedor CardView XML
     @Override
-    public HabitacionAdapter.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
-        View view = minFlater.inflate(R.layout.cardview_habitaciones, null );
+    public SeleccionarHabitacionAdapter.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
+        View view = minFlater.inflate(R.layout.cardview_lista_recyclerview, null );
 
         //declarar onclick
         view.setOnClickListener(this);
 
-        return new HabitacionAdapter.ViewHolder(view);
+        return new SeleccionarHabitacionAdapter.ViewHolder(view);
     }
 
     //posicion del elemento
     @Override
-    public void onBindViewHolder (final HabitacionAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder (final SeleccionarHabitacionAdapter.ViewHolder holder, final int position) {
         holder.bindData(mData.get(position));
     }
 
@@ -70,20 +70,20 @@ public class HabitacionAdapter  extends RecyclerView.Adapter<HabitacionAdapter.V
     //Asignar los datos dentro del contenedor CardView
     public class ViewHolder extends RecyclerView.ViewHolder{
         //ELEMENTOS del cardView
-        ImageView ivIcono;
-        TextView tvHabitacion;
+        ImageView ivIconoRecyclerView;
+        TextView tvNombreRecyclerView;
 
         ViewHolder(View itemView){
             super(itemView);
 
             //Relacionamos elementos
-            ivIcono = itemView.findViewById(R.id.ivIcono);
-            tvHabitacion = itemView.findViewById(R.id.tvHabitacion);
+            ivIconoRecyclerView = itemView.findViewById(R.id.ivIconoRecyclerView);
+            tvNombreRecyclerView = itemView.findViewById(R.id.tvNombreRecyclerView);
         }
         void bindData(final Habitacion item){
             //asignamos valores al cardview
-            ivIcono.setImageResource(R.drawable.ic_icono_habitacion);
-            tvHabitacion.setText(item.getNombreHabitacion());
+            ivIconoRecyclerView.setImageResource(R.drawable.ic_icono_habitacion);
+            tvNombreRecyclerView.setText(item.getNombreHabitacion());
         }
     }
 }

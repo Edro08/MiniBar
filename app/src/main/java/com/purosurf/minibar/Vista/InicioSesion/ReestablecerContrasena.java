@@ -16,7 +16,7 @@ public class ReestablecerContrasena extends AppCompatActivity {
     //ELEMENTOS
     TextInputLayout tilNuevoPassReesC, tilConfirmarReesC; //contenedor edt
     TextInputEditText edtNuevoPassReesC, edtConfirmarReesC; //edt nueva contraseeña y confirmar
-    Button btnConfirmarReesC; //confirmar cambio de pss
+    Button btnConfirmarReesC, btnRegresarReesC;
 
     //variables
     String nuevaPass, confirmarPass;
@@ -32,7 +32,9 @@ public class ReestablecerContrasena extends AppCompatActivity {
         edtNuevoPassReesC = findViewById(R.id.edtNuevoPassReesC);
         edtConfirmarReesC = findViewById(R.id.edtConfirmarReesC);
         btnConfirmarReesC = findViewById(R.id.btnConfirmarReesC);
+        btnRegresarReesC = findViewById(R.id.btnRegresarReesC);
 
+        //botones
         btnConfirmarReesC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,6 +43,14 @@ public class ReestablecerContrasena extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnRegresarReesC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
     public void validarCampos(){
         nuevaPass = edtNuevoPassReesC.getText().toString().trim();

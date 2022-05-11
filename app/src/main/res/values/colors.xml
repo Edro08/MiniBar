@@ -10,9 +10,9 @@
     <color name="azulOscuro">#2558FD</color>
     <color name="azul">#4D77FF</color>
     <color name="azulClaro">#56BBF1</color>
-    <color name="azulPalido">#94CBE8</color>
+    <color name="azulPalido">#D6E5FA</color>
     <color name="azulVerde">#5EE6EB</color>
     <color name="amarillo">#F2FA5A</color>
-    <color name="grisFondo">#DAE6E6</color>
+    <color name="grisFondo">#949494</color>
 
 </resources>
