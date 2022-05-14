@@ -4,14 +4,13 @@ public class Habitacion {
 
     private int IdHabitaccion;
     private String NombreHabitacion;
+    private int IdEstado;
 
     public Habitacion(int idHabitaccion, String nombreHabitacion, int idEstado) {
         IdHabitaccion = idHabitaccion;
         NombreHabitacion = nombreHabitacion;
         IdEstado = idEstado;
     }
-
-    private int IdEstado;
 
     public int getIdHabitaccion() {
         return IdHabitaccion;

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cvListaRecyclerView"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvSeleccionarProductoSEP"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:rippleColor="@color/azulClaro"
@@ -9,6 +10,7 @@
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,40 +24,58 @@
             android:padding="6dp">
 
             <ImageView
-                android:id="@+id/ivIconoRecyclerView"
+                android:id="@+id/ivIconoProductoSEP"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:layout_alignParentLeft="true"/>
+                android:paddingRight="14dp" />
 
             <LinearLayout
-                android:id="@+id/rlContenidoRecyclerView"
-                android:layout_width="match_parent"
+                android:id="@+id/linearLayoutSEP"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="3dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="15dp"
-                android:layout_toEndOf="@+id/ivIconoRecyclerView"
                 android:orientation="vertical"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/ivIconoRecyclerView">
+                android:layout_toRightOf="@+id/ivIconoProductoSEP">
 
                 <TextView
-                    android:id="@+id/tvNombreRecyclerView"
+                    android:id="@+id/tvNombreProductoSEP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nombre ITEM"
+                    android:textSize="22sp"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvEstadoProductoSEP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="Estado" />
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPrecioProductoSEP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@id/linearLayoutSEP"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:layout_marginRight="3dp"
+                android:text="$0.00"
+                android:textSize="16sp" />
 
         </RelativeLayout>
 
     </LinearLayout>
-
 
 </com.google.android.material.card.MaterialCardView>

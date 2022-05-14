@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarProductoAdapter;
 import com.purosurf.minibar.R;
-import com.purosurf.minibar.Vista.Empleado.DetalleConfirmarConsumo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +115,7 @@ public class SeleccionarProducto extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),""+ indice, Toast.LENGTH_SHORT).show(); //mostramos el indice del elemento que ocupa en el arraylist*/
                 //llenamos el arreglo segun el indice
                 for(int j = 0; j <= 9; j++){
-                    listadoProducto.add(new Producto(j,"producto"+ j +" Categoria "+indice, indice, 4 * j, 1, "XD"));
+                    listadoProducto.add(new Producto(j,"producto"+ j +" Categoria "+indice, indice, 4 * j, "Activo", "XD"));
                 }
                 rvSeleccionarProductoSP.setAdapter(lsProductosRV);
             }
@@ -135,7 +134,7 @@ public class SeleccionarProducto extends AppCompatActivity {
                     accionProducto = new Intent(getApplicationContext(), DeshabilitarProductos.class);
                     lanzarActividad.launch(accionProducto);
                 }else if(accion.equals("actualizar")){
-                    accionProducto = new Intent(getApplicationContext(), ActualizarProductos.class);
+                    accionProducto = new Intent(getApplicationContext(), ActualizarProducto.class);
                     accionProducto.putExtra("accion","actualizar");
                     lanzarActividad.launch(accionProducto);
                 }else if(accion.equals("listar")){

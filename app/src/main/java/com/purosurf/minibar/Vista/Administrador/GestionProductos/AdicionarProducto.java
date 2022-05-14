@@ -23,7 +23,7 @@ import com.purosurf.minibar.R;
 
 import java.util.ArrayList;
 
-public class AdicionarProductos extends AppCompatActivity {
+public class AdicionarProducto extends AppCompatActivity {
 
     //ELEMENTOS
     TextInputLayout tilNombreAP, tilCategoriaAP, tilPrecioAP; //contenedores de EditText

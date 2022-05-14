@@ -22,7 +22,7 @@ import com.purosurf.minibar.R;
 
 import java.util.ArrayList;
 
-public class ActualizarProductos extends AppCompatActivity {
+public class ActualizarProducto extends AppCompatActivity {
 
     //ELEMENTOS
     Button btnRegresarACP,btnCargarNuevaACP ,btnSiguienteACP;

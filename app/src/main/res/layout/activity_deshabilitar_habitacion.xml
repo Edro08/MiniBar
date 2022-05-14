@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Vista.Administrador.GestionProductos.DeshabilitarProductos">
+    tools:context=".Vista.Administrador.GestionHabitaciones.DeshabilitarHabitacion">
 
     <LinearLayout
-        android:id="@+id/linearLayoutDP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,7 +23,7 @@
                 android:background="@color/azulPalido">
 
                 <Button
-                    android:id="@+id/btnRegresarDP"
+                    android:id="@+id/btnRegresarDH"
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -35,7 +34,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Deshabilitar Producto"
+                    android:text="Deshabilitar Habitación"
                     android:textColor="@color/azulOscuro"
                     android:textSize="20sp" />
             </com.google.android.material.appbar.MaterialToolbar>
@@ -43,7 +42,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
-            android:id="@+id/tvProductoDP"
+            android:id="@+id/tvHabitacionDH"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -69,7 +68,7 @@
             android:background="@color/grisFondo" />
 
         <Switch
-            android:id="@+id/swActivoDP"
+            android:id="@+id/swActivoDH"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
@@ -95,7 +94,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnConfirmarDP"
+        android:id="@+id/btnConfirmarDH"
         style="@style/Widget.Material3.Button"
         android:layout_width="200dp"
         android:layout_height="50dp"

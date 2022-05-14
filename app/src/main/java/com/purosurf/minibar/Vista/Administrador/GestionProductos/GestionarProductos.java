@@ -45,7 +45,7 @@ public class GestionarProductos extends AppCompatActivity {
         cvAdicionarProductos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent adicionar = new Intent(getApplicationContext(), AdicionarProductos.class);
+                Intent adicionar = new Intent(getApplicationContext(), AdicionarProducto.class);
                 lanzarActividad.launch(adicionar);
             }
         });
@@ -93,7 +93,7 @@ public class GestionarProductos extends AppCompatActivity {
                     if(result.getResultCode() > 0){
                         String mensaje = "";
                         if (result.getResultCode() == 1){
-                            mensaje = "Nuevo producto registrado";
+                            mensaje = "Nuevo producto registrado correctamente";
                         }else if(result.getResultCode() == 2){
                             mensaje = "Producto Deshabilitado correctamente";
                         }else if(result.getResultCode() == 3){

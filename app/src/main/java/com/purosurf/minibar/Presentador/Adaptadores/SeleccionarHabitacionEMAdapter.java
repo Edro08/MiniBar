@@ -14,7 +14,7 @@ import com.purosurf.minibar.R;
 
 import java.util.List;
 
-public class SeleccionarHabitacionAdapter extends RecyclerView.Adapter<SeleccionarHabitacionAdapter.ViewHolder> implements View.OnClickListener {
+public class SeleccionarHabitacionEMAdapter extends RecyclerView.Adapter<SeleccionarHabitacionEMAdapter.ViewHolder> implements View.OnClickListener {
 
     //Declarar elemento de click
     private View.OnClickListener listener;
@@ -24,7 +24,7 @@ public class SeleccionarHabitacionAdapter extends RecyclerView.Adapter<Seleccion
     private Context context;
 
     //constructor
-    public SeleccionarHabitacionAdapter(List<Habitacion> itemList, Context context){
+    public SeleccionarHabitacionEMAdapter(List<Habitacion> itemList, Context context){
         this.minFlater = LayoutInflater.from(context);
         this.context = context;
         this.mData = itemList;
@@ -36,18 +36,18 @@ public class SeleccionarHabitacionAdapter extends RecyclerView.Adapter<Seleccion
 
     // Seleccionar el contenedor CardView XML
     @Override
-    public SeleccionarHabitacionAdapter.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
+    public SeleccionarHabitacionEMAdapter.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
         View view = minFlater.inflate(R.layout.cardview_lista_recyclerview, null );
 
         //declarar onclick
         view.setOnClickListener(this);
 
-        return new SeleccionarHabitacionAdapter.ViewHolder(view);
+        return new SeleccionarHabitacionEMAdapter.ViewHolder(view);
     }
 
     //posicion del elemento
     @Override
-    public void onBindViewHolder (final SeleccionarHabitacionAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder (final SeleccionarHabitacionEMAdapter.ViewHolder holder, final int position) {
         holder.bindData(mData.get(position));
     }
 

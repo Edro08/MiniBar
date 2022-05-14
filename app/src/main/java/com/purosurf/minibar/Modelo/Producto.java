@@ -1,19 +1,20 @@
 package com.purosurf.minibar.Modelo;
 
 public class Producto {
-    int IdProducto;
-    String ProductoNombre;
-    int IdCategoria;
-    float PrecioUnitario;
-    int IdEstado;
-    String ImagenURL;
+    private int IdProducto;
+    private String ProductoNombre;
+    private int IdCategoria;
+    private float PrecioUnitario;
+    //private int IdEstado; // variable correcta
+    private String Estado;//variable improvisada para prueba
+    private String ImagenURL;
 
-    public Producto(int idProducto, String productoNombre, int idCategoria, float precioUnitario, int idEstado, String imagenURL) {
+    public Producto(int idProducto, String productoNombre, int idCategoria, float precioUnitario, String estado, String imagenURL) {
         IdProducto = idProducto;
         ProductoNombre = productoNombre;
         IdCategoria = idCategoria;
         PrecioUnitario = precioUnitario;
-        IdEstado = idEstado;
+        Estado = estado;
         ImagenURL = imagenURL;
     }
 
@@ -49,12 +50,12 @@ public class Producto {
         PrecioUnitario = precioUnitario;
     }
 
-    public int getIdEstado() {
-        return IdEstado;
+    public String getEstado() {
+        return Estado;
     }
 
-    public void setIdEstado(int idEstado) {
-        IdEstado = idEstado;
+    public void setEstado(String estado) {
+        Estado = estado;
     }
 
     public String getImagenURL() {

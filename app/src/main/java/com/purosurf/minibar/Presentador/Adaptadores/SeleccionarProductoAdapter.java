@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.R;
 
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.List;
 
 public class SeleccionarProductoAdapter extends RecyclerView.Adapter<SeleccionarProductoAdapter.ViewHolder> implements View.OnClickListener {
@@ -37,7 +39,7 @@ public class SeleccionarProductoAdapter extends RecyclerView.Adapter<Seleccionar
     // Selccionar el contenedor CardView XML
     @Override
     public SeleccionarProductoAdapter.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
-        View view = minFlater.inflate(R.layout.cardview_lista_recyclerview, null);
+        View view = minFlater.inflate(R.layout.cardview_seleccionar_producto, null);
 
         //declarar onclick
         view.setOnClickListener(this);
@@ -69,20 +71,28 @@ public class SeleccionarProductoAdapter extends RecyclerView.Adapter<Seleccionar
     //asignar datos dentro del contenedor cardview
     public class ViewHolder extends RecyclerView.ViewHolder{
         //ELEMENTOS del cardView
-        ImageView ivIconoRecyclerView; // imagen producto
-        TextView tvNombreRecyclerView; // nombre producto
+        ImageView ivIconoProductoSEP; // imagen producto
+        TextView tvNombreProductoSEP; // nombre producto
+        TextView tvEstadoProductoSEP; // estado producto (activo o desactivado)
+        TextView tvPrecioProductoSEP;
 
         ViewHolder(View itemView){
             super(itemView);
 
             //Relacionamos elementos
-            ivIconoRecyclerView = itemView.findViewById(R.id.ivIconoRecyclerView);
-            tvNombreRecyclerView = itemView.findViewById(R.id.tvNombreRecyclerView);
+            ivIconoProductoSEP = itemView.findViewById(R.id.ivIconoProductoSEP);
+            tvNombreProductoSEP = itemView.findViewById(R.id.tvNombreProductoSEP);
+            tvEstadoProductoSEP = itemView.findViewById(R.id.tvEstadoProductoSEP);
+            tvPrecioProductoSEP = itemView.findViewById(R.id.tvPrecioProductoSEP);
         }
         void bindData(final Producto item){
-            //asignamos valores al cardview
-            ivIconoRecyclerView.setImageResource(R.drawable.ic_icono_comida);
-            tvNombreRecyclerView.setText(item.getProductoNombre());
+            //asignamos valores al cardview //trae los valores del modelo
+            ivIconoProductoSEP.setImageResource(R.drawable.ic_icono_comida);
+            tvNombreProductoSEP.setText(item.getProductoNombre());
+            tvEstadoProductoSEP.setText(item.getEstado());
+            //precio
+            String precio = new DecimalFormat("#,##0.00").format(item.getPrecioUnitario());
+            tvPrecioProductoSEP.setText("$ "+precio);
         }
     }
 }

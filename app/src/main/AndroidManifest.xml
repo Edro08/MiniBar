@@ -10,7 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniBar">
         <activity
-            android:name=".Vista.Administrador.GestionProductos.ActualizarProductos"
+            android:name=".Vista.Administrador.GestionHabitaciones.DetalleHabitacion"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionHabitaciones.ActualizarHabitacion"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionHabitaciones.DeshabilitarHabitacion"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionHabitaciones.SeleccionarHabitacionAM"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionHabitaciones.AdicionarHabitacion"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionHabitaciones.GestionarHabitaciones"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionProductos.ActualizarProducto"
             android:exported="false" />
         <activity
             android:name=".Vista.Administrador.GestionProductos.DeshabilitarProductos"
@@ -22,7 +40,7 @@
             android:name=".Vista.Administrador.GestionProductos.ConfirmarDetalleProducto"
             android:exported="false" />
         <activity
-            android:name=".Vista.Administrador.GestionProductos.AdicionarProductos"
+            android:name=".Vista.Administrador.GestionProductos.AdicionarProducto"
             android:exported="false" />
         <activity
             android:name=".Vista.Administrador.GestionProductos.GestionarProductos"
@@ -73,7 +91,7 @@
             android:name=".Vista.Administrador.SeleccionarGestion"
             android:exported="false" />
         <activity
-            android:name=".Vista.Empleado.SeleccionarHabitacion"
+            android:name=".Vista.Empleado.SeleccionarHabitacionEM"
             android:exported="false" />
     </application>
 

@@ -55,7 +55,7 @@ public class MenuEmpleado extends AppCompatActivity {
         cvRegistrarConsumosME.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent seleccionar = new Intent(getApplicationContext(), SeleccionarHabitacion.class);
+                Intent seleccionar = new Intent(getApplicationContext(), SeleccionarHabitacionEM.class);
                 seleccionarHabitacion.launch(seleccionar);
             }
         });

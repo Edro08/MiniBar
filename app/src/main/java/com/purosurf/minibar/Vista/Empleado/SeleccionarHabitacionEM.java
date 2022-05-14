@@ -15,20 +15,20 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.purosurf.minibar.Modelo.Habitacion;
-import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarHabitacionAdapter;
+import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarHabitacionEMAdapter;
 import com.purosurf.minibar.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SeleccionarHabitacion extends AppCompatActivity {
+public class SeleccionarHabitacionEM extends AppCompatActivity {
 
     //ELEMENTOS
     RecyclerView rvSeleccionarSH; //
     Button btnRegresarSH; //boton regresar pantalla anterior
 
     //Adaptador RecyclerView
-    SeleccionarHabitacionAdapter lsHabitacionesRV;
+    SeleccionarHabitacionEMAdapter lsHabitacionesRV;
 
     //Listado de habitaciones
     List<Habitacion> listadoHabitacion;
@@ -36,7 +36,7 @@ public class SeleccionarHabitacion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seleccionar_habitacion);
+        setContentView(R.layout.activity_seleccionar_habitacion_em);
 
         //asignar elementos
         rvSeleccionarSH = findViewById(R.id.rvSeleccionarSH);
@@ -50,7 +50,7 @@ public class SeleccionarHabitacion extends AppCompatActivity {
 
 
         //Asignar adaptador a RecyclerView
-        lsHabitacionesRV = new SeleccionarHabitacionAdapter(listadoHabitacion, this); //asignamos el adaptador
+        lsHabitacionesRV = new SeleccionarHabitacionEMAdapter(listadoHabitacion, this); //asignamos el adaptador
         rvSeleccionarSH.setHasFixedSize(false);
         rvSeleccionarSH.setLayoutManager(new LinearLayoutManager(this));
         rvSeleccionarSH.setAdapter(lsHabitacionesRV); //asignamos adaptador a RecyclerView

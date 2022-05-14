@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionHabitaciones.GestionarHabitaciones;
 import com.purosurf.minibar.Vista.Administrador.GestionProductos.GestionarProductos;
 
 public class SeleccionarGestion extends AppCompatActivity {
@@ -26,9 +27,6 @@ public class SeleccionarGestion extends AppCompatActivity {
             cvGestionarInventariosSG,
             cvGestionarUsuariosSG;
     FloatingActionButton fabCerrarSesionSG;
-
-    FrameLayout flGestionarProductosSG; //modal
-
 
     //intent para seleccionar la gestion
     Intent gestion;
@@ -46,15 +44,12 @@ public class SeleccionarGestion extends AppCompatActivity {
         cvGestionarUsuariosSG = findViewById(R.id.cvGestionarUsuariosSG);
         fabCerrarSesionSG = findViewById(R.id.fabCerrarSesionSG);
 
-        flGestionarProductosSG = findViewById(R.id.flGestionarProductosSG);
-
         tvBienvenidoSG.setText("¡Bienvenido \" usuario \" !"); //mensaje de bienvenida con el nombre de usuario
 
         //eventos cardview
         cvGestionarProductoSG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //showBottomSheetDialog();
                 gestion = new Intent(getApplicationContext(), GestionarProductos.class);
                 startActivity(gestion);
             }
@@ -63,7 +58,8 @@ public class SeleccionarGestion extends AppCompatActivity {
         cvGestionarHabitacionesSG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                gestion = new Intent(getApplicationContext(), GestionarHabitaciones.class);
+                startActivity(gestion);
             }
         });
 
@@ -88,24 +84,6 @@ public class SeleccionarGestion extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    //Mostrar modal
-    private void showBottomSheetDialog() {
-
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.menu_seleccionar_productos);
-        FrameLayout flGestionarProductosSG = bottomSheetDialog.findViewById(R.id.flGestionarProductosSG);
-        CardView primero = bottomSheetDialog.findViewById(R.id.primero);
-        primero.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            Toast.makeText(getApplicationContext(), "a",Toast.LENGTH_SHORT).show();
-          }
-        });
-
-        bottomSheetDialog.show();
     }
 
 }
