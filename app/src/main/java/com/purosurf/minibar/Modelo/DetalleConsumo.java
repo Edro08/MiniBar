@@ -3,15 +3,14 @@ package com.purosurf.minibar.Modelo;
 public class DetalleConsumo {
     private int IdDetalleConsumo;
     private int IdConsumo;
-    //private int IdProducto; // variable correcta
-    private String NombreProducto; //variable improvisada para prueba
+    private int IdProducto;
     private int Cantidad;
     private float SubTotal;
 
-    public DetalleConsumo(int idDetalleConsumo, int idConsumo, String nombreProducto, int cantidad, float subTotal) {
+    public DetalleConsumo(int idDetalleConsumo, int idConsumo, int idProducto, int cantidad, float subTotal) {
         IdDetalleConsumo = idDetalleConsumo;
         IdConsumo = idConsumo;
-        NombreProducto = nombreProducto;
+        IdProducto = idProducto;
         Cantidad = cantidad;
         SubTotal = subTotal;
     }
@@ -32,12 +31,12 @@ public class DetalleConsumo {
         IdConsumo = idConsumo;
     }
 
-    public String getNombreProducto() {
-        return NombreProducto;
+    public int getIdProducto() {
+        return IdProducto;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        NombreProducto = nombreProducto;
+    public void setIdProducto(int idProducto) {
+        IdProducto = idProducto;
     }
 
     public int getCantidad() {

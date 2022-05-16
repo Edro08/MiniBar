@@ -44,7 +44,7 @@ public class SeleccionarProductoAdapter extends RecyclerView.Adapter<Seleccionar
         //declarar onclick
         view.setOnClickListener(this);
 
-        //declarar onclick
+        //
         return new SeleccionarProductoAdapter.ViewHolder(view);
     }
 

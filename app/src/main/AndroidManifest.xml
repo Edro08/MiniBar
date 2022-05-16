@@ -10,6 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniBar">
         <activity
+            android:name=".Vista.Administrador.GestionUsuarios.SeleccionarUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionUsuarios.DetalleUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionUsuarios.ConfirmarUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionUsuarios.DeshabilitarUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionUsuarios.AdicionarActualizarUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Administrador.GestionUsuarios.GestionarUsuarios"
+            android:exported="false" />
+        <activity
             android:name=".Vista.Administrador.GestionHabitaciones.DetalleHabitacion"
             android:exported="false" />
         <activity

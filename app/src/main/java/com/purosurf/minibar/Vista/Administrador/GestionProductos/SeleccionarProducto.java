@@ -163,6 +163,8 @@ public class SeleccionarProducto extends AppCompatActivity {
                     }else if (result.getResultCode() == 3){
                         setResult(3);
                         finish();
+                    }else if (result.getResultCode() == 4){
+                        finish();
                     }
                 }
             }

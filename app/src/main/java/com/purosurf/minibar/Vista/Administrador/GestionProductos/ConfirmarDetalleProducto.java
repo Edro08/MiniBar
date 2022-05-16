@@ -76,6 +76,9 @@ public class ConfirmarDetalleProducto extends AppCompatActivity {
         btnRegresarCDP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (accion.equals("listar")){
+                    setResult(4); //code listar
+                }
                 finish();
             }
         });

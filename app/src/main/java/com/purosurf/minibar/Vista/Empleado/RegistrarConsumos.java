@@ -52,7 +52,7 @@ public class RegistrarConsumos extends AppCompatActivity {
         //llenar listado
         listadoInventario = new ArrayList<DetalleConsumo>();
         for(int i = 0; i <=5;i++ ){
-            listadoInventario.add(new DetalleConsumo(i, 1, "Producto "+i, i, (float) (1.50 * i)) );
+            listadoInventario.add(new DetalleConsumo(i, 1, i, i, (float) (1.50 * i)) );
         }
 
         //asinar adaptador al RecyclerView
@@ -83,7 +83,7 @@ public class RegistrarConsumos extends AppCompatActivity {
         lsInventarioRV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), listadoInventario.get(rvInventarioRegCons.getChildAdapterPosition(view)).getNombreProducto(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), listadoInventario.get(rvInventarioRegCons.getChildAdapterPosition(view)).getIdProducto(), Toast.LENGTH_LONG).show();
             }
         });
     }

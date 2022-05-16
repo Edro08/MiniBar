@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/constraintInventarios"
     android:layout_height="match_parent"
-    tools:context="com.purosurf.minibar.Vista.AdministradorEmpleado.GestionarInventarios">
+    android:id="@+id/constraintGestionUsuarios"
+    tools:context=".Vista.Administrador.GestionUsuarios.GestionarUsuarios">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarInventarios"
+        android:id="@+id/appbarGestionUsuarios"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:layout_constraintTop_toTopOf="@id/constraintInventarios"
+        app:layout_constraintTop_toTopOf="@+id/constraintGestionUsuarios"
         >
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -20,7 +20,7 @@
             android:background="@color/azulPalido">
 
             <Button
-                android:id="@+id/btnRegresarInventarios"
+                android:id="@+id/btnRegresarUsuarios"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gestionar Inventarios"
+                android:text="Gestionar Usuarios"
                 android:textSize="20sp"
                 android:textColor="@color/azulOscuro"
                 />
@@ -40,7 +40,7 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cvMetaInventarios"
+        android:id="@+id/cvMetaUsuarios"
         android:layout_width="350dp"
         android:layout_height="150dp"
         app:cardCornerRadius="20dp"
@@ -48,8 +48,8 @@
         app:contentPadding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/linearLayoutInventario"
-        app:layout_constraintTop_toBottomOf="@id/appbarInventarios">
+        app:layout_constraintBottom_toTopOf="@id/linearLayoutUsuaios"
+        app:layout_constraintTop_toBottomOf="@id/appbarGestionUsuarios">
 
 
         <LinearLayout
@@ -63,7 +63,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="Menú de Gestión de Inventarios"
+                android:text="Menú de Gestión de Usuarios"
                 android:textColor="@color/azulOscuro"
                 android:textSize="23sp"
                 android:textStyle="bold" />
@@ -72,7 +72,7 @@
                 android:layout_width="150dp"
                 android:layout_height="125dp"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/inventario" />
+                app:srcCompat="@drawable/usuario" />
         </LinearLayout>
 
 
@@ -81,17 +81,18 @@
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
-        android:id="@+id/linearLayoutInventario"
+        android:id="@+id/linearLayoutUsuaios"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cvMetaInventarios"
+        app:layout_constraintTop_toBottomOf="@id/cvMetaUsuarios"
         app:layout_constraintBottom_toBottomOf="parent"
         >
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvAdicionarUsuarios"
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
@@ -119,7 +120,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Registrar Entrada"
+                    android:text="Adicionar Usuarios"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
             </LinearLayout>
@@ -127,6 +128,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvDeshabilitarUsuarios"
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
@@ -155,7 +157,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Editar Existencias"
+                    android:text="Deshabilitar Usuarios"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
             </LinearLayout>
@@ -163,6 +165,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvActualizarUsuarios"
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
@@ -191,7 +194,44 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Generar Reportes"
+                    android:text="Actualizar Usuarios"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvListarUsuarios"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:animateLayoutChanges="true"
+            android:backgroundTint="@color/azulOscuro"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="5dp"
+            app:contentPadding="5dp"
+            app:rippleColor="@color/azulPalido">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="10dp"
+                    app:srcCompat="@drawable/ic_icono_listar_usuarios"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Listar Usuarios"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
             </LinearLayout>
@@ -199,6 +239,5 @@
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

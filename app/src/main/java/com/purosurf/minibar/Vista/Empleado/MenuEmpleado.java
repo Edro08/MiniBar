@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.AdministradorEmpleado.GestionarInventarios;
 
 
 public class MenuEmpleado extends AppCompatActivity {
@@ -49,6 +50,8 @@ public class MenuEmpleado extends AppCompatActivity {
         cvGestionarInventarioME.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent inventario = new Intent(getApplicationContext(), GestionarInventarios.class);
+                startActivity(inventario);
             }
         });
 

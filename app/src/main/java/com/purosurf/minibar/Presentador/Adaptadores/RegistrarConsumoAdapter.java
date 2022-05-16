@@ -102,7 +102,7 @@ public class RegistrarConsumoAdapter extends RecyclerView.Adapter<RegistrarConsu
         void bindData(final DetalleConsumo item){
             //asignar datos a los elementos
             ivIconoRegCons.setImageResource(R.drawable.ic_icono_comida);
-            tvNombreRegCons.setText(item.getNombreProducto());
+            tvNombreRegCons.setText("Producto: "+item.getIdProducto());
             //formato para dinero
             String formato = new DecimalFormat("#,##0.00").format(item.getSubTotal());
             tvSubtotalRegCons.setText("$ "+formato);
