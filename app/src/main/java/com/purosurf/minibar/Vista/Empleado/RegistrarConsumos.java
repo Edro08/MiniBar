@@ -80,12 +80,12 @@ public class RegistrarConsumos extends AppCompatActivity {
         });
 
         //seleccionar elemento de la lista
-        lsInventarioRV.setOnClickListener(new View.OnClickListener() {
+       /* lsInventarioRV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), listadoInventario.get(rvInventarioRegCons.getChildAdapterPosition(view)).getIdProducto(), Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
     }
 
     ActivityResultLauncher<Intent> lanzarDetalle = registerForActivityResult(

@@ -82,8 +82,9 @@ public class SeleccionarHabitacionAM extends AppCompatActivity {
 
                 Intent accion;
                 if(datos.getString("accion").equals("deshabilitar")){
-                 accion = new Intent(getApplicationContext(), DeshabilitarHabitacion.class);
-                 lanzarActividad.launch(accion);
+                     accion = new Intent(getApplicationContext(), DeshabilitarHabitacion.class);
+                     accion.putExtra("accion","deshabilitar"); //accion = deshabilitar
+                     lanzarActividad.launch(accion);
                 }else if(datos.getString("accion").equals("actualizar")){
                     accion = new Intent(getApplicationContext(), ActualizarHabitacion.class);
                     lanzarActividad.launch(accion);
@@ -92,11 +93,11 @@ public class SeleccionarHabitacionAM extends AppCompatActivity {
                     lanzarActividad.launch(accion);
                 }else if(datos.getString("accion").equals("minibar")){
                     accion = new Intent(getApplicationContext(), DeshabilitarHabitacion.class);
+                    accion.putExtra("accion","minibar"); //accion = minibar
                     lanzarActividad.launch(accion);
                 }
             }
         });
-
 
         btnRegresarSelectGH.setOnClickListener(new View.OnClickListener() {
             @Override

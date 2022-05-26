@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Vista.Administrador.GestionProductos.SeleccionarProducto">
+    tools:context=".Vista.AdministradorEmpleado.SeleccionarReporteCons">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,57 +21,57 @@
                 android:background="@color/azulPalido">
 
                 <Button
-                    android:id="@+id/btnRegresarSP"
+                    android:id="@+id/btnRegresarSelecCons"
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:drawableLeft="@drawable/ic_icono_regresar"
                     android:drawableTint="@color/azulOscuro"
                     app:rippleColor="@color/azulClaro" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Seleccionar Producto"
+                    android:text="Seleccionar Reporte"
+                    android:textSize="20sp"
                     android:textColor="@color/azulOscuro"
-                    android:textSize="20sp" />
+                    />
             </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
+
         <TextView
-            android:id="@+id/tvEnunciadoSP"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:textSize="23sp"
             android:textStyle="bold"
-            android:gravity="center"
-            android:text="ENUNCIADO"
             android:textColor="@color/azulOscuro"
-            android:textSize="23sp" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:text="Reportes de consumo" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_margin="15dp"
-            android:hint="Seleccione la categoría"
+            android:hint="Seleccionar Habitación"
             app:boxStrokeColor="@color/azul"
             app:hintTextColor="@color/azul">
 
             <AutoCompleteTextView
-                android:id="@+id/actvCategoriaSP"
+                android:id="@+id/actvHabitacionCons"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/azulOscuro"
-                android:inputType="none" />
-
+                android:inputType="none"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSeleccionarProductoSP"
+            android:id="@+id/rvSeleccionarReporteCons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

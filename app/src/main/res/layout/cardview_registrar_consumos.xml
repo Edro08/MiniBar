@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cvRegConsumos"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
+    app:rippleColor="@android:color/transparent"
     app:cardCornerRadius="20dp"
+    android:contextClickable="false"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
     <LinearLayout
@@ -62,10 +64,10 @@
 
             <LinearLayout
                 android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="20dp"
+                android:layout_centerVertical="true"
                 android:orientation="horizontal">
 
                 <Button
@@ -78,18 +80,25 @@
                     android:drawableTint="@color/azulOscuro"
                     app:rippleColor="@color/azulClaro" />
 
-                <EditText
-                    android:id="@+id/edtCantidadRegCons"
-                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:enabled="false"
-                    android:gravity="clip_horizontal|center_horizontal"
-                    android:inputType="number"
-                    android:text="0"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeColor="@color/azul"
+                    app:hintTextColor="@color/azul">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtCantidadRegCons"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:enabled="false"
+                        android:gravity="clip_horizontal|center_horizontal"
+                        android:inputType="number"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/btnAgregarRegCons"
@@ -107,4 +116,4 @@
     </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

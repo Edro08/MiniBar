@@ -32,6 +32,7 @@
                     app:rippleColor="@color/azulClaro" />
 
                 <TextView
+                    android:id="@+id/tvEnunciadobarDH"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Deshabilitar Habitación"

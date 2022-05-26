@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.purosurf.minibar.Modelo.DetalleConsumo;
 import com.purosurf.minibar.R;
 
@@ -44,7 +45,7 @@ public class RegistrarConsumoAdapter extends RecyclerView.Adapter<RegistrarConsu
     //Seleccionar el contenedor CardView XML
     @Override
     public RegistrarConsumoAdapter.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
-        View view = minFlater.inflate(R.layout.cardview_registrar_consumos, null );
+        View view = minFlater.inflate(R.layout.cardview_registrar_consumos, parent,false );
 
         //declarar onclick
         view.setOnClickListener(this);
@@ -82,7 +83,7 @@ public class RegistrarConsumoAdapter extends RecyclerView.Adapter<RegistrarConsu
         ImageView ivIconoRegCons;
         TextView tvNombreRegCons, tvSubtotalRegCons;
         Button btnAgregarRegCons, btnQuitarRegCons;
-        EditText edtCantidadRegCons;
+        TextInputEditText edtCantidadRegCons;
 
         //contador de producto
         int cantidad;

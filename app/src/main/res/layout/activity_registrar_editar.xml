@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Vista.AdministradorEmpleado.RegistrarEditar">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/azulPalido">
+
+                <Button
+                    android:id="@+id/btnRegresarRE"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:drawableLeft="@drawable/ic_icono_regresar"
+                    android:drawableTint="@color/azulOscuro"
+                    app:rippleColor="@color/azulClaro" />
+
+                <TextView
+                    android:id="@+id/tvAppBarRE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/azulOscuro"
+                    android:textSize="20sp" />
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <TextView
+            android:id="@+id/tvEnunciadoRE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:text="TextView"
+            android:textColor="@color/azulOscuro"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <FrameLayout
+            android:id="@+id/flContenedorRE"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Producto"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/grisFondo" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:animateLayoutChanges="false"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true">
+
+                    <androidx.gridlayout.widget.GridLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        app:columnCount="2"
+                        app:rowCount="4"
+                        app:useDefaultMargins="true"
+                        >
+
+                        <TextView
+                            android:id="@+id/tvNombreProductoRE"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical"
+                            android:text="Nombre Producto"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/btnQuitarCantidadRE"
+                                style="@style/Widget.Material3.Button.TextButton"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@drawable/ic_icono_quitar"
+                                android:drawableTint="@color/azulOscuro"
+                                app:rippleColor="@color/azulClaro" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:boxStrokeColor="@color/azul"
+                                app:hintTextColor="@color/azul">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edtCantidadProductoRE"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:inputType="number"
+                                    android:text="0"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <Button
+                                android:id="@+id/btnAgregarCantidadRE"
+                                style="@style/Widget.Material3.Button.TextButton"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@drawable/ic_icono_agregar"
+                                android:drawableTint="@color/azulOscuro"
+                                app:rippleColor="@color/azulClaro" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical"
+                            android:text="Precio Unitario: "
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilPrecioUnitarioRE"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:boxStrokeColor="@color/azul"
+                            app:hintTextColor="@color/azul">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtPrecioUnitarioRE"
+                                android:layout_width="150dp"
+                                android:layout_height="50dp"
+                                android:drawableStart="@drawable/ic_icono_dolar"
+                                android:drawablePadding="7dp"
+                                android:drawableTint="@color/azul"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/azulOscuro"
+                                android:textSize="16sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:gravity="center"
+                            android:text="Cantidad Mínima"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/btnQuitarMinimaRE"
+                                style="@style/Widget.Material3.Button.TextButton"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@drawable/ic_icono_quitar"
+                                android:drawableTint="@color/azulOscuro"
+                                app:rippleColor="@color/azulClaro" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:boxStrokeColor="@color/azul"
+                                app:hintTextColor="@color/azul">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edtMinimaProductoRE"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:inputType="number"
+                                    android:text="0"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <Button
+                                android:id="@+id/btnAgregarMinimaRE"
+                                style="@style/Widget.Material3.Button.TextButton"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@drawable/ic_icono_agregar"
+                                android:drawableTint="@color/azulOscuro"
+                                app:rippleColor="@color/azulClaro" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical"
+                            android:text="Cantidad Máxima"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/btnQuitarMaximaRE"
+                                style="@style/Widget.Material3.Button.TextButton"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@drawable/ic_icono_quitar"
+                                android:drawableTint="@color/azulOscuro"
+                                app:rippleColor="@color/azulClaro" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:boxStrokeColor="@color/azul"
+                                app:hintTextColor="@color/azul">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edtMaximaProductoRE"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:gravity="clip_horizontal|center_horizontal"
+                                    android:inputType="number"
+                                    android:text="0"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <Button
+                                android:id="@+id/btnAgregarMaximaRE"
+                                style="@style/Widget.Material3.Button.TextButton"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@drawable/ic_icono_agregar"
+                                android:drawableTint="@color/azulOscuro"
+                                app:rippleColor="@color/azulClaro" />
+                        </LinearLayout>
+
+                    </androidx.gridlayout.widget.GridLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/grisFondo" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDescripcionRE"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:hint="Descripción"
+                    app:boxStrokeColor="@color/azul"
+                    app:hintTextColor="@color/azul">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtDescripcionRE"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textMultiLine"
+                        android:textColor="@color/azulOscuro"
+                        android:textSize="18sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvComentarioRE"
+        android:visibility="visible"
+        android:text="(Seleccione el producto)"
+        android:textColor="@color/grisFondo"
+        android:textSize="16sp"
+        app:layout_constraintRight_toLeftOf="@id/fabSeleccionarRE"
+        app:layout_constraintBottom_toTopOf="@id/btnRegistrarRE"
+        android:layout_marginBottom="23dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSeleccionarRE"
+        style="@style/Widget.Material3.FloatingActionButton.Surface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/amarillo"
+        app:rippleColor="@color/azulPalido"
+        app:pressedTranslationZ="0dp"
+        app:fabSize="normal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintBottom_toTopOf="@id/btnRegistrarRE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_icono_seleccionar"
+        app:tint="@color/azulOscuro"/>
+
+
+    <Button
+        android:id="@+id/btnRegistrarRE"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="@color/azulOscuro"
+        android:text=""
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:rippleColor="@color/azulClaro" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

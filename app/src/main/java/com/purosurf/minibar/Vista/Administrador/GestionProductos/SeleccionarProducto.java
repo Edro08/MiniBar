@@ -115,7 +115,7 @@ public class SeleccionarProducto extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),""+ indice, Toast.LENGTH_SHORT).show(); //mostramos el indice del elemento que ocupa en el arraylist*/
                 //llenamos el arreglo segun el indice
                 for(int j = 0; j <= 9; j++){
-                    listadoProducto.add(new Producto(j,"producto"+ j +" Categoria "+indice, indice, 4 * j, "Activo", "XD"));
+                    listadoProducto.add(new Producto(j,"producto"+ j +" Categoria "+indice, indice, 4 * j, 1, "XD"));
                 }
                 rvSeleccionarProductoSP.setAdapter(lsProductosRV);
             }

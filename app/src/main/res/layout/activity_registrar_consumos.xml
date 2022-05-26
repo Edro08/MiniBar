@@ -76,10 +76,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_above="@id/btnProcesarRegCons"
-                android:background="@color/azulClaro"
+                android:background="@color/amarillo"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="TOTAL $0.00"
-                android:textColor="@color/white"
+                android:textColor="@color/azulOscuro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

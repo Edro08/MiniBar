@@ -5,16 +5,15 @@ public class Producto {
     private String ProductoNombre;
     private int IdCategoria;
     private float PrecioUnitario;
-    //private int IdEstado; // variable correcta
-    private String Estado;//variable improvisada para prueba
+    private int IdEstado; // variable correcta
     private String ImagenURL;
 
-    public Producto(int idProducto, String productoNombre, int idCategoria, float precioUnitario, String estado, String imagenURL) {
+    public Producto(int idProducto, String productoNombre, int idCategoria, float precioUnitario, int idestado, String imagenURL) {
         IdProducto = idProducto;
         ProductoNombre = productoNombre;
         IdCategoria = idCategoria;
         PrecioUnitario = precioUnitario;
-        Estado = estado;
+        IdEstado = idestado;
         ImagenURL = imagenURL;
     }
 
@@ -50,12 +49,12 @@ public class Producto {
         PrecioUnitario = precioUnitario;
     }
 
-    public String getEstado() {
-        return Estado;
+    public int getIdEstado() {
+        return IdEstado;
     }
 
-    public void setEstado(String estado) {
-        Estado = estado;
+    public void setIdEstado(int idestado) {
+        IdEstado = idestado;
     }
 
     public String getImagenURL() {

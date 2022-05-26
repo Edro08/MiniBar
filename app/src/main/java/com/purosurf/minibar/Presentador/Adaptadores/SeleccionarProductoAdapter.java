@@ -89,7 +89,7 @@ public class SeleccionarProductoAdapter extends RecyclerView.Adapter<Seleccionar
             //asignamos valores al cardview //trae los valores del modelo
             ivIconoProductoSEP.setImageResource(R.drawable.ic_icono_comida);
             tvNombreProductoSEP.setText(item.getProductoNombre());
-            tvEstadoProductoSEP.setText(item.getEstado());
+            tvEstadoProductoSEP.setText("Activo"); //dato quemado
             //precio
             String precio = new DecimalFormat("#,##0.00").format(item.getPrecioUnitario());
             tvPrecioProductoSEP.setText("$ "+precio);

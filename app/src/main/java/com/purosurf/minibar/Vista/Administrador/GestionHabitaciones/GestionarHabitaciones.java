@@ -89,8 +89,7 @@ public class GestionarHabitaciones extends AppCompatActivity {
             public void onClick(View view) {
                 Intent minibar = new Intent(getApplicationContext(), SeleccionarHabitacionAM.class);
                 minibar.putExtra("accion","minibar");
-                Toast.makeText(getApplicationContext(), "Función disponible proximamente", Toast.LENGTH_SHORT).show();
-                //lanzarActividad.launch(minibar);
+                lanzarActividad.launch(minibar);
             }
         });
 

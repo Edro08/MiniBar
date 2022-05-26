@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:textColor="@color/azul"
     android:padding="16dp"
+    android:textSize="18sp"
     android:ellipsize="end"
     android:maxLines="1"
     android:textAppearance="?attr/textAppearanceSubtitle1"
