@@ -12,6 +12,10 @@ public class Usuario implements IUsuario {
    private int IdEstado;
    private int IdPersona;
 
+    public Usuario(String usuario) {
+        this.Usuario = usuario;
+    }
+
     public Usuario(String usuario, String contrasena) {
         this.Usuario = usuario;
         this.Contrasena = contrasena;
@@ -27,7 +31,7 @@ public class Usuario implements IUsuario {
 
     @Override
     public int getIdUsuario() {
-        return 0;
+        return IdUsuario;
     }
 
     @Override
@@ -74,5 +78,4 @@ public class Usuario implements IUsuario {
     public void setIdPersona(int idPersona) {
 
     }
-
 }

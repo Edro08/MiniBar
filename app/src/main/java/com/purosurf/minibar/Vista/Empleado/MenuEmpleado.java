@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.BundleCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class MenuEmpleado extends AppCompatActivity {
     TextView tvBienvenidoME;
     FloatingActionButton fabCerrarSesionME;
     CardView cvGestionarInventarioME, cvRegistrarConsumosME; //cardview que simulan los botones de navegacion
+    Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,10 @@ public class MenuEmpleado extends AppCompatActivity {
         cvGestionarInventarioME = findViewById(R.id.cvGestionarInventariosME);
         cvRegistrarConsumosME = findViewById(R.id.cvRegistrarConsumosME);
 
-        tvBienvenidoME.setText("¡Bienvenido \" usuario \" !"); //mensaje de bienvenida con el nombre de usuario
+        //extraemos los datos bungle
+        data = getIntent().getExtras();
+
+        tvBienvenidoME.setText("¡Bienvenido \" `"+ data.getString("Nombre") +" \" !"); //mensaje de bienvenida con el nombre de usuario
 
         //boton flotante
         fabCerrarSesionME.setOnClickListener(new View.OnClickListener() {

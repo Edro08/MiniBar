@@ -15,22 +15,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.purosurf.minibar.Modelo.Usuario;
 import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarUsuarioAdapter;
+import com.purosurf.minibar.Presentador.Interfaces.ISeleccionarUsuarioPresentador;
+import com.purosurf.minibar.Presentador.SeleccionarUsuarioPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionUsuarios.Interfaces.ISeleccionarUsuario_View;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class SeleccionarUsuario extends AppCompatActivity {
+public class SeleccionarUsuario extends AppCompatActivity implements ISeleccionarUsuario_View {
 
     //ELEMENTOS
     Button btnRegresarSU;
     TextView tvEncabezadoSU;
     RecyclerView rvSeleccionarUsuarioSU;
-
-    //Lista del recyclerview
-    List<Usuario> listaUsuarios;
 
     //adaptador del recyclerview
     SeleccionarUsuarioAdapter rvSeleccionarAdapter;
@@ -41,6 +37,8 @@ public class SeleccionarUsuario extends AppCompatActivity {
     //variables
     String accion;
 
+    ISeleccionarUsuarioPresentador seleccionarUsuarioPresentador;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +48,8 @@ public class SeleccionarUsuario extends AppCompatActivity {
         btnRegresarSU = findViewById(R.id.btnRegresarSU);
         tvEncabezadoSU = findViewById(R.id.tvEncabezadoSU);
         rvSeleccionarUsuarioSU = findViewById(R.id.rvSeleccionarUsuarioSU);
+
+        seleccionarUsuarioPresentador = new SeleccionarUsuarioPresentador(this);
 
         ///obtener que actividad la invoca
         datos = getIntent().getExtras();
@@ -62,15 +62,8 @@ public class SeleccionarUsuario extends AppCompatActivity {
             tvEncabezadoSU.setText("Listado de Usuarios");
         }
 
-
-
-        //llenar lista
-        listaUsuarios = new ArrayList<Usuario>();
-        for (int i = 0; i <= 9; i++ ){
-            listaUsuarios.add(new Usuario(i, "Usuario "+i, "Contraseña", 1, i));
-        }
         //Configurar RecyclerView
-        rvSeleccionarAdapter = new SeleccionarUsuarioAdapter(listaUsuarios, this); //asignamos adaptador
+        rvSeleccionarAdapter = new SeleccionarUsuarioAdapter(seleccionarUsuarioPresentador.listaUsuarios(this), this); //asignamos adaptador
         rvSeleccionarUsuarioSU.setHasFixedSize(false);
         rvSeleccionarUsuarioSU.setLayoutManager(new LinearLayoutManager(this));
         rvSeleccionarUsuarioSU.setAdapter(rvSeleccionarAdapter);
@@ -79,7 +72,7 @@ public class SeleccionarUsuario extends AppCompatActivity {
         rvSeleccionarAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), ""+listaUsuarios.get(rvSeleccionarUsuarioSU.getChildAdapterPosition(view)).getIdUsuario(), Toast.LENGTH_SHORT).show(); //id usuario
+                Toast.makeText(getApplicationContext(), ""+ seleccionarUsuarioPresentador.listaUsuarios(getApplicationContext()).get(rvSeleccionarUsuarioSU.getChildAdapterPosition(view)).getIdUsuario(), Toast.LENGTH_SHORT).show(); //id usuario
                 if (accion.equals("deshabilitar")){
                     Intent deshabilitar = new Intent(getApplicationContext(), DeshabilitarUsuario.class);
                     lanzarActividad.launch(deshabilitar);

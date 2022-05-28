@@ -1,15 +1,14 @@
 package com.purosurf.minibar.Presentador;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
 import com.purosurf.minibar.DB.MinibarBD;
 import com.purosurf.minibar.Modelo.Usuario;
 import com.purosurf.minibar.Presentador.Interfaces.IIniciarSesionPresentador;
-import com.purosurf.minibar.Vista.Interfaces.InicioSesion.IIniciarSesion_View;
+import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
+import com.purosurf.minibar.Vista.InicioSesion.Interfaces.IIniciarSesion_View;
 
 public class IniciarSesionPresentador implements IIniciarSesionPresentador {
 
@@ -28,15 +27,26 @@ public class IniciarSesionPresentador implements IIniciarSesionPresentador {
         MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
         SQLiteDatabase base = conexion.getWritableDatabase();
         String consultaSql;
-        consultaSql = "SELECT * FROM USUARIO WHERE USUARIO = '"+ usuario.getUsuario() +"'";
+        consultaSql = "SELECT IDUSUARIO,USUARIO,CONTRASEÑA,IDESTADO, NOMBRE FROM USUARIO INNER JOIN " +
+                "PERSONA ON USUARIO.IDPERSONA = PERSONA.IDPERSONA " +
+                "WHERE USUARIO = '"+ usuario.getUsuario() +"'";
         Cursor datos = base.rawQuery(consultaSql, null);
         boolean isIniciarSesionSuccess = datos.moveToFirst();
 
         if(isIniciarSesionSuccess) {
             if(usuario.getContrasena().equals(datos.getString(2)))
             {
-                iniciarSesion_view.OnIniciarSesionResult("Inicio de Sesion Exitoso");
-                estado = true;
+                if(datos.getInt(3) == 1)
+                {
+                    iniciarSesion_view.OnIniciarSesionResult("Inicio de Sesion Exitoso");
+                    iniciarSesion_view.IdUser(datos.getInt(0));
+                    iniciarSesion_view.NombreUsuario(datos.getString(4));
+                    estado = true;
+                }
+                else
+                {
+                    iniciarSesion_view.OnIniciarSesionResult("Usuario Deshabilitado");
+                }
             }
             else
             {
@@ -49,5 +59,15 @@ public class IniciarSesionPresentador implements IIniciarSesionPresentador {
         }
         datos.close();
         return estado;
+    }
+
+    @Override
+    public boolean typeUser(String Usuario) {
+        boolean respuesta = false;
+        if (Usuario.equals("Admin"))
+        {
+            respuesta = true;
+        }
+        return respuesta;
     }
 }

@@ -32,7 +32,7 @@ public class MinibarBD extends SQLiteOpenHelper {
                 "([IDPERSONA] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 "[NOMBRE][NVARCHAR](25) NOT NULL," +
                 "[APELLIDO][NVARCHAR](25) NOT NULL," +
-                "[CORREOELECTRONICO][NVARCHAR] NOT NULL," +
+                "[CORREOELECTRONICO][NVARCHAR](250) NOT NULL," +
                 "[PREGUNTASEGURIDAD][NVARCHAR](100) NOT NULL," +
                 "[REPUESTASEGURIDAD][NVARCHAR](100) NOT NULL)";
         sqLiteDatabase.execSQL(consultaSql);
@@ -129,10 +129,32 @@ public class MinibarBD extends SQLiteOpenHelper {
                 "CONSTRAINT FK_IDUSUARIO_SALIDA FOREIGN KEY (IDUSUARIO) REFERENCES USUARIO(IDUSUARIO)," +
                 "CONSTRAINT FK_IDPRODUCTO_SALIDA FOREIGN KEY (IDPRODUCTO) REFERENCES PRODUCTO(IDPRODUCTO))";
         sqLiteDatabase.execSQL(consultaSql);
+
+        Datos(sqLiteDatabase);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+    }
+
+    public void Datos(SQLiteDatabase sqLiteDatabase)
+    {
+        String consultaSql;
+
+        //Datos para tabla Estado
+        consultaSql = "INSERT INTO ESTADO(ESTADONOMBRE) VALUES('Activo')";
+        sqLiteDatabase.execSQL(consultaSql);
+        consultaSql = "INSERT INTO ESTADO(ESTADONOMBRE) VALUES('Inactivo')";
+        sqLiteDatabase.execSQL(consultaSql);
+
+        //Datos para Usuario Admin
+        consultaSql = "INSERT INTO PERSONA(NOMBRE,APELLIDO,CORREOELECTRONICO,PREGUNTASEGURIDAD,REPUESTASEGURIDAD) " +
+                "VALUES('Administrador', 'Del Sistema','Hotelpurosurf@gmail.com','Año que inicio operaciones el hotel','2016')";
+        sqLiteDatabase.execSQL(consultaSql);
+
+        consultaSql = "INSERT INTO USUARIO(USUARIO,CONTRASEÑA,IDESTADO,IDPERSONA) " +
+                "VALUES('Admin','Admin',1,1)";
+        sqLiteDatabase.execSQL(consultaSql);
     }
 }

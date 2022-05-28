@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ import com.purosurf.minibar.Presentador.Interfaces.IIniciarSesionPresentador;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.Administrador.SeleccionarGestion;
 import com.purosurf.minibar.Vista.Empleado.MenuEmpleado;
-import com.purosurf.minibar.Vista.Interfaces.InicioSesion.IIniciarSesion_View;
+import com.purosurf.minibar.Vista.InicioSesion.Interfaces.IIniciarSesion_View;
 
 public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_View {
 
@@ -29,9 +30,10 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
     //ELEMENTOS
     TextInputEditText edtUsuarioLogin, edtPasswordLogin; //EditText
     TextInputLayout tilUsuarioLogin, tilPasswordLogin;   //Contenedor del EditText
-    Button btnIngresarAdmi, btnIngresarEmpleado,btnRecuperarLogin;
+    Button btnIngresarAdmi,btnRecuperarLogin;
 
-    String user, pass;
+    String user, pass, nombreuser;
+    int iduser;
     IIniciarSesionPresentador iniciarSesionPresentador;
 
 
@@ -46,7 +48,6 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
         tilUsuarioLogin = findViewById(R.id.tilUsuarioLogin);
         tilPasswordLogin = findViewById(R.id.tilPasswordLogin);
         btnIngresarAdmi = findViewById(R.id.btnIngresarAdmi);
-        btnIngresarEmpleado = findViewById(R.id.btnIngresarEmpleado);
         btnRecuperarLogin = findViewById(R.id.btnRecuperarLogin);
 
         iniciarSesionPresentador = new IniciarSesionPresentador(this);
@@ -59,18 +60,24 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
                 {
                     if (iniciarSesionPresentador.OnIniciarSesion(user,pass,getApplicationContext()))
                     {
-                        Intent menu = new Intent(getApplicationContext(), SeleccionarGestion.class);
-                        startActivity(menu);
+                        if(iniciarSesionPresentador.typeUser(user))
+                        {
+                            Intent menu = new Intent(getApplicationContext(), SeleccionarGestion.class);
+                            menu.putExtra("Nombre", nombreuser);
+                            menu.putExtra("IdUser", iduser);
+                            startActivity(menu);
+                            finish();
+                        }
+                        else
+                        {
+                            Intent menu = new Intent(getApplicationContext(), MenuEmpleado.class);
+                            menu.putExtra("Nombre", nombreuser);
+                            menu.putExtra("IdUser", iduser);
+                            startActivity(menu);
+                            finish();
+                        }
                     }
                 }
-            }
-        });
-        btnIngresarEmpleado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validarCaptura();
-                Intent menu = new Intent(getApplicationContext(), MenuEmpleado.class);
-                startActivity(menu);
             }
         });
 
@@ -125,5 +132,16 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
     @Override
     public void OnIniciarSesionResult(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void NombreUsuario(String nombreUsuario) {
+        nombreuser = nombreUsuario;
+    }
+
+    @Override
+    public void IdUser(int IdUser)
+    {
+        iduser = IdUser;
     }
 }

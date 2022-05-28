@@ -29,6 +29,7 @@ public class SeleccionarGestion extends AppCompatActivity {
 
     //intent para seleccionar la gestion
     Intent gestion;
+    Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,10 @@ public class SeleccionarGestion extends AppCompatActivity {
         cvGestionarUsuariosSG = findViewById(R.id.cvGestionarUsuariosSG);
         fabCerrarSesionSG = findViewById(R.id.fabCerrarSesionSG);
 
-        tvBienvenidoSG.setText("¡Bienvenido \" usuario \" !"); //mensaje de bienvenida con el nombre de usuario
+        //extraemos los datos bungle
+        data = getIntent().getExtras();
+
+        tvBienvenidoSG.setText("¡Bienvenido \" `" + data.getString("Nombre") +" \" !");; //mensaje de bienvenida con el nombre de usuario
 
         //eventos cardview
         cvGestionarProductoSG.setOnClickListener(new View.OnClickListener() {
