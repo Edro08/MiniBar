@@ -1,57 +1,78 @@
 package com.purosurf.minibar.Modelo;
 
-public class Usuario {
+import android.text.TextUtils;
+
+import com.purosurf.minibar.Modelo.Interfaces.IUsuario;
+
+public class Usuario implements IUsuario {
+
    private int IdUsuario;
    private String Usuario;
    private String Contrasena;
    private int IdEstado;
    private int IdPersona;
 
+    public Usuario(String usuario, String contrasena) {
+        this.Usuario = usuario;
+        this.Contrasena = contrasena;
+    }
+
     public Usuario(int idUsuario, String usuario, String contrasena, int idEstado, int idPersona) {
-        IdUsuario = idUsuario;
-        Usuario = usuario;
-        Contrasena = contrasena;
-        IdEstado = idEstado;
-        IdPersona = idPersona;
+        this.IdUsuario = idUsuario;
+        this.Usuario = usuario;
+        this.Contrasena = contrasena;
+        this.IdEstado = idEstado;
+        this.IdPersona = idPersona;
     }
 
+    @Override
     public int getIdUsuario() {
-        return IdUsuario;
+        return 0;
     }
 
+    @Override
     public void setIdUsuario(int idUsuario) {
-        IdUsuario = idUsuario;
+
     }
 
+    @Override
     public String getUsuario() {
         return Usuario;
     }
 
+    @Override
     public void setUsuario(String usuario) {
-        Usuario = usuario;
+
     }
 
+    @Override
     public String getContrasena() {
         return Contrasena;
     }
 
+    @Override
     public void setContrasena(String contrasena) {
-        Contrasena = contrasena;
+
     }
 
+    @Override
     public int getIdEstado() {
         return IdEstado;
     }
 
+    @Override
     public void setIdEstado(int idEstado) {
-        IdEstado = idEstado;
+
     }
 
+    @Override
     public int getIdPersona() {
-        return IdPersona;
+        return getIdPersona();
     }
 
+    @Override
     public void setIdPersona(int idPersona) {
-        IdPersona = idPersona;
+
     }
+
 }

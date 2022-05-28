@@ -11,15 +11,19 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.purosurf.minibar.Presentador.IniciarSesionPresentador;
+import com.purosurf.minibar.Presentador.Interfaces.IIniciarSesionPresentador;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.Administrador.SeleccionarGestion;
 import com.purosurf.minibar.Vista.Empleado.MenuEmpleado;
+import com.purosurf.minibar.Vista.Interfaces.InicioSesion.IIniciarSesion_View;
 
-public class IniciarSesion extends AppCompatActivity {
+public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_View {
 
 
     //ELEMENTOS
@@ -28,6 +32,7 @@ public class IniciarSesion extends AppCompatActivity {
     Button btnIngresarAdmi, btnIngresarEmpleado,btnRecuperarLogin;
 
     String user, pass;
+    IIniciarSesionPresentador iniciarSesionPresentador;
 
 
     @Override
@@ -44,14 +49,20 @@ public class IniciarSesion extends AppCompatActivity {
         btnIngresarEmpleado = findViewById(R.id.btnIngresarEmpleado);
         btnRecuperarLogin = findViewById(R.id.btnRecuperarLogin);
 
+        iniciarSesionPresentador = new IniciarSesionPresentador(this);
 
         //botones
         btnIngresarAdmi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validarCaptura();
-                Intent menu = new Intent(getApplicationContext(), SeleccionarGestion.class);
-                startActivity(menu);
+                if (validarCaptura())
+                {
+                    if (iniciarSesionPresentador.OnIniciarSesion(user,pass,getApplicationContext()))
+                    {
+                        Intent menu = new Intent(getApplicationContext(), SeleccionarGestion.class);
+                        startActivity(menu);
+                    }
+                }
             }
         });
         btnIngresarEmpleado.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +84,8 @@ public class IniciarSesion extends AppCompatActivity {
     }
 
     //validar campos vacios
-    public void validarCaptura(){
+    public boolean validarCaptura(){
+        boolean estado = false;
         //asignar variables
         user = edtUsuarioLogin.getText().toString().trim();
         pass = edtPasswordLogin.getText().toString().trim();
@@ -86,8 +98,13 @@ public class IniciarSesion extends AppCompatActivity {
             tilPasswordLogin.setError("Debe ingresar su contraseña");
             tilPasswordLogin.requestFocus();
         }
-
+        else
+        {
+            estado = true;
+        }
+        return estado;
     }
+
     ActivityResultLauncher<Intent> recuperarCuenta = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
                     new ActivityResultCallback<ActivityResult>(){
@@ -105,4 +122,8 @@ public class IniciarSesion extends AppCompatActivity {
             );
 
 
+    @Override
+    public void OnIniciarSesionResult(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 }
