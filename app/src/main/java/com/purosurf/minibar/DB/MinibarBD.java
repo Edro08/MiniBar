@@ -131,6 +131,7 @@ public class MinibarBD extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(consultaSql);
 
         Datos(sqLiteDatabase);
+        Asistencia(sqLiteDatabase);
     }
 
     @Override
@@ -156,5 +157,57 @@ public class MinibarBD extends SQLiteOpenHelper {
         consultaSql = "INSERT INTO USUARIO(USUARIO,CONTRASEÑA,IDESTADO,IDPERSONA) " +
                 "VALUES('Admin','Admin',1,1)";
         sqLiteDatabase.execSQL(consultaSql);
+    }
+
+    public void Asistencia(SQLiteDatabase sqLiteDatabase)
+    {
+        //CATEGORIAS DE PRODUCTOS
+        String[] sqlInsertCat = {
+                "INSERT INTO CATEGORIA(NOMBRECATEGORIA,IDESTADO) VALUES ('Frutos Secos', 1);",
+                "INSERT INTO CATEGORIA(NOMBRECATEGORIA,IDESTADO) VALUES ('Bebidas Frias', 1);"
+        };
+        for(String insert : sqlInsertCat){
+            sqLiteDatabase.execSQL(insert);
+        }
+
+        //------------------------------------------------------------------------------------
+
+        String[] sqlInsertPrd = {
+                //PRODUCTOS CATEGORIA FRUTOS FRESCOS
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Barra de Nueces Nature Valley',1, 1.50, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Chips de Yuca',1, 1.75, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Chips de Platano',1, 1.75, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Chips de Camote',1, 2.50, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Granuts - Nueces mixtas',1, 1.50, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Papas Pringles',1, 2.25, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Pistachos',1, 2.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Barra de Protehina Nature Valley',1, 1.50, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Garbanzos Horneados c/Sal',1, 2.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Tasu Fruta Deshidratada',1, 2.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Pasas Cubiertos de Chocolate',1, 3.25, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Arandanos Cubiertos de Chocolate',1, 3.50, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Mini Barra de Chocolate',1, 3.00, 1, 'URL-');",
+                //PRODUCTOS CATEGORIA BEBIDAS FRIAS
+                //SODAS
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Agua Mineral Kinkey',2, 2.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Kirkland jugo Organico',2, 1.50, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Agua Mineral San Pellegrino',2, 4.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Colca Cola',2, 2.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Electrolit',2, 4.00, 1, 'URL-');",
+                //alcohocilas
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('B&G Chardonnay Vino Blanco',2, 10.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('B&G Merlot Vino Tinto ',2, 10.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Cerveza Heineken',2, 4.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Squirrel Eye Brewing Cerveza IPA',2, 5.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Squirrel Eye Brewing Cerveza APA',2, 5.30, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Santo Coraje Lager',2, 2.35, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Santo Coraje Pale Ale',2, 5.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Chandon Vino Blanco Espumante',2, 10.00, 1, 'URL-');",
+                "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) VALUES ('Fitzer aAUGA pBREVA',2, 3.35, 1, 'URL-');",
+
+        };
+        for(String insert : sqlInsertPrd){
+            sqLiteDatabase.execSQL(insert);
+        }
     }
 }

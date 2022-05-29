@@ -1,4 +1,4 @@
-package com.purosurf.minibar.Presentador;
+package com.purosurf.minibar.Presentador.Administrador.GestionUsuarios;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.purosurf.minibar.DB.MinibarBD;
 import com.purosurf.minibar.Modelo.Usuario;
-import com.purosurf.minibar.Presentador.Interfaces.ISeleccionarUsuarioPresentador;
+import com.purosurf.minibar.Presentador.Administrador.GestionUsuarios.Interfaces.ISeleccionarUsuarioPresentador;
 import com.purosurf.minibar.Vista.Administrador.GestionUsuarios.Interfaces.ISeleccionarUsuario_View;
 
 import java.util.ArrayList;

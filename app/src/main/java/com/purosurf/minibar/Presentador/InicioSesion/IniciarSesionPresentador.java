@@ -1,4 +1,4 @@
-package com.purosurf.minibar.Presentador;
+package com.purosurf.minibar.Presentador.InicioSesion;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,8 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.purosurf.minibar.DB.MinibarBD;
 import com.purosurf.minibar.Modelo.Usuario;
-import com.purosurf.minibar.Presentador.Interfaces.IIniciarSesionPresentador;
-import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
+import com.purosurf.minibar.Presentador.InicioSesion.Interfaces.IIniciarSesionPresentador;
 import com.purosurf.minibar.Vista.InicioSesion.Interfaces.IIniciarSesion_View;
 
 public class IniciarSesionPresentador implements IIniciarSesionPresentador {

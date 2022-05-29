@@ -16,8 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarUsuarioAdapter;
-import com.purosurf.minibar.Presentador.Interfaces.ISeleccionarUsuarioPresentador;
-import com.purosurf.minibar.Presentador.SeleccionarUsuarioPresentador;
+import com.purosurf.minibar.Presentador.Administrador.GestionUsuarios.Interfaces.ISeleccionarUsuarioPresentador;
+import com.purosurf.minibar.Presentador.Administrador.GestionUsuarios.SeleccionarUsuarioPresentador;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.Administrador.GestionUsuarios.Interfaces.ISeleccionarUsuario_View;
 

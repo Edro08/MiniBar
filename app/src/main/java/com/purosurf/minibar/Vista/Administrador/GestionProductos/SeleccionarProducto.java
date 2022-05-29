@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,14 +19,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.purosurf.minibar.Modelo.Categoria;
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarProductoAdapter;
+import com.purosurf.minibar.Presentador.Administrador.GestionProductos.Interfaces.ISeleccionarProductoPresentador;
+import com.purosurf.minibar.Presentador.Administrador.GestionProductos.SeleccionarProductoPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionProductos.Interfaces.ISeleccionarProducto_View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SeleccionarProducto extends AppCompatActivity {
+public class SeleccionarProducto extends AppCompatActivity implements ISeleccionarProducto_View {
 
     //ELEMENTOS
     Button btnRegresarSP;
@@ -36,17 +41,20 @@ public class SeleccionarProducto extends AppCompatActivity {
     //Adaptador para el RecyclerView
     SeleccionarProductoAdapter lsProductosRV;
 
-    //Listado para el adaptador
-    List<Producto> listadoProducto;
 
     //ArrayList de datos para llenar el dropdown menu y filtar los productos por categoria
     ArrayList<String> listaCategoria;
+
+    //ArrayList de datos para llenar datos de productos por categoria
+    ArrayList<Producto> listadoProducto;
 
     //Bundle
     Bundle datos;
 
     //Variables
     String accion; // variable que almacena el extra de la pantalla que invoco la pantalla
+
+    ISeleccionarProductoPresentador seleccionarProductoPresentador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,8 @@ public class SeleccionarProducto extends AppCompatActivity {
         tvEnunciadoSP = findViewById(R.id.tvEnunciadoSP);
         rvSeleccionarProductoSP = findViewById(R.id.rvSeleccionarProductoSP);
         actvCategoriaSP = findViewById(R.id.actvCategoriaSP);
+
+        seleccionarProductoPresentador = new SeleccionarProductoPresentador(this);
 
         //======Traemos los datos de la pantalla que invoco la activity
         datos = getIntent().getExtras();
@@ -72,11 +82,10 @@ public class SeleccionarProducto extends AppCompatActivity {
             tvEnunciadoSP.setText("Listado de Productos");
         }
 
+
         //=======DROPDOWN MENU
-        listaCategoria = new ArrayList<String>(); // asignamos el arreglo
-        for(int i = 0; i <= 6; i++){
-            listaCategoria.add("Categoría "+i);
-        }
+        listaCategoria = (ArrayList<String>) seleccionarProductoPresentador.listaCategorias(getApplicationContext());
+
         ArrayAdapter categoriaAdapter = new ArrayAdapter //adaptador para llenar el dropdown menu
                 (
                   this, //contexto
@@ -89,6 +98,7 @@ public class SeleccionarProducto extends AppCompatActivity {
         //=======RECYCLERVIEW
         //declaramos el ArrayList para el adaptador
         listadoProducto = new ArrayList<Producto>();
+
         //asignamos el adaptador y el listado que usara
         lsProductosRV = new SeleccionarProductoAdapter(listadoProducto, this);
         // le asignamos el adaptador al recyclerview
@@ -111,11 +121,12 @@ public class SeleccionarProducto extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 listadoProducto.clear(); //re-hacemos la lista al cambiar la categoria, caso contrario se van apilando productos de otra categoria a la lista
-                int indice = (int) categoriaAdapter.getItemId(i); //Capturamos el indice de la posicion que ocupa en el arraylist
-                Toast.makeText(getApplicationContext(),""+ indice, Toast.LENGTH_SHORT).show(); //mostramos el indice del elemento que ocupa en el arraylist*/
-                //llenamos el arreglo segun el indice
-                for(int j = 0; j <= 9; j++){
-                    listadoProducto.add(new Producto(j,"producto"+ j +" Categoria "+indice, indice, 4 * j, 1, "XD"));
+                String nombreCategoria = (String) adapterView.getItemAtPosition(i); //Capturamos el indice de la posicion que ocupa en el arraylist
+                Toast.makeText(getApplicationContext(),""+ nombreCategoria, Toast.LENGTH_SHORT).show(); //mostramos el indice del elemento que ocupa en el arraylist*/
+                //llenamos el arreglo segun la categoria
+                Cursor datos = seleccionarProductoPresentador.CursorProductos(getApplicationContext(),nombreCategoria);
+                while(datos.moveToNext()){
+                    listadoProducto.add(new Producto(datos.getInt(0), datos.getString(1), datos.getInt(2), (float) datos.getDouble(3), datos.getInt(4), datos.getString(5)));
                 }
                 rvSeleccionarProductoSP.setAdapter(lsProductosRV);
             }
