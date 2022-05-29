@@ -163,6 +163,7 @@ public class SeleccionarProducto extends AppCompatActivity implements ISeleccion
                 * resultCode = 3 -> actualizar
                 * resultCode = 4 -> listar
                 * */
+
     ActivityResultLauncher<Intent> lanzarActividad = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>(){
