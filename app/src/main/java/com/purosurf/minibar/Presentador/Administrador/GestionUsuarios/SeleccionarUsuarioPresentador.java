@@ -33,7 +33,7 @@ public class SeleccionarUsuarioPresentador implements ISeleccionarUsuarioPresent
         Cursor datos = base.rawQuery(consultaSql, null);
 
         while(datos.moveToNext()){
-            listaUsuarios.add(new Usuario(datos.getInt(0), datos.getString(1), datos.getString(2), datos.getInt(3), datos.getInt(4)));
+            listaUsuarios.add(new Usuario(datos.getInt(0), datos.getString(1), "", datos.getInt(3), datos.getInt(4)));
         }
 
         return listaUsuarios;

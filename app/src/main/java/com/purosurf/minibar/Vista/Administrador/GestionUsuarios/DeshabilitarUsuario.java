@@ -52,12 +52,12 @@ public class DeshabilitarUsuario extends AppCompatActivity implements IDeshabili
 
         if(estado == 1)
         {
-            swActivoDU.setText("Estado: Activo");
+            swActivoDU.setText("Activo");
             swActivoDU.setChecked(true);
         }
         else
         {
-            swActivoDU.setText("Estado: Deshabilitado");
+            swActivoDU.setText("Inactivo");
             swActivoDU.setChecked(false);
         }
 
@@ -90,11 +90,11 @@ public class DeshabilitarUsuario extends AppCompatActivity implements IDeshabili
             public void onClick(View view) {
                 if(swActivoDU.isChecked())
                 {
-                    swActivoDU.setText("Estado: Activo");
+                    swActivoDU.setText("Activo");
                 }
                 else
                 {
-                    swActivoDU.setText("Estado: Deshabilitado");
+                    swActivoDU.setText("Inactivo");
                 }
             }
         });

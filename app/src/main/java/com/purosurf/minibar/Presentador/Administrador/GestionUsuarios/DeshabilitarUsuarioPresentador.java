@@ -30,7 +30,7 @@ public class DeshabilitarUsuarioPresentador implements IDeshabilitarUsuarioPrese
         consultaSql = "SELECT * FROM USUARIO WHERE IDUSUARIO = '" + idUsuario + "'";
         Cursor datos = base.rawQuery(consultaSql, null);
         datos.moveToFirst();
-        DatosUsuario .add(new Usuario(datos.getInt(0), datos.getString(1), datos.getString(2), datos.getInt(3), datos.getInt(4)));
+        DatosUsuario .add(new Usuario(datos.getInt(0), datos.getString(1), "", datos.getInt(3), datos.getInt(4)));
         return DatosUsuario ;
     }
 

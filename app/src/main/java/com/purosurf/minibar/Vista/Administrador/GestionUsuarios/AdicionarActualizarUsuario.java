@@ -7,18 +7,22 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.purosurf.minibar.Presentador.Administrador.GestionUsuarios.AdicionarActualizarUsuarioPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionUsuarios.Interfaces.IAdicionarActualizarUsuario_View;
 
-public class AdicionarActualizarUsuario extends AppCompatActivity {
+public class AdicionarActualizarUsuario extends AppCompatActivity implements IAdicionarActualizarUsuario_View {
 
     //ELEMENTOS
     TextView tvEnunciado1ADDU, tvAppBar1ADDU;
@@ -31,7 +35,10 @@ public class AdicionarActualizarUsuario extends AppCompatActivity {
 
     //VARIABLES
     String accion; //si viene dee adicionar o actualizar un usuario
-    String nombres, apellidos, email, pregunta, respuesta;
+    String nombres, apellidos, email, pregunta, respuesta, emailVerificar;
+    int IdUsuario, IdPeronsa;
+    Cursor DatosPersona;
+    AdicionarActualizarUsuarioPresentador adicionarActualizarUsuario_presentador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +67,24 @@ public class AdicionarActualizarUsuario extends AppCompatActivity {
         //capturar intent
         datos = getIntent().getExtras();
         accion = datos.getString("accion");
+        adicionarActualizarUsuario_presentador = new AdicionarActualizarUsuarioPresentador(this);
+
         if(accion.equals("adicionar")){
             tvEnunciado1ADDU.setText("Registro de nuevo usuario");
             tvAppBar1ADDU.setText("Adicionar usuario");
         } else if (accion.equals("actualizar")){
             tvEnunciado1ADDU.setText("Infomación usuario");
             tvAppBar1ADDU.setText("Actualizar usuario");
+            IdUsuario = datos.getInt("IdUsuario");
+            DatosPersona = adicionarActualizarUsuario_presentador.DatosPersona(getApplicationContext(),IdUsuario);
+            DatosPersona.moveToFirst();
+            IdPeronsa = DatosPersona.getInt(0);
+            edtNombresADDU.setText(DatosPersona.getString(1));
+            edtApellidosADDU.setText(DatosPersona.getString(2));
+            edtEmailADDU.setText(DatosPersona.getString(3));
+            emailVerificar = DatosPersona.getString(3);
+            edtPreguntaADDU.setText(DatosPersona.getString(4));
+            edtRespuestaADDU.setText(DatosPersona.getString(5));
         }
 
 
@@ -74,13 +93,29 @@ public class AdicionarActualizarUsuario extends AppCompatActivity {
             public void onClick(View view) {
                 validarCampos();
                 if(accion.equals("adicionar")){
-                    Intent adicionar = new Intent(getApplicationContext(), ConfirmarUsuario.class);
-                    adicionar.putExtra("accion", "adicionar");
-                    lanzarActividad.launch(adicionar);
+                    if(validarCampos())
+                    {
+                        Intent adicionar = new Intent(getApplicationContext(), ConfirmarUsuario.class);
+                        adicionar.putExtra("accion", "adicionar");
+                        //nombres, apellidos, email, pregunta, respuesta
+                        adicionar.putExtra("nombres",nombres);
+                        adicionar.putExtra("apellidos",nombres);
+                        adicionar.putExtra("email",nombres);
+                        adicionar.putExtra("pregunta",nombres);
+                        adicionar.putExtra("respuesta",nombres);
+                        lanzarActividad.launch(adicionar);
+                    }
                 } else if (accion.equals("actualizar")){
-                    Intent actualizar = new Intent(getApplicationContext(), ConfirmarUsuario.class);
-                    actualizar.putExtra("accion", "actualizar");
-                    lanzarActividad.launch(actualizar);
+                    if(validarCampos()) {
+                        Intent actualizar = new Intent(getApplicationContext(), ConfirmarUsuario.class);
+                        actualizar.putExtra("accion", "actualizar");
+                        actualizar.putExtra("nombres",nombres);
+                        actualizar.putExtra("apellidos",nombres);
+                        actualizar.putExtra("email",nombres);
+                        actualizar.putExtra("pregunta",nombres);
+                        actualizar.putExtra("respuesta",nombres);
+                        lanzarActividad.launch(actualizar);
+                    }
                 }
             }
         });
@@ -94,7 +129,8 @@ public class AdicionarActualizarUsuario extends AppCompatActivity {
     }
 
     //validar campos vacios
-    public void validarCampos(){
+    public boolean validarCampos(){
+        boolean estado = false;
         nombres = edtNombresADDU.getText().toString();
         apellidos = edtApellidosADDU.getText().toString();
         email = edtEmailADDU.getText().toString();
@@ -120,7 +156,26 @@ public class AdicionarActualizarUsuario extends AppCompatActivity {
             tilRespuestaADDU.setError("Debe Ingresar respuesta a la pregunta");
             tilRespuestaADDU.requestFocus();
         }
+        else
+        {
+            if(!email.equals(emailVerificar))
+            {
+                if(adicionarActualizarUsuario_presentador.VerificarCorreoElectronico(getApplicationContext(),email)){
+                    tilEmailADDU.setError("Correo Electronico se encuentra en uso!");
+                    tilEmailADDU.requestFocus();
+                }
+                else
+                {
+                    estado = true;
+                }
+            }
+            else
+            {
+                estado = true;
+            }
 
+        }
+        return estado;
     }
 
     //lanzador de actividades
