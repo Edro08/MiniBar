@@ -9,6 +9,6 @@ import com.purosurf.minibar.Modelo.Producto;
 import java.util.List;
 
 public interface ISeleccionarProductoPresentador {
-    Cursor CursorProductos(Context context, String nombreCategoria);
+    List<Producto> listaProductos(Context context, String nombreCategoria);
     List<String> listaCategorias(Context context);
 }

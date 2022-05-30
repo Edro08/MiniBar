@@ -24,7 +24,7 @@ public class SeleccionarProductoPresentador implements ISeleccionarProductoPrese
     }
 
     @Override
-    public Cursor CursorProductos(Context context, String nombreCategoria) {
+    public List<Producto> listaProductos(Context context, String nombreCategoria) {
         //llenar lista
         List<Producto> listaProducto = new ArrayList<Producto>();
         //Conexión a la BD
@@ -37,7 +37,10 @@ public class SeleccionarProductoPresentador implements ISeleccionarProductoPrese
         int IdCategoria = datos2.getInt(0);
         consultaSql = "SELECT * FROM PRODUCTO WHERE IDCATEGORIA = '" + IdCategoria + "'";
         Cursor datos = base.rawQuery(consultaSql, null);
-        return datos;
+        while(datos.moveToNext()){
+            listaProducto.add(new Producto(datos.getInt(0), datos.getString(1), datos.getInt(2), (float) datos.getDouble(3), datos.getInt(4), datos.getString(5)));
+        }
+        return listaProducto;
     }
 
     public List<String> listaCategorias(Context context) {

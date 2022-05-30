@@ -6,6 +6,6 @@ import com.purosurf.minibar.Modelo.Habitacion;
 
 import java.util.List;
 
-public interface ISeleccionarHabitacionAMPresentador {
-    List<Habitacion> listaHabitacion(Context context);
+public interface IDetalleHabitacionPresentador {
+    List<Habitacion> datosHabitacion(Context context, int idHabitacion);
 }

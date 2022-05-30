@@ -124,10 +124,7 @@ public class SeleccionarProducto extends AppCompatActivity implements ISeleccion
                 String nombreCategoria = (String) adapterView.getItemAtPosition(i); //Capturamos el indice de la posicion que ocupa en el arraylist
                 Toast.makeText(getApplicationContext(),""+ nombreCategoria, Toast.LENGTH_SHORT).show(); //mostramos el indice del elemento que ocupa en el arraylist*/
                 //llenamos el arreglo segun la categoria
-                Cursor datos = seleccionarProductoPresentador.CursorProductos(getApplicationContext(),nombreCategoria);
-                while(datos.moveToNext()){
-                    listadoProducto.add(new Producto(datos.getInt(0), datos.getString(1), datos.getInt(2), (float) datos.getDouble(3), datos.getInt(4), datos.getString(5)));
-                }
+                listadoProducto.addAll(seleccionarProductoPresentador.listaProductos(getApplicationContext(),nombreCategoria));
                 rvSeleccionarProductoSP.setAdapter(lsProductosRV);
             }
         });

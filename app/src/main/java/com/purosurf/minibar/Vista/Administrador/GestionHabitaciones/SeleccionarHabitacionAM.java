@@ -1,7 +1,5 @@
 package com.purosurf.minibar.Vista.Administrador.GestionHabitaciones;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,25 +8,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.purosurf.minibar.Modelo.Habitacion;
 import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarHabitacionAMAdapter;
+import com.purosurf.minibar.Presentador.Administrador.GestionHabitaciones.SeleccionarHabitacionAMPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionHabitaciones.Interfaces.ISeleccionarHabitacionAM_View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SeleccionarHabitacionAM extends AppCompatActivity {
+public class SeleccionarHabitacionAM extends AppCompatActivity implements ISeleccionarHabitacionAM_View {
 
     //ELEMENTOS
     Button btnRegresarSelectGH;
     TextView tvSeleccionarGH;
     RecyclerView rvHabitacionesGH;
+    int idhabitacion;
 
     //List<Habitacion>
     List<Habitacion> listadoHabitaciones;
@@ -38,6 +36,8 @@ public class SeleccionarHabitacionAM extends AppCompatActivity {
 
     //Variables
     Bundle datos;
+
+    SeleccionarHabitacionAMPresentador seleccionarHabitacionAMPresentador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +62,11 @@ public class SeleccionarHabitacionAM extends AppCompatActivity {
         }
         tvSeleccionarGH.setText(enunciado); //enunciado habitación
 
+        seleccionarHabitacionAMPresentador = new SeleccionarHabitacionAMPresentador(this);
+
         //Llenar lista
-        listadoHabitaciones = new ArrayList<Habitacion>();
-        for(int i = 0; i <= 10; i++ ){
-            listadoHabitaciones.add(new Habitacion(i, "Habitacion #"+i, 1));
-        }
+        listadoHabitaciones = new ArrayList<>(seleccionarHabitacionAMPresentador.listaHabitacion(getApplicationContext()));
+
         //Asignar adaptador al RecyclerView
         rvHabitacionesAdapter = new SeleccionarHabitacionAMAdapter(listadoHabitaciones, this);
         rvHabitacionesGH.setHasFixedSize(false);
@@ -74,37 +74,32 @@ public class SeleccionarHabitacionAM extends AppCompatActivity {
         rvHabitacionesGH.setAdapter(rvHabitacionesAdapter); //asignamos adaptado
 
         //evento click o seleccionar habitacion
-        rvHabitacionesAdapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //id habitacion
-                Toast.makeText(getApplicationContext(), ""+listadoHabitaciones.get(rvHabitacionesGH.getChildAdapterPosition(view)).getIdHabitaccion(), Toast.LENGTH_SHORT).show();
+        rvHabitacionesAdapter.setOnClickListener(view -> {
+            idhabitacion = listadoHabitaciones.get(rvHabitacionesGH.getChildAdapterPosition(view)).getIdHabitaccion();
 
-                Intent accion;
-                if(datos.getString("accion").equals("deshabilitar")){
-                     accion = new Intent(getApplicationContext(), DeshabilitarHabitacion.class);
-                     accion.putExtra("accion","deshabilitar"); //accion = deshabilitar
-                     lanzarActividad.launch(accion);
-                }else if(datos.getString("accion").equals("actualizar")){
-                    accion = new Intent(getApplicationContext(), ActualizarHabitacion.class);
-                    lanzarActividad.launch(accion);
-                }else if(datos.getString("accion").equals("listar")){
-                    accion = new Intent(getApplicationContext(), DetalleHabitacion.class);
-                    lanzarActividad.launch(accion);
-                }else if(datos.getString("accion").equals("minibar")){
-                    accion = new Intent(getApplicationContext(), DeshabilitarHabitacion.class);
-                    accion.putExtra("accion","minibar"); //accion = minibar
-                    lanzarActividad.launch(accion);
-                }
+            Intent accion;
+            if(datos.getString("accion").equals("deshabilitar")){
+                accion = new Intent(getApplicationContext(), DeshabilitarHabitacion.class);
+                accion.putExtra("accion","deshabilitar"); //accion = deshabilitar
+                accion.putExtra("idhabitacion",idhabitacion);
+                 lanzarActividad.launch(accion);
+            }else if(datos.getString("accion").equals("actualizar")){
+                accion = new Intent(getApplicationContext(), ActualizarHabitacion.class);
+                accion.putExtra("idhabitacion",idhabitacion);
+                lanzarActividad.launch(accion);
+            }else if(datos.getString("accion").equals("listar")){
+                accion = new Intent(getApplicationContext(), DetalleHabitacion.class);
+                accion.putExtra("idhabitacion",idhabitacion);
+                lanzarActividad.launch(accion);
+            }else if(datos.getString("accion").equals("minibar")){
+                accion = new Intent(getApplicationContext(), DeshabilitarHabitacion.class);
+                accion.putExtra("idhabitacion",idhabitacion);
+                accion.putExtra("accion","minibar"); //accion = minibar
+                lanzarActividad.launch(accion);
             }
         });
 
-        btnRegresarSelectGH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        btnRegresarSelectGH.setOnClickListener(view -> finish());
     }
 
     //lanzador de actividades
@@ -115,24 +110,20 @@ public class SeleccionarHabitacionAM extends AppCompatActivity {
      *   code 5 = editar minibar
      * */
     ActivityResultLauncher<Intent> lanzarActividad = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() > 0){
-                        } if(result.getResultCode() == 2){
-                            setResult(2);
-                            finish();
-                        }else if(result.getResultCode() == 3){
-                            setResult(3);
-                            finish();
-                        }else if(result.getResultCode() == 4){
-                            finish();
-                        }else if(result.getResultCode() == 5) {
-                            setResult(5);
-                            finish();
-                        }
-
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+                if(result.getResultCode() == 2){
+                        setResult(2);
+                        finish();
+                    }else if(result.getResultCode() == 3){
+                        setResult(3);
+                        finish();
+                    }else if(result.getResultCode() == 4){
+                        finish();
+                    }else if(result.getResultCode() == 5) {
+                        setResult(5);
+                        finish();
                     }
+
                 }
     );
 

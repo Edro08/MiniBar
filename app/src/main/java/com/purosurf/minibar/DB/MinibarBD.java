@@ -166,6 +166,12 @@ public class MinibarBD extends SQLiteOpenHelper {
         consultaSql = "INSERT INTO USUARIO(USUARIO,CONTRASEÑA,IDESTADO,IDPERSONA) " +
                 "VALUES('Edro08','Admin',1,2)";
         sqLiteDatabase.execSQL(consultaSql);
+
+        //Datos para tabla Habitación
+        consultaSql = "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Habitacion Deluxe H1',1)";
+        sqLiteDatabase.execSQL(consultaSql);
+        consultaSql = "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Habitacion normal 2 camas',1)";
+        sqLiteDatabase.execSQL(consultaSql);
     }
 
     public void Asistencia(SQLiteDatabase sqLiteDatabase)
