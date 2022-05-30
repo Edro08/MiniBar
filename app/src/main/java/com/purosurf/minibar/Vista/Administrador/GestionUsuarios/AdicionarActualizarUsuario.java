@@ -72,6 +72,7 @@ public class AdicionarActualizarUsuario extends AppCompatActivity implements IAd
         if(accion.equals("adicionar")){
             tvEnunciado1ADDU.setText("Registro de nuevo usuario");
             tvAppBar1ADDU.setText("Adicionar usuario");
+            emailVerificar = "";
         } else if (accion.equals("actualizar")){
             tvEnunciado1ADDU.setText("Infomación usuario");
             tvAppBar1ADDU.setText("Actualizar usuario");
@@ -99,21 +100,22 @@ public class AdicionarActualizarUsuario extends AppCompatActivity implements IAd
                         adicionar.putExtra("accion", "adicionar");
                         //nombres, apellidos, email, pregunta, respuesta
                         adicionar.putExtra("nombres",nombres);
-                        adicionar.putExtra("apellidos",nombres);
-                        adicionar.putExtra("email",nombres);
-                        adicionar.putExtra("pregunta",nombres);
-                        adicionar.putExtra("respuesta",nombres);
+                        adicionar.putExtra("apellidos",apellidos);
+                        adicionar.putExtra("email",email);
+                        adicionar.putExtra("pregunta",pregunta);
+                        adicionar.putExtra("respuesta",respuesta);
                         lanzarActividad.launch(adicionar);
                     }
                 } else if (accion.equals("actualizar")){
                     if(validarCampos()) {
                         Intent actualizar = new Intent(getApplicationContext(), ConfirmarUsuario.class);
                         actualizar.putExtra("accion", "actualizar");
+                        actualizar.putExtra("IdUsuario",IdUsuario);
                         actualizar.putExtra("nombres",nombres);
-                        actualizar.putExtra("apellidos",nombres);
-                        actualizar.putExtra("email",nombres);
-                        actualizar.putExtra("pregunta",nombres);
-                        actualizar.putExtra("respuesta",nombres);
+                        actualizar.putExtra("apellidos",apellidos);
+                        actualizar.putExtra("email",email);
+                        actualizar.putExtra("pregunta",pregunta);
+                        actualizar.putExtra("respuesta",respuesta);
                         lanzarActividad.launch(actualizar);
                     }
                 }

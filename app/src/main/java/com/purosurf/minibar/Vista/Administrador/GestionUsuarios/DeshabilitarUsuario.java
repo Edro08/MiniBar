@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.purosurf.minibar.Modelo.Usuario;
 import com.purosurf.minibar.Presentador.Administrador.GestionUsuarios.DeshabilitarUsuarioPresentador;
@@ -67,13 +68,13 @@ public class DeshabilitarUsuario extends AppCompatActivity implements IDeshabili
             @Override
             public void onClick(View view) {
                 boolean estado = false;
-                int code = 2;
+                int code = 2; // code deshabilitar
                 if(swActivoDU.isChecked()){
                     estado = true;
                     code = 5;
                 }
                 deshabilitarUsuarioPresentador.ActivarDesactivarUsuario(getApplicationContext(),IdUsuario,estado);
-                setResult(code); // code deshabilitar
+                setResult(code);
                 finish();
             }
         });
@@ -98,5 +99,10 @@ public class DeshabilitarUsuario extends AppCompatActivity implements IDeshabili
                 }
             }
         });
+    }
+
+    @Override
+    public void OnDeshabilitarAdmin(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -42,11 +42,18 @@ public class DeshabilitarUsuarioPresentador implements IDeshabilitarUsuarioPrese
         else
             idEstado = 2;
 
-        //Conexión a la BD
-        MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
-        SQLiteDatabase base = conexion.getWritableDatabase();
-        String consultaSql;
-        consultaSql = "UPDATE USUARIO SET IDESTADO = '" + idEstado + "' WHERE IDUSUARIO = '" + idUsuario + "'";
-        base.execSQL(consultaSql);
+        if(idUsuario != 1)
+        {
+            //Conexión a la BD
+            MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
+            SQLiteDatabase base = conexion.getWritableDatabase();
+            String consultaSql;
+            consultaSql = "UPDATE USUARIO SET IDESTADO = '" + idEstado + "' WHERE IDUSUARIO = '" + idUsuario + "'";
+            base.execSQL(consultaSql);
+        }
+        else
+        {
+            iDeshabilitarUsuario_viw.OnDeshabilitarAdmin("No es posible cambiar estado al usuario Admin!");
+        }
     }
 }
