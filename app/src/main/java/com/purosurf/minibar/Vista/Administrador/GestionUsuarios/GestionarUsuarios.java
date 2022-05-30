@@ -99,6 +99,8 @@ public class GestionarUsuarios extends AppCompatActivity {
                             mensaje = "Nuevo usuario registrado correctamente";
                         }else if (result.getResultCode() == 2){
                             mensaje = "Usuario deshabilitado correctamente";
+                        }else if (result.getResultCode() == 5){
+                            mensaje = "Usuario habilitado correctamente";
                         }else if (result.getResultCode() == 3){
                             mensaje = "Usuario actualizado correctamente";
                         }else if (result.getResultCode() == 4){

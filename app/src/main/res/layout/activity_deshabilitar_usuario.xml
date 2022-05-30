@@ -77,7 +77,7 @@
             android:paddingRight="10dp"
             android:checked="true"
             android:showText="false"
-            android:text="Activo"
+            android:text="Estado:"
             android:textSize="18sp"
             android:thumbTint="@color/azul"
             android:trackTint="@color/azulClaro"

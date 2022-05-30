@@ -72,16 +72,19 @@ public class SeleccionarUsuario extends AppCompatActivity implements ISelecciona
         rvSeleccionarAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), ""+ seleccionarUsuarioPresentador.listaUsuarios(getApplicationContext()).get(rvSeleccionarUsuarioSU.getChildAdapterPosition(view)).getIdUsuario(), Toast.LENGTH_SHORT).show(); //id usuario
+                int IdUsuario = seleccionarUsuarioPresentador.listaUsuarios(getApplicationContext()).get(rvSeleccionarUsuarioSU.getChildAdapterPosition(view)).getIdUsuario();
                 if (accion.equals("deshabilitar")){
                     Intent deshabilitar = new Intent(getApplicationContext(), DeshabilitarUsuario.class);
+                    deshabilitar.putExtra("IdUsuario",IdUsuario);
                     lanzarActividad.launch(deshabilitar);
                 } else if (accion.equals("actualizar")){
                     Intent actualizar = new Intent(getApplicationContext(), AdicionarActualizarUsuario.class);
                     actualizar.putExtra("accion","actualizar");
+                    actualizar.putExtra("IdUsuario",IdUsuario);
                     lanzarActividad.launch(actualizar);
                 } else if (accion.equals("listar")){
                     Intent listar = new Intent(getApplicationContext(), DetalleUsuario.class);
+                    listar.putExtra("IdUsuario",IdUsuario);
                     lanzarActividad.launch(listar);
                 }
             }
@@ -110,8 +113,9 @@ public class SeleccionarUsuario extends AppCompatActivity implements ISelecciona
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() > 0){
-                        }if (result.getResultCode() == 2){
-                            setResult(2);
+                        }if (result.getResultCode() == 2 || result.getResultCode() == 5){
+                            int code = result.getResultCode();
+                            setResult(code);
                             finish();
                         }else if (result.getResultCode() == 3){
                             setResult(3);
