@@ -7,5 +7,5 @@ import com.purosurf.minibar.Modelo.Habitacion;
 import java.util.List;
 
 public interface ISeleccionarHabitacionAMPresentador {
-    List<Habitacion> listaHabitacion(Context context);
+    List<Habitacion> listaHabitacion(Context context, String accion);
 }

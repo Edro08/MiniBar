@@ -22,14 +22,20 @@ public class SeleccionarHabitacionAMPresentador implements ISeleccionarHabitacio
     }
 
     @Override
-    public List<Habitacion> listaHabitacion(Context context) {
+    public List<Habitacion> listaHabitacion(Context context, String accion) {
         //llenar lista
         List<Habitacion> listaHabitacion = new ArrayList<>();
         //Conexión a la BD
         MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
         SQLiteDatabase base = conexion.getWritableDatabase();
         String consultaSql;
-        consultaSql = "SELECT * FROM HABITACION";
+        if(accion.equals("deshabilitar"))
+        {
+            consultaSql = "SELECT * FROM HABITACION";
+        }else
+        {
+            consultaSql = "SELECT * FROM HABITACION WHERE IDESTADO = 1";
+        }
         Cursor datos = base.rawQuery(consultaSql, null);
         while(datos.moveToNext()){
             listaHabitacion.add(new Habitacion(datos.getInt(0), datos.getString(1), datos.getInt(2)));

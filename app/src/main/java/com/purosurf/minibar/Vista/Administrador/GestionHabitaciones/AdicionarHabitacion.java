@@ -10,18 +10,20 @@ import android.widget.Switch;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.purosurf.minibar.Presentador.Administrador.GestionHabitaciones.AdicionarHabitacionPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionHabitaciones.Interfaces.IAdicionarHabitacion_View;
 
-public class AdicionarHabitacion extends AppCompatActivity {
+public class AdicionarHabitacion extends AppCompatActivity implements IAdicionarHabitacion_View {
 
     //ELEMENTOS
     Button btnRegresarAH, btnConfirmarAH;
     TextInputLayout tilNombreAH; //contenedor del edt nombre habitacion
     TextInputEditText edtNombreAH; //edt nombre habitacion
     Switch swActivoAH; //switch estado habitación
-
-    //Variables
-    String nombreHabitación;
+    boolean estado = true;
+    String nombrehabitacion;
+    AdicionarHabitacionPresentador adicionarHabitacionPresentador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,23 @@ public class AdicionarHabitacion extends AppCompatActivity {
         edtNombreAH = findViewById(R.id.edtNombreAH);
         swActivoAH = findViewById(R.id.swActivoAH);
 
+        adicionarHabitacionPresentador = new AdicionarHabitacionPresentador(this);
+
+        swActivoAH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(swActivoAH.isChecked())
+                {
+                    swActivoAH.setText("Activo");
+                    estado = true;
+                }
+                else
+                {
+                    swActivoAH.setText("Inactivo");
+                    estado = false;
+                }
+            }
+        });
 
         //evento botones
         btnRegresarAH.setOnClickListener(new View.OnClickListener() {
@@ -47,20 +66,32 @@ public class AdicionarHabitacion extends AppCompatActivity {
         btnConfirmarAH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validarCampos();
-                setResult(1); //code adicionar
-                finish();
+                if(validarCampos())
+                {
+                    adicionarHabitacionPresentador.AdicionarHabitacion(getApplicationContext(),
+                            nombrehabitacion, estado);
+                    setResult(1); //code adicionar
+                    finish();
+                }
             }
         });
     }
 
-    public void validarCampos(){
-        nombreHabitación = edtNombreAH.getText().toString();
+    public boolean validarCampos(){
+        boolean estado = false;
+        nombrehabitacion = edtNombreAH.getText().toString();
 
-        if(TextUtils.isEmpty(nombreHabitación)){
+        if(TextUtils.isEmpty(nombrehabitacion)){
             tilNombreAH.setError("Debe ingresar el nombre de la habitación");
             tilNombreAH.requestFocus();
+        }else if(adicionarHabitacionPresentador.verificarHabitacion(getApplicationContext(),nombrehabitacion))
+        {
+            tilNombreAH.setError("Nombre de habitacion no disponible!");
+            tilNombreAH.requestFocus();
+        }else
+        {
+            estado = true;
         }
-
+        return estado;
     }
 }

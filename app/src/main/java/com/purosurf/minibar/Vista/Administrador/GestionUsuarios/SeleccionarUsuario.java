@@ -13,13 +13,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import com.purosurf.minibar.Modelo.Usuario;
 import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarUsuarioAdapter;
 import com.purosurf.minibar.Presentador.Administrador.GestionUsuarios.Interfaces.ISeleccionarUsuarioPresentador;
 import com.purosurf.minibar.Presentador.Administrador.GestionUsuarios.SeleccionarUsuarioPresentador;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.Administrador.GestionUsuarios.Interfaces.ISeleccionarUsuario_View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SeleccionarUsuario extends AppCompatActivity implements ISeleccionarUsuario_View {
 
@@ -30,6 +32,8 @@ public class SeleccionarUsuario extends AppCompatActivity implements ISelecciona
 
     //adaptador del recyclerview
     SeleccionarUsuarioAdapter rvSeleccionarAdapter;
+
+    List<Usuario> listaUsuario;
 
     //bundle
     Bundle datos;
@@ -62,8 +66,10 @@ public class SeleccionarUsuario extends AppCompatActivity implements ISelecciona
             tvEncabezadoSU.setText("Listado de Usuarios");
         }
 
+        //Llenar Lista de usuario
+        listaUsuario = new ArrayList<>(seleccionarUsuarioPresentador.listaUsuarios(getApplicationContext(),accion));
         //Configurar RecyclerView
-        rvSeleccionarAdapter = new SeleccionarUsuarioAdapter(seleccionarUsuarioPresentador.listaUsuarios(this), this); //asignamos adaptador
+        rvSeleccionarAdapter = new SeleccionarUsuarioAdapter(listaUsuario, this); //asignamos adaptador
         rvSeleccionarUsuarioSU.setHasFixedSize(false);
         rvSeleccionarUsuarioSU.setLayoutManager(new LinearLayoutManager(this));
         rvSeleccionarUsuarioSU.setAdapter(rvSeleccionarAdapter);
@@ -72,7 +78,7 @@ public class SeleccionarUsuario extends AppCompatActivity implements ISelecciona
         rvSeleccionarAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int IdUsuario = seleccionarUsuarioPresentador.listaUsuarios(getApplicationContext()).get(rvSeleccionarUsuarioSU.getChildAdapterPosition(view)).getIdUsuario();
+                int IdUsuario = listaUsuario.get(rvSeleccionarUsuarioSU.getChildAdapterPosition(view)).getIdUsuario();
                 if (accion.equals("deshabilitar")){
                     Intent deshabilitar = new Intent(getApplicationContext(), DeshabilitarUsuario.class);
                     deshabilitar.putExtra("IdUsuario",IdUsuario);

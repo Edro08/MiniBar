@@ -22,14 +22,20 @@ public class SeleccionarUsuarioPresentador implements ISeleccionarUsuarioPresent
     }
 
     @Override
-    public List<Usuario> listaUsuarios(Context context) {
+    public List<Usuario> listaUsuarios(Context context,String accion) {
         //llenar lista
         List<Usuario> listaUsuarios = new ArrayList<Usuario>();
         //Conexión a la BD
         MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
         SQLiteDatabase base = conexion.getWritableDatabase();
         String consultaSql;
-        consultaSql = "SELECT * FROM USUARIO";
+        if(accion.equals("deshabilitar"))
+        {
+            consultaSql = "SELECT * FROM USUARIO";
+        }else
+        {
+            consultaSql = "SELECT * FROM USUARIO WHERE IDESTADO = 1";
+        }
         Cursor datos = base.rawQuery(consultaSql, null);
 
         while(datos.moveToNext()){

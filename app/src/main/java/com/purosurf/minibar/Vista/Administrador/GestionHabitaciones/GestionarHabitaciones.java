@@ -112,6 +112,9 @@ public class GestionarHabitaciones extends AppCompatActivity {
                             mensaje = "Nueva habitación registrada correctamente";
                         }else if(result.getResultCode() == 2){
                             mensaje = "Habitación deshabilitada correctamente";
+                        }
+                        else if(result.getResultCode() == 6){
+                            mensaje = "Habitación habilitada correctamente";
                         }else if(result.getResultCode() == 3){
                             mensaje = "Habitación actualizada correctamente";
                         }else if(result.getResultCode() == 4){

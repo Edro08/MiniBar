@@ -81,7 +81,10 @@ public class SeleccionarHabitacionAMAdapter extends RecyclerView.Adapter<Selecci
             ivIconoHabitacionGH.setImageResource(R.drawable.ic_icono_habitacion);
             tvNombreHabitacionGH.setText(item.getNombreHabitacion());
             //tvEstadoHabitacionGH.setText(item.getNombreHabitacion());
-            tvEstadoHabitacionGH.setText("Activo"); //dato quemado
+            if (item.getIdEstado() == 1)
+                tvEstadoHabitacionGH.setText("Activo");
+            else
+                tvEstadoHabitacionGH.setText("Inactivo");
         }
     }
 }

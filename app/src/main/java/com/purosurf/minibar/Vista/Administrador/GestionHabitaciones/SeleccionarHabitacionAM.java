@@ -65,7 +65,8 @@ public class SeleccionarHabitacionAM extends AppCompatActivity implements ISelec
         seleccionarHabitacionAMPresentador = new SeleccionarHabitacionAMPresentador(this);
 
         //Llenar lista
-        listadoHabitaciones = new ArrayList<>(seleccionarHabitacionAMPresentador.listaHabitacion(getApplicationContext()));
+        listadoHabitaciones = new ArrayList<>(seleccionarHabitacionAMPresentador.listaHabitacion(
+                getApplicationContext(),datos.getString("accion")));
 
         //Asignar adaptador al RecyclerView
         rvHabitacionesAdapter = new SeleccionarHabitacionAMAdapter(listadoHabitaciones, this);
@@ -114,17 +115,19 @@ public class SeleccionarHabitacionAM extends AppCompatActivity implements ISelec
                 if(result.getResultCode() == 2){
                         setResult(2);
                         finish();
-                    }else if(result.getResultCode() == 3){
+                }else if(result.getResultCode() == 6){
+                    setResult(6);
+                    finish();
+                }else if(result.getResultCode() == 3){
                         setResult(3);
                         finish();
-                    }else if(result.getResultCode() == 4){
+                }else if(result.getResultCode() == 4){
                         finish();
-                    }else if(result.getResultCode() == 5) {
+                }else if(result.getResultCode() == 5) {
                         setResult(5);
                         finish();
-                    }
-
                 }
+            }
     );
 
 }

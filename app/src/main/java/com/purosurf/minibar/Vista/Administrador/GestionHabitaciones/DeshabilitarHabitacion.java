@@ -12,21 +12,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.purosurf.minibar.Modelo.Habitacion;
+import com.purosurf.minibar.Presentador.Administrador.GestionHabitaciones.DeshabilitarHabitacionPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionHabitaciones.Interfaces.IDeshabilitarHabitacion_View;
 
-public class DeshabilitarHabitacion extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class DeshabilitarHabitacion extends AppCompatActivity implements IDeshabilitarHabitacion_View {
 
     //ELEMENTOS
     Button btnRegresarDH, btnConfirmarDH;
     TextView tvHabitacionDH, tvEnunciadobarDH;
     Switch swActivoDH;
 
-    //BUNDLE
-    Bundle datos;
-
     //VARIABLES
-    String accion;
+    String accion, nombrehabitacion;
+    int idHabitacion, idEstado;
+    List<Habitacion> datosHabitacion; //Lista para datos de habitacion
+
+    Bundle datos;//BUNDLE
+    DeshabilitarHabitacionPresentador deshabilitarHabitacionPresentador; //Objeto de la clase DeshabilitarHabitacionPresentador
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +49,48 @@ public class DeshabilitarHabitacion extends AppCompatActivity {
         tvEnunciadobarDH = findViewById(R.id.tvEnunciadobarDH);
         swActivoDH = findViewById(R.id.swActivoDH);
 
-        tvHabitacionDH.setText("Habitación: Nombre Habitación");
-
         //obtener intent
         datos = getIntent().getExtras();
         accion = datos.getString("accion");
+        idHabitacion = datos.getInt("idhabitacion");
+
+        deshabilitarHabitacionPresentador = new DeshabilitarHabitacionPresentador(this);
+        datosHabitacion = new ArrayList<>(deshabilitarHabitacionPresentador.DatosHabitacion(getApplicationContext(),
+                idHabitacion));
+        nombrehabitacion = datosHabitacion.get(0).getNombreHabitacion();
+        idEstado = datosHabitacion.get(0).getIdEstado();
+
+        tvHabitacionDH.setText("Habitación: " + nombrehabitacion);
+
         if (accion.equals("minibar")){
-            tvEnunciadobarDH.setText("Activar Mini-Bar");
+            tvEnunciadobarDH.setText("Activar Habitacion y Mini-Bar");
             btnConfirmarDH.setText("Siguiente");
         }
+
+        if(idEstado == 1)
+        {
+            swActivoDH.setText("Activo");
+            swActivoDH.setChecked(true);
+        }
+        else
+        {
+            swActivoDH.setText("Inactivo");
+            swActivoDH.setChecked(false);
+        }
+
+        swActivoDH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(swActivoDH.isChecked())
+                {
+                    swActivoDH.setText("Activo");
+                }
+                else
+                {
+                    swActivoDH.setText("Inactivo");
+                }
+            }
+        });
 
 
         //evento botones
@@ -56,11 +98,28 @@ public class DeshabilitarHabitacion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (accion.equals("deshabilitar")){
-                    setResult(2); //code deshabilitar
+                    boolean estado = false;
+                    int code = 2; // code deshabilitar
+                    if(swActivoDH.isChecked()){
+                        estado = true;
+                        code = 6;// code habilitar
+                    }
+                    deshabilitarHabitacionPresentador.ActivarDesactivarHabitacion(getApplicationContext(),
+                            idHabitacion,estado);
+                    setResult(code); //code deshabilitar
                     finish();
                 }else if (accion.equals("minibar")){
-                   Intent minibar = new Intent(getApplicationContext(), InventarioMB.class);
-                   lanzarActividad.launch(minibar);
+
+                    boolean estado = false;
+                    if(swActivoDH.isChecked()){
+                        estado = true;
+                        deshabilitarHabitacionPresentador.ActivarDesactivarHabitacion(getApplicationContext(),
+                                idHabitacion,estado);
+                        Intent minibar = new Intent(getApplicationContext(), InventarioMB.class);
+                        lanzarActividad.launch(minibar);
+                    } else{
+                        Toast.makeText(getApplicationContext(),"Se necesita habilitar la habitacion para editar el mini bar",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -80,6 +139,7 @@ public class DeshabilitarHabitacion extends AppCompatActivity {
      *   code 4 = listar
      *   code 5 = editar minibar
      * */
+
     ActivityResultLauncher<Intent> lanzarActividad = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
