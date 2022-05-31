@@ -10,9 +10,16 @@ import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.purosurf.minibar.Modelo.Habitacion;
+import com.purosurf.minibar.Presentador.Administrador.GestionHabitaciones.ActualizarHabitacionPresentador;
+import com.purosurf.minibar.Presentador.Administrador.GestionHabitaciones.AdicionarHabitacionPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionHabitaciones.Interfaces.IActualizarHabitacion_View;
 
-public class ActualizarHabitacion extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ActualizarHabitacion extends AppCompatActivity implements IActualizarHabitacion_View {
 
     //ELEMENTOS
     Button btnRegresarACH, btnActualizarACH;
@@ -21,8 +28,12 @@ public class ActualizarHabitacion extends AppCompatActivity {
     TextInputEditText edtNuevoNombreACH;
 
     //variables
-    String nuevoNombre;
+    String nuevoNombre, actualNombre;
+    int idHabitacion;
+    List<Habitacion> datosHabitacion;
 
+    ActualizarHabitacionPresentador actualizarHabitacionPresentador;
+    Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +49,30 @@ public class ActualizarHabitacion extends AppCompatActivity {
 
         tilNuevoNombreACH.setHelperTextEnabled(true);
         tilNuevoNombreACH.setHelperText("Dato requerido");
-        tvNombreHabitacionACH.setText("Habitación: Nombre Habitación");
+
+        //obtener datos Bundle
+        data = getIntent().getExtras();
+        idHabitacion = data.getInt("idhabitacion");
+        actualizarHabitacionPresentador = new ActualizarHabitacionPresentador(this);
+
+        //Iniciarlizar lista para datos de habitacion y agregar datos
+        datosHabitacion = new ArrayList<>(actualizarHabitacionPresentador.DatosHabitacion(
+                getApplicationContext(),idHabitacion));
+
+        actualNombre = datosHabitacion.get(0).getNombreHabitacion();
+        tvNombreHabitacionACH.setText("Habitación: " + actualNombre);
+        edtNuevoNombreACH.setText(actualNombre);
 
         btnActualizarACH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validarDatos();
-                setResult(3); // code actualizar
-                finish();
+                if(validarDatos())
+                {
+                    actualizarHabitacionPresentador.ActualizarHabitacion(getApplicationContext(),
+                            idHabitacion,nuevoNombre);
+                    setResult(3); // code actualizar
+                    finish();
+                }
             }
         });
 
@@ -56,11 +83,23 @@ public class ActualizarHabitacion extends AppCompatActivity {
             }
         });
     }
-    public void validarDatos(){
+
+    public boolean validarDatos(){
+        boolean estado = false;
         nuevoNombre = edtNuevoNombreACH.getText().toString();
         if(TextUtils.isEmpty(nuevoNombre)){
             tilNuevoNombreACH.setError("Debe ingresar nombre de la habitación");
             tilNuevoNombreACH.requestFocus();
+        }else if(actualizarHabitacionPresentador.verificarHabitacion(
+                getApplicationContext(),nuevoNombre)
+                && !nuevoNombre.toLowerCase().equals(actualNombre.toLowerCase()))
+        {
+            tilNuevoNombreACH.setError("Nombre de habitación no disponible!");
+            tilNuevoNombreACH.requestFocus();
+        }else
+        {
+            estado = true;
         }
+        return estado;
     }
 }
