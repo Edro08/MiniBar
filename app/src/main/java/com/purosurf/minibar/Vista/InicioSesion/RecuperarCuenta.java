@@ -6,7 +6,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -50,7 +53,15 @@ public class RecuperarCuenta extends AppCompatActivity {
         //asignar visibilidad a la pregunta de seguridad
         // VISIBLE - visible
         // GONE - OCULTO
-        flRecuperarCuenta.setVisibility(View.VISIBLE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            flRecuperarCuenta.setVisibility(View.INVISIBLE);
+        } else {
+            flRecuperarCuenta.setVisibility(View.VISIBLE);
+        }
+
 
         //metodo del boton
         btnReestablecerRC.setOnClickListener(new View.OnClickListener() {

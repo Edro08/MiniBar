@@ -87,12 +87,13 @@ public class ActualizarHabitacion extends AppCompatActivity implements IActualiz
     public boolean validarDatos(){
         boolean estado = false;
         nuevoNombre = edtNuevoNombreACH.getText().toString();
+        actualNombre = actualNombre.toLowerCase();
         if(TextUtils.isEmpty(nuevoNombre)){
             tilNuevoNombreACH.setError("Debe ingresar nombre de la habitación");
             tilNuevoNombreACH.requestFocus();
         }else if(actualizarHabitacionPresentador.verificarHabitacion(
                 getApplicationContext(),nuevoNombre)
-                && !nuevoNombre.toLowerCase().equals(actualNombre.toLowerCase()))
+                && !actualNombre.equals(nuevoNombre.toLowerCase()))
         {
             tilNuevoNombreACH.setError("Nombre de habitación no disponible!");
             tilNuevoNombreACH.requestFocus();

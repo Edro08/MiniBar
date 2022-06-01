@@ -83,8 +83,13 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
         btnRecuperarLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent recuperar = new Intent(getApplicationContext(), RecuperarCuenta.class);
-                recuperarCuenta.launch(recuperar);
+                if(validarCapturaRecuperación())
+                {
+                    Intent recuperar = new Intent(getApplicationContext(), RecuperarCuenta.class);
+                    recuperar.putExtra("Nombre", nombreuser);
+                    recuperar.putExtra("IdUser", iduser);
+                    recuperarCuenta.launch(recuperar);
+                }
             }
         });
     }
@@ -107,6 +112,31 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
         else
         {
             estado = true;
+        }
+        return estado;
+    }
+
+    //validar campos vacios
+    public boolean validarCapturaRecuperación(){
+        boolean estado = false;
+        //asignar variables
+        user = edtUsuarioLogin.getText().toString().trim();
+
+        //validar campo vacio
+        if(TextUtils.isEmpty(user)){
+            tilUsuarioLogin.setError("Debe ingresar usuario a recuperar");
+            tilUsuarioLogin.requestFocus();
+        }
+        else
+        {
+            if(iniciarSesionPresentador.VerificarUsuario(getApplicationContext(),user)){
+                estado = true;
+            }
+            else
+            {
+                tilUsuarioLogin.setError("Usuario no encontrado!");
+                tilUsuarioLogin.requestFocus();
+            }
         }
         return estado;
     }

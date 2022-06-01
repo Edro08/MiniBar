@@ -69,4 +69,23 @@ public class IniciarSesionPresentador implements IIniciarSesionPresentador {
         }
         return respuesta;
     }
+
+    @Override
+    public boolean VerificarUsuario(Context context, String usuario) {
+        boolean estado = false;
+        //Conexión a la BD
+        MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
+        SQLiteDatabase base = conexion.getWritableDatabase();
+        String consultaSql;
+        consultaSql = "SELECT * FROM USUARIO " +
+                "WHERE USUARIO = '" + usuario + "'";
+        Cursor datos = base.rawQuery(consultaSql, null);
+        if(datos.moveToFirst() == true)
+        {
+            estado = true;
+            iniciarSesion_view.IdUser(datos.getInt(0));
+            iniciarSesion_view.NombreUsuario(datos.getString(4));
+        }
+        return estado;
+    }
 }
