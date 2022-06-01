@@ -11,7 +11,8 @@
         android:orientation="vertical">
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:layout_marginBottom="40dp">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
@@ -37,38 +38,6 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:id="@+id/tvIndicacionRecuperarCuenta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:text="Ingresa tu correo electronico"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilCorreoRC"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:hint="Correo"
-            app:boxStrokeColor="@color/azul"
-            app:hintTextColor="@color/azul">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtCorreoRecuperarCuenta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_icono_email"
-                android:drawablePadding="7dp"
-                android:drawableTint="@color/azul"
-                android:inputType="textWebEmailAddress"
-                android:textColor="@color/azulOscuro"
-                android:textSize="18sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <FrameLayout
             android:id="@+id/flRecuperarCuenta"
             android:layout_width="match_parent"
@@ -80,62 +49,92 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvalternativo"
+                    android:id="@+id/tvIndicacionRecuperarCuenta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:text="O"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tvopcionalternativa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="Responder pregunta de Seguridad:"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tvPreguntaRecuperarCuenta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="Pregunta"
+                    android:text="Ingresa tu correo electronico"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilRespuestaRecuperarCuenta"
+                    android:id="@+id/tilCorreoRC"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:hint="Respuesta de Seguridad"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:hint="Correo"
                     app:boxStrokeColor="@color/azul"
                     app:hintTextColor="@color/azul">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtRespuestaRecuperar"
+                        android:id="@+id/edtCorreoRecuperarCuenta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_icono_respuesta"
+                        android:drawableStart="@drawable/ic_icono_email"
                         android:drawablePadding="7dp"
                         android:drawableTint="@color/azul"
-                        android:inputType="text"
+                        android:inputType="textWebEmailAddress"
                         android:textColor="@color/azulOscuro"
                         android:textSize="18sp" />
+
                 </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/tvalternativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center"
+                    android:text="O"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
             </LinearLayout>
-
-
         </FrameLayout>
 
+        <TextView
+            android:id="@+id/tvopcionalternativa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Responder pregunta de Seguridad:"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvPreguntaRecuperarCuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Pregunta"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRespuestaRecuperarCuenta"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Respuesta de Seguridad"
+            app:boxStrokeColor="@color/azul"
+            app:hintTextColor="@color/azul">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtRespuestaRecuperar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_icono_respuesta"
+                android:drawablePadding="7dp"
+                android:drawableTint="@color/azul"
+                android:inputType="text"
+                android:textColor="@color/azulOscuro"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnReestablecerRecuperarCuenta"

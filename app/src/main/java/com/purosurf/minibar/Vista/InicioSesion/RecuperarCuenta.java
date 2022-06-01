@@ -73,10 +73,10 @@ public class RecuperarCuenta extends AppCompatActivity {
                 validarCorreo();
                 if (flRecuperarCuenta.getVisibility() == View.VISIBLE){
                     Intent verificar = new Intent(getApplicationContext(), Verificar.class);
-                    lanzarActividad.launch(verificar);
+                   lanzarActividad.launch(verificar);
                 } else {
                     Intent reestablecer = new Intent(getApplicationContext(), ReestablecerContrasena.class);
-                    lanzarActividad.launch(reestablecer);
+                   lanzarActividad.launch(reestablecer);
                 }
             }
         });
@@ -89,20 +89,20 @@ public class RecuperarCuenta extends AppCompatActivity {
         });
     }
 
-    //validar campos vacios
-    public void validarCorreo(){
-        correo = edtCorreoRC.getText().toString().trim();
-        //validar que no este vacio
-        if(TextUtils.isEmpty(correo)){
-            tilCorreoRC.setError("Debe ingresar un correo");
-            tilCorreoRC.requestFocus();
-        }else if(!Patterns.EMAIL_ADDRESS.matcher(correo).matches()){
-            tilCorreoRC.setError("Correo ingresado no válido");
-            tilCorreoRC.requestFocus();
-        } if (flRecuperarCuenta.getVisibility() == View.VISIBLE){
-            // si esta visible validara la pregunta, caso contrario se ignora
-            respuesta = edtRespuestaRC.getText().toString();
-            if (TextUtils.isEmpty(respuesta)){
+  // validar campos vacios
+  public void validarCorreo() {
+        respuesta = edtRespuestaRC.getText().toString();
+        if (flRecuperarCuenta.getVisibility() == View.VISIBLE) {
+            correo = edtCorreoRC.getText().toString();
+            if (TextUtils.isEmpty(correo)) {
+                tilCorreoRC.setError("Debe ingresar correo");
+                tilCorreoRC.requestFocus();
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+                tilCorreoRC.setError("Debe ingresar un correo válido");
+                tilCorreoRC.requestFocus();
+            }
+        } else {
+            if (TextUtils.isEmpty(respuesta)) {
                 tilRespuestaRC.setError("Debe ingresar respuesta");
                 tilCorreoRC.requestFocus();
             }
