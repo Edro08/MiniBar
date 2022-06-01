@@ -53,12 +53,15 @@ public class RecuperarCuenta extends AppCompatActivity {
         //asignar visibilidad a la pregunta de seguridad
         // VISIBLE - visible
         // GONE - OCULTO
+        //Verificar conexion a internet
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (networkInfo != null && networkInfo.isConnected()) {
+            // Si hay conexión a Internet en este momento
             flRecuperarCuenta.setVisibility(View.INVISIBLE);
         } else {
+            // No hay conexión a Internet en este momento
             flRecuperarCuenta.setVisibility(View.VISIBLE);
         }
 
