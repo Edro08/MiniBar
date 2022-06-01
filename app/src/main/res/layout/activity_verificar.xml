@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.purosurf.minibar.Vista.InicioSesion.RecuperarCuenta">
+    tools:context=".Vista.InicioSesion.Verificar">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="50dp">
@@ -19,7 +21,7 @@
                 android:background="@color/azulPalido">
 
                 <Button
-                    android:id="@+id/btnRegresarRecuperarCuenta"
+                    android:id="@+id/btnRegresarVerificar"
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -29,7 +31,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recuperar Cuenta"
+                    android:text="Verificar Código"
                     android:textSize="20sp"
                     android:textColor="@color/azulOscuro"
                     />
@@ -37,95 +39,48 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+
         <TextView
-            android:id="@+id/tvIndicacionRecuperarCuenta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
-            android:text="Ingresa tu correo electronico"
+            android:text="Ingresa el código de seguridad"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilCorreoRC"
+            android:id="@+id/tilCodigoVerificar"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Correo"
+            android:hint="Código"
             app:boxStrokeColor="@color/azul"
             app:hintTextColor="@color/azul">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtCorreoRecuperarCuenta"
+                android:id="@+id/edtCodigoVerificar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_icono_email"
+                android:drawableStart="@drawable/ic_icono_codigo"
                 android:drawablePadding="7dp"
                 android:drawableTint="@color/azul"
-                android:inputType="textWebEmailAddress"
+                android:inputType="number"
                 android:textColor="@color/azulOscuro"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <FrameLayout
-            android:id="@+id/flRecuperarCuenta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvPreguntaRecuperarCuenta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="Pregunta de Seguridad"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilRespuestaRecuperarCuenta"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:hint="Respuesta de Seguridad"
-                    app:boxStrokeColor="@color/azul"
-                    app:hintTextColor="@color/azul">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtRespuestaRecuperar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_icono_respuesta"
-                        android:drawablePadding="7dp"
-                        android:drawableTint="@color/azul"
-                        android:inputType="text"
-                        android:textColor="@color/azulOscuro"
-                        android:textSize="18sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-
-        </FrameLayout>
-
-
         <Button
-            android:id="@+id/btnReestablecerRecuperarCuenta"
+            android:id="@+id/btnVerificar"
             style="@style/Widget.Material3.Button"
-            android:layout_width="270dp"
+            android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_margin="15dp"
             android:backgroundTint="@color/azul"
             app:rippleColor="@color/azulVerde"
-            android:text="Reestablecer Contraseña"
+            android:text="Verificar"
             android:textSize="18sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

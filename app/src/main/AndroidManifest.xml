@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniBar">
         <activity
+            android:name=".Vista.InicioSesion.Verificar"
+            android:exported="false" />
+        <activity
             android:name=".Vista.Administrador.GestionHabitaciones.ConfirmarInventarioMB"
             android:exported="false" />
         <activity

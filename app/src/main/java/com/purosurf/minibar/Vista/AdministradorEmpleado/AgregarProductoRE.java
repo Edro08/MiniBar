@@ -74,6 +74,7 @@ public class AgregarProductoRE extends AppCompatActivity implements ISeleccionar
         rvListaProductosRE.setLayoutManager(new LinearLayoutManager(this));
         rvListaProductosRE.setAdapter(agregarProductoREAdapter);
 
+
         //evento seleccionar Categoria
         actvCategoriaRE.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -85,21 +86,18 @@ public class AgregarProductoRE extends AppCompatActivity implements ISeleccionar
             }
         });
 
-        //evento recyclerview
-        agregarProductoREAdapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
-        //eventos botones
-        btnAgregarProductoRE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setResult(RESULT_OK); //mostrar contenedor en el registro
-                finish();
-            }
+
+
+    // eventos botones
+    btnAgregarProductoRE.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            //Toast.makeText(AgregarProductoRE.this, ""+lsProducto.get(agregarProductoREAdapter.get), Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK); // mostrar contenedor en el registro
+            //finish();
+          }
         });
 
         btnRegresar2RE.setOnClickListener(new View.OnClickListener() {
