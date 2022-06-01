@@ -7,14 +7,16 @@ public class Producto {
     private float PrecioUnitario;
     private int IdEstado; // variable correcta
     private String ImagenURL;
+    private String NombreCate;
 
-    public Producto(int idProducto, String productoNombre, int idCategoria, float precioUnitario, int idestado, String imagenURL) {
+    public Producto(int idProducto, String productoNombre, int idCategoria, float precioUnitario, int idestado, String imagenURL, String nombreCate) {
         IdProducto = idProducto;
         ProductoNombre = productoNombre;
         IdCategoria = idCategoria;
         PrecioUnitario = precioUnitario;
         IdEstado = idestado;
         ImagenURL = imagenURL;
+        NombreCate = nombreCate;
     }
 
     public int getIdProducto() {
@@ -63,5 +65,13 @@ public class Producto {
 
     public void setImagenURL(String imagenURL) {
         ImagenURL = imagenURL;
+    }
+
+    public String getNombreCate() {
+        return NombreCate;
+    }
+
+    public void setNombreCate(String nombreCate) {
+        NombreCate = nombreCate;
     }
 }

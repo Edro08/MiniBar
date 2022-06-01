@@ -85,7 +85,8 @@ public class VerExistenciasAdapter extends RecyclerView.Adapter<VerExistenciasAd
             cvVerExistencias = itemView.findViewById(R.id.cvVerExistencias);
         }
         void bindData(final Inventario item){
-            tvProductoExistencias.setText("Producto "+item.getIdProducto());
+            //tvProductoExistencias.setText("Producto "+item.getIdProducto());
+            tvProductoExistencias.setText("Producto: "+item.getNombreProd());
             tvCantidadExistencias.setText(Integer.toString(item.getExistencias()));
             tvCantidadMinExistencias.setText("Cantidad Mínima: "+item.getCantidadMinima());
             tvCantidadMaxExistencias.setText("Cantidad Máxima: "+item.getCantidadMaxima());

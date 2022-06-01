@@ -224,5 +224,16 @@ public class MinibarBD extends SQLiteOpenHelper {
         for(String insert : sqlInsertPrd){
             sqLiteDatabase.execSQL(insert);
         }
+
+        String[] sqlInsrtInvt = {
+                "INSERT INTO INVENTARIO (IDPRODUCTO, CANTIDADMINIMA, CANTIDADMAXIMA, EXISTENCIAS) VALUES (1,20,200,0);",
+                "INSERT INTO INVENTARIO (IDPRODUCTO, CANTIDADMINIMA, CANTIDADMAXIMA, EXISTENCIAS) VALUES (2,20,200,0);",
+                "INSERT INTO INVENTARIO (IDPRODUCTO, CANTIDADMINIMA, CANTIDADMAXIMA, EXISTENCIAS) VALUES (3,20,200,0);",
+                "INSERT INTO INVENTARIO (IDPRODUCTO, CANTIDADMINIMA, CANTIDADMAXIMA, EXISTENCIAS) VALUES (4,20,200,0);"
+        };
+
+        for (String insr : sqlInsrtInvt){
+            sqLiteDatabase.execSQL(insr);
+        }
     }
 }

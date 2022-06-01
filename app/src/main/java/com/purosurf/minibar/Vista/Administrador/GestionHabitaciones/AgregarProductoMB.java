@@ -69,7 +69,7 @@ public class AgregarProductoMB extends AppCompatActivity {
 
                 lsProducto.clear();
                 for (int indice = 1; indice <= 15; indice++){
-                    lsProducto.add(new Producto(indice, "Producto"+indice, i, 1, 1, "xd"));
+                    lsProducto.add(new Producto(indice, "Producto"+indice, i, 1, 1, "xd",""));
                 }
                 rvAgregarProductosMB.setAdapter(agregarAdapter);
             }

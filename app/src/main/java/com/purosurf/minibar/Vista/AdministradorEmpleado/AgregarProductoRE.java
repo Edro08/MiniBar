@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,12 +15,15 @@ import android.widget.Toast;
 
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.Presentador.Adaptadores.AgregarProductoREAdapter;
+import com.purosurf.minibar.Presentador.Administrador.GestionProductos.Interfaces.ISeleccionarProductoPresentador;
+import com.purosurf.minibar.Presentador.Administrador.GestionProductos.SeleccionarProductoPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionProductos.Interfaces.ISeleccionarProducto_View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AgregarProductoRE extends AppCompatActivity {
+public class AgregarProductoRE extends AppCompatActivity implements ISeleccionarProducto_View {
 
     //ELEMENTOS
     Button btnRegresar2RE, btnAgregarProductoRE;
@@ -40,6 +44,8 @@ public class AgregarProductoRE extends AppCompatActivity {
     //VARIABLES
     String accion;
 
+    ISeleccionarProductoPresentador seleccionarProductoPresentador;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,14 +57,13 @@ public class AgregarProductoRE extends AppCompatActivity {
         actvCategoriaRE = findViewById(R.id.actvCategoriaRE);
         rvListaProductosRE = findViewById(R.id.rvListaProductosRE);
 
+        seleccionarProductoPresentador = new SeleccionarProductoPresentador(this);
+
         //bundle
         datos = getIntent().getExtras();
 
-        //llenar dropdown menu
-        lsCategoría = new ArrayList<String>();
-        for (int i = 1; i <= 6; i++){
-            lsCategoría.add("Categoría: "+i);
-        }
+        lsCategoría = (ArrayList<String>) seleccionarProductoPresentador.listaCategorias(getApplicationContext());
+
         categoriasAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.dropdown_texto, lsCategoría);
         actvCategoriaRE.setAdapter(categoriasAdapter);
 
@@ -74,12 +79,8 @@ public class AgregarProductoRE extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 lsProducto.clear(); //re-hacemos la lista al cambiar la categoria, caso contrario se van apilando productos de otra categoria a la lista
-                int indice = (int) categoriasAdapter.getItemId(i); //Capturamos el indice de la posicion que ocupa en el arraylist
-                Toast.makeText(getApplicationContext(), ""+ indice, Toast.LENGTH_SHORT).show(); //mostramos el indice del elemento que ocupa en el arraylist*/
-                //llenamos el arreglo segun el indice
-                for(int j = 0; j <= 9; j++){
-                    lsProducto.add(new Producto(j,"producto"+ j +" Categoria "+indice, indice, 4 * j, 1, "XD"));
-                }
+                String nombreCategoria = (String) adapterView.getItemAtPosition(i); //Capturamos el indice de la posicion que ocupa en el arraylist
+                lsProducto.addAll(seleccionarProductoPresentador.listaProductos(getApplicationContext(),nombreCategoria));
                 rvListaProductosRE.setAdapter(agregarProductoREAdapter);
             }
         });
@@ -88,7 +89,7 @@ public class AgregarProductoRE extends AppCompatActivity {
         agregarProductoREAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                finish();
             }
         });
 

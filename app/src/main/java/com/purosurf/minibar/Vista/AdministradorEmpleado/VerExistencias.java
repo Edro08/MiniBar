@@ -15,12 +15,15 @@ import android.widget.Toast;
 import com.purosurf.minibar.Modelo.Inventario;
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.Presentador.Adaptadores.VerExistenciasAdapter;
+import com.purosurf.minibar.Presentador.Administrador.GestionarInventarios.GestionarInventario;
+import com.purosurf.minibar.Presentador.Administrador.GestionarInventarios.Interfaces.IntrfcGestionInventarios;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionProductos.Interfaces.ISeleccionarProducto_View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VerExistencias extends AppCompatActivity {
+public class VerExistencias extends AppCompatActivity implements ISeleccionarProducto_View {
 
     //ELEMENTOS
     Button btnRegresarVE;
@@ -35,6 +38,8 @@ public class VerExistencias extends AppCompatActivity {
     List<Inventario> lsInventario;
     ArrayList<String> lsCategoria;
 
+    IntrfcGestionInventarios intrfcGestionInventarios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +50,10 @@ public class VerExistencias extends AppCompatActivity {
         actvCategoriaVE = findViewById(R.id.actvCategoriaVE);
         rvProductosVE = findViewById(R.id.rvProductosVE);
 
+        intrfcGestionInventarios = new GestionarInventario(this);
+
         //dropdown categoria
-        lsCategoria = new ArrayList<String>();
-        for(int i=1; i<=6; i++){lsCategoria.add("Categoria "+i);}
+        lsCategoria = (ArrayList<String>) intrfcGestionInventarios.listaCategorias(getApplicationContext());
         categoriaAdapter = new ArrayAdapter<String>(this, R.layout.dropdown_texto, lsCategoria);
         actvCategoriaVE.setAdapter(categoriaAdapter);
 
@@ -64,12 +70,8 @@ public class VerExistencias extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 lsInventario.clear(); //re-hacemos la lista al cambiar la categoria, caso contrario se van apilando productos de otra categoria a la lista
-                int indice = (int) categoriaAdapter.getItemId(i); //Capturamos el indice de la posicion que ocupa en el arraylist
-                Toast.makeText(getApplicationContext(), ""+ indice, Toast.LENGTH_SHORT).show(); //mostramos el indice del elemento que ocupa en el arraylist*/
-                //llenamos el arreglo segun el indice
-                for(int j = 0; j <= 20; j++){
-                    lsInventario.add(new Inventario(j, j, 5, 5, 10));
-                }
+                String nombreCategoria = (String) adapterView.getItemAtPosition(i);
+                lsInventario.addAll(intrfcGestionInventarios.listaProductos(getApplicationContext(),nombreCategoria));
                 rvProductosVE.setAdapter(existenciasAdapter);
             }
         });

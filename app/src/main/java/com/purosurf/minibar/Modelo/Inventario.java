@@ -6,13 +6,15 @@ public class Inventario {
                 CantidadMinima,
                 CantidadMaxima,
                 Existencias;
+    private String NombreProd;
 
-    public Inventario(int idInventario, int idProducto, int cantidadMinima, int cantidadMaxima, int existencias) {
+    public Inventario(int idInventario, int idProducto, int cantidadMinima, int cantidadMaxima, int existencias, String nombreProd) {
         IdInventario = idInventario;
         IdProducto = idProducto;
         CantidadMinima = cantidadMinima;
         CantidadMaxima = cantidadMaxima;
         Existencias = existencias;
+        NombreProd = nombreProd;
     }
 
     public int getIdInventario() {
@@ -53,5 +55,13 @@ public class Inventario {
 
     public void setExistencias(int existencias) {
         Existencias = existencias;
+    }
+
+    public String getNombreProd() {
+        return NombreProd;
+    }
+
+    public void setNombreProd(String nombreProd) {
+        NombreProd = nombreProd;
     }
 }

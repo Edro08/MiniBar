@@ -80,7 +80,7 @@ public class AgregarProductoREAdapter extends RecyclerView.Adapter<AgregarProduc
             rdbProducto = itemView.findViewById(R.id.rdbProducto);
         }
         void bindData (final Producto item){
-            rdbProducto.setText("Producto: "+item.getIdProducto()+ " Categoría: "+item.getIdCategoria()); //dato quemado
+            rdbProducto.setText("Prod: "+item.getProductoNombre() + "Cat: "+item.getNombreCate()); //dato quemado
             //seleccionar solo un rdb de la lista
             rdbProducto.setOnClickListener(new View.OnClickListener() {
                 @Override
