@@ -59,10 +59,10 @@ public class RecuperarCuenta extends AppCompatActivity {
 
         if (networkInfo != null && networkInfo.isConnected()) {
             // Si hay conexión a Internet en este momento
-            flRecuperarCuenta.setVisibility(View.INVISIBLE);
+            flRecuperarCuenta.setVisibility(View.VISIBLE);
         } else {
             // No hay conexión a Internet en este momento
-            flRecuperarCuenta.setVisibility(View.VISIBLE);
+            flRecuperarCuenta.setVisibility(View.INVISIBLE);
         }
 
 
