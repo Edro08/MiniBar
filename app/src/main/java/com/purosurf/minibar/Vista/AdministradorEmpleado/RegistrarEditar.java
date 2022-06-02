@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.MailTo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +17,14 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.purosurf.minibar.Modelo.Entrada;
 import com.purosurf.minibar.Presentador.Administrador.GestionarInventarios.GestionarInventario;
 import com.purosurf.minibar.Presentador.Administrador.GestionarInventarios.Interfaces.IntrfcGestionInventarios;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.Administrador.GestionProductos.Interfaces.ISeleccionarProducto_View;
+import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
 
-public class RegistrarEditar extends AppCompatActivity  {
+public class RegistrarEditar extends AppCompatActivity implements ISeleccionarProducto_View {
     //===============Actividad Registrar entrada y Editar Existencias (Salidas)===============
 
     //ELEMENTOS
@@ -51,10 +54,11 @@ public class RegistrarEditar extends AppCompatActivity  {
 
     //VARIABLES
     int cantidadProducto, // almacenar cantidad edt
+        idProducto,
         cantidadMinima, // almacenar cantidad minima edt
         cantidadMaxima; // almacenar cantidad maxima edt
 
-    double precioU; //precio unitario
+    double precioU, total; //precio unitario
     String descripcion; // descripcion de la entrada/salida
 
     String accion; //capturar bundle (si el formulario es de entrada o salida)
@@ -62,7 +66,7 @@ public class RegistrarEditar extends AppCompatActivity  {
     //BUNDLE
     Bundle datos;
 
-    //IntrfcGestionInventarios intrfcGestionInventarios;
+    IntrfcGestionInventarios intrfcGestionInventarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +89,7 @@ public class RegistrarEditar extends AppCompatActivity  {
         flContenedorRE = findViewById(R.id.flContenedorRE);
         tvComentarioRE = findViewById(R.id.tvComentarioRE);
 
-        //intrfcGestionInventarios = new GestionarInventario(this);
+        intrfcGestionInventarios = new GestionarInventario(this);
 
         //bundle
         datos = getIntent().getExtras();
@@ -118,13 +122,13 @@ public class RegistrarEditar extends AppCompatActivity  {
         btnRegistrarRE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registo = new Intent(getApplicationContext(), ConfirmarRE.class);
-                registo.putExtra("accion", accion);
-                registo.putExtra("ProdName", tvNombreProductoRE.getText().toString().trim());
-                registo.putExtra("Cantidad", edtMinimaProductoRE.getText().toString().trim());
-                registo.putExtra("Precio", edtPrecioUnitarioRE.getText().toString().trim());
-                registo.putExtra("Descrip", edtDescripcionRE.getText().toString().trim());
-                lanzarActividad.launch(registo);
+                    Intent registo = new Intent(getApplicationContext(), ConfirmarRE.class);
+                    registo.putExtra("accion", accion);
+                    registo.putExtra("ProdName", tvNombreProductoRE.getText().toString().trim());
+                    registo.putExtra("Cantidad", edtMinimaProductoRE.getText().toString().trim());
+                    registo.putExtra("Precio", edtPrecioUnitarioRE.getText().toString().trim());
+                    registo.putExtra("Descrip", edtDescripcionRE.getText().toString().trim());
+                    lanzarActividad.launch(registo);
             }
         });
             //seleccionar productos
@@ -170,6 +174,12 @@ public class RegistrarEditar extends AppCompatActivity  {
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == 1){
                         setResult(1);
+                        precioU = Float.parseFloat(edtPrecioUnitarioRE.getText().toString().trim());
+                        cantidadProducto = Integer.parseInt(edtMinimaProductoRE.getText().toString().trim());
+                        total = precioU * cantidadProducto;
+                        Entrada entrada = new Entrada(0,IniciarSesion.iduser, idProducto,edtDescripcionRE.getText().toString().trim(),
+                                "2020-01-01",cantidadProducto,(float) precioU,(float) total);
+                        intrfcGestionInventarios.InsertEntrada(entrada, getApplicationContext());
                         finish();
                     }else if(result.getResultCode() == 2){
                         setResult(2);
@@ -177,6 +187,7 @@ public class RegistrarEditar extends AppCompatActivity  {
                     } else if (result.getResultCode() == RESULT_OK){
                         flContenedorRE.setVisibility(View.VISIBLE); //mostrar contenedor
                         tvNombreProductoRE.setText("Producto: " + result.getData().getStringExtra("name"));
+                        idProducto = result.getData().getIntExtra("id",0);
                         tvComentarioRE.setVisibility(View.GONE);
                     }
                 }

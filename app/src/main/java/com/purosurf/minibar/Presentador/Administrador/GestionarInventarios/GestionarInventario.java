@@ -68,16 +68,23 @@ public class GestionarInventario implements IntrfcGestionInventarios {
     @Override
     public Boolean InsertEntrada(Entrada entrada, Context context) {
         boolean exito = false;
-
         //Conexión a la BD
         MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
         SQLiteDatabase base = conexion.getWritableDatabase();
         String consultaSql;
         consultaSql = "INSERT INTO ENTRADA(IDUSUARIO, IDPRODUCTO, DESCRIPCION, FECHA, CANTIDAD, PRECIO, TOTAL) " +
-                "VALUES("+ entrada.getIdUsuario() +","+ entrada.getIdUsuario() +"," + entrada.getDescripcion() + "," + entrada.getFecha()+
-                ","+ entrada.getCantidad() + "," + entrada.getPrecio() + "," + entrada.getTotal() + ")";
+                "VALUES("+ entrada.getIdUsuario() +" ,"+ entrada.getIdUsuario() +" ,'" + entrada.getDescripcion() + "' ,'" + entrada.getFecha()+
+                "' ,"+ entrada.getCantidad() + " ," + entrada.getPrecio() + " ," + entrada.getTotal() + ")";
         base.execSQL(consultaSql);
         exito = true;
+
+        if (exito){
+            exito = false;
+            String sqlUpdate = "";
+            sqlUpdate = "UPDATE INVENTARIO SET EXISTENCIAS = EXISTENCIAS + " + entrada.getCantidad() + " WHERE IDPRODUCTO = " + entrada.getIdProducto();
+            base.execSQL(sqlUpdate);
+            exito = true;
+        }
         return exito;
     }
 }
