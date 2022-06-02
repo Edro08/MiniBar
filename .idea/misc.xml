@@ -18,8 +18,6 @@
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/mipmap-anydpi-v26/logo_puro_surf.xml" value="0.1" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/mipmap-hdpi/ic_launcher.xml" value="0.1" />
-        <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/layout/activity_confirmar_re.xml" value="0.23645833333333333" />
-        <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/layout/activity_registrar_editar.xml" value="0.21481481481481482" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/drawable-v24/background_splash.xml" value="0.305" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/drawable-v24/ic_icono_gestionar_productos.xml" value="0.305" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/drawable-v24/ic_icono_usuario.xml" value="0.2785" />
@@ -37,7 +35,7 @@
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_adicionar_actualizar_usuario.xml" value="0.22" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_adicionar_habitacion.xml" value="0.13740458015267176" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_adicionar_producto_confirmar.xml" value="0.3640625" />
-        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_adicionar_productos.xml" value="0.33" />
+        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_adicionar_productos.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_adicionar_usuario.xml" value="0.5" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_agregar_producto_mb.xml" value="0.1640378548895899" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_agregar_producto_re.xml" value="0.36666666666666664" />
@@ -82,11 +80,11 @@
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_usuario.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_ver_existencias.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_verificar.xml" value="0.275" />
-        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_agregar_productos_mb.xml" value="0.27421875" />
+        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_agregar_productos_mb.xml" value="0.5" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_habitaciones.xml" value="0.3640625" />
-        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_inventario_mb.xml" value="0.33" />
+        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_inventario_mb.xml" value="0.5" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_lista_productos.xml" value="0.67" />
-        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_lista_recyclerview.xml" value="0.1" />
+        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_lista_recyclerview.xml" value="0.75" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_registrar_consumos.xml" value="0.5" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_seleccionar_habitacion_admi.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/cardview_seleccionar_producto.xml" value="0.33" />
