@@ -20,6 +20,7 @@
             <TextView
                 android:id="@+id/tvProductoExistencias"
                 android:layout_width="wrap_content"
+                android:maxWidth="280dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
