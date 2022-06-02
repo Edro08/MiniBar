@@ -37,6 +37,7 @@ public class AgregarProductoRE extends AppCompatActivity implements ISeleccionar
     //Listas
     List<Producto> lsProducto;
     ArrayList<String> lsCategoría;
+    public static List<Producto> PrdSelct = new ArrayList<>();
 
     //bundle
     Bundle datos;
@@ -86,17 +87,16 @@ public class AgregarProductoRE extends AppCompatActivity implements ISeleccionar
             }
         });
 
-
-
-
     // eventos botones
     btnAgregarProductoRE.setOnClickListener(
         new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            //Toast.makeText(AgregarProductoRE.this, ""+lsProducto.get(agregarProductoREAdapter.get), Toast.LENGTH_SHORT).show();
-            setResult(RESULT_OK); // mostrar contenedor en el registro
-            //finish();
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("id", PrdSelct.get(0).getIdProducto());
+                intent.putExtra("name", PrdSelct.get(0).getProductoNombre());
+                setResult(RESULT_OK, intent); // mostrar contenedor en el registro
+                finish();
           }
         });
 

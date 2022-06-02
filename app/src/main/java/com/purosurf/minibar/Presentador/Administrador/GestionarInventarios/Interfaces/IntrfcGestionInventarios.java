@@ -2,6 +2,7 @@ package com.purosurf.minibar.Presentador.Administrador.GestionarInventarios.Inte
 
 import android.content.Context;
 
+import com.purosurf.minibar.Modelo.Entrada;
 import com.purosurf.minibar.Modelo.Inventario;
 import com.purosurf.minibar.Modelo.Producto;
 
@@ -12,4 +13,5 @@ public interface IntrfcGestionInventarios {
     List<Inventario> listaProductos(Context context, String nombreCategoria);
     List<String> listaCategorias(Context context);
     Boolean ExisteReg(int idInventario);
+    Boolean InsertEntrada(Entrada entrada, Context context);
 }

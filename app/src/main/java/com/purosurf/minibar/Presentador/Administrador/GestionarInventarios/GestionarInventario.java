@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.purosurf.minibar.DB.MinibarBD;
+import com.purosurf.minibar.Modelo.Entrada;
 import com.purosurf.minibar.Modelo.Inventario;
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.Presentador.Administrador.GestionarInventarios.Interfaces.IntrfcGestionInventarios;
@@ -62,5 +63,21 @@ public class GestionarInventario implements IntrfcGestionInventarios {
     @Override
     public Boolean ExisteReg(int idInventario) {
         return null;
+    }
+
+    @Override
+    public Boolean InsertEntrada(Entrada entrada, Context context) {
+        boolean exito = false;
+
+        //Conexión a la BD
+        MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
+        SQLiteDatabase base = conexion.getWritableDatabase();
+        String consultaSql;
+        consultaSql = "INSERT INTO ENTRADA(IDUSUARIO, IDPRODUCTO, DESCRIPCION, FECHA, CANTIDAD, PRECIO, TOTAL) " +
+                "VALUES("+ entrada.getIdUsuario() +","+ entrada.getIdUsuario() +"," + entrada.getDescripcion() + "," + entrada.getFecha()+
+                ","+ entrada.getCantidad() + "," + entrada.getPrecio() + "," + entrada.getTotal() + ")";
+        base.execSQL(consultaSql);
+        exito = true;
+        return exito;
     }
 }

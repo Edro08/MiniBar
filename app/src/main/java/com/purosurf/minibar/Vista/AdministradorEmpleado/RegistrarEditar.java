@@ -123,6 +123,10 @@ public class RegistrarEditar extends AppCompatActivity {
             public void onClick(View view) {
                 Intent registo = new Intent(getApplicationContext(), ConfirmarRE.class);
                 registo.putExtra("accion", accion);
+                registo.putExtra("ProdName", tvNombreProductoRE.getText().toString().trim());
+                registo.putExtra("Cantidad", edtMinimaProductoRE.getText().toString().trim());
+                registo.putExtra("Precio", edtPrecioUnitarioRE.getText().toString().trim());
+                registo.putExtra("Descrip", edtDescripcionRE.getText().toString().trim());
                 lanzarActividad.launch(registo);
             }
         });
@@ -135,8 +139,6 @@ public class RegistrarEditar extends AppCompatActivity {
                 lanzarActividad.launch(seleccionarProducto);
             }
         });
-
-
 
         //AGREGAR - QUITAR CANTIDAD PRODUCTO
         btnQuitarCantidadRE.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +216,7 @@ public class RegistrarEditar extends AppCompatActivity {
                         finish();
                     } else if (result.getResultCode() == RESULT_OK){
                         flContenedorRE.setVisibility(View.VISIBLE); //mostrar contenedor
+                        tvNombreProductoRE.setText("Producto: " + result.getData().getStringExtra("name"));
                         tvComentarioRE.setVisibility(View.GONE);
                     }
                 }

@@ -32,7 +32,7 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
     Button btnIngresarAdmi,btnRecuperarLogin;
 
     String user, pass, nombreuser;
-    int iduser;
+    public static int iduser;
     IIniciarSesionPresentador iniciarSesionPresentador;
 
 

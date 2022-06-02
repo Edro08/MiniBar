@@ -18,8 +18,6 @@ public class ConfirmarRE extends AppCompatActivity {
                 tvEnunciadoCRE, // enunciado vista
                 tvProductoCRE, //nombre del producto
                 tvCantidadCRE, //cantidad producto
-                tvCantidadMinCRE, //cantidad min
-                tvCantidadMaxCRE, //cantidad max
                 tvPrecioUnitarioCRE;
     TextInputEditText edtDescripcionCRE; //descripcion de la entrada-salida
 
@@ -39,8 +37,6 @@ public class ConfirmarRE extends AppCompatActivity {
         tvEnunciadoCRE = findViewById(R.id.tvEnunciadoCRE);
         tvProductoCRE = findViewById(R.id.tvProductoCRE);
         tvCantidadCRE = findViewById(R.id.tvCantidadCRE);
-        tvCantidadMinCRE = findViewById(R.id.tvCantidadMinCRE);
-        tvCantidadMaxCRE = findViewById(R.id.tvCantidadMaxCRE);
         tvPrecioUnitarioCRE = findViewById(R.id.tvPrecioUnitarioCRE);
         edtDescripcionCRE = findViewById(R.id.edtDescripcionCRE);
 
@@ -53,24 +49,17 @@ public class ConfirmarRE extends AppCompatActivity {
         if (accion.equals("entrada")){
             tvAppBarCRE.setText("Confirmar Registro de Compra");
             tvEnunciadoCRE.setText("Detalle de compras");
-            tvProductoCRE.setText("Producto: ");
-            tvCantidadCRE.setText("Cantidad: ");
-            tvCantidadMinCRE.setText("Cantidad Mínima: ");
-            tvCantidadMaxCRE.setText("Cantidad Máxima: ");
-            tvPrecioUnitarioCRE.setText("Precio Unitario: ");
-            edtDescripcionCRE.setText("Duis sed quam ac urna sagittis dictum. Suspendisse et justo bibendum, condimentum orci at, sollicitudin nibh.");
             btnConfirmarCRE.setText("Confirmar Compra");
         } else if (accion.equals("salida")) {
             tvAppBarCRE.setText("Confirmar Edición de existencias");
             tvEnunciadoCRE.setText("Detalle de existencias");
-            tvProductoCRE.setText("Producto: ");
-            tvCantidadCRE.setText("Cantidad: ");
-            tvCantidadMinCRE.setText("Cantidad Mínima: ");
-            tvCantidadMaxCRE.setText("Cantidad Máxima: ");
-            tvPrecioUnitarioCRE.setText("Precio Unitario: ");
-            edtDescripcionCRE.setText("Duis sed quam ac urna sagittis dictum. Suspendisse et justo bibendum, condimentum orci at, sollicitudin nibh.");
             btnConfirmarCRE.setText("Confirmar edición");
         }
+
+        tvProductoCRE.setText(datos.getString("ProdName"));
+        tvCantidadCRE.setText("Cantidad: "+datos.getString("Cantidad"));
+        tvPrecioUnitarioCRE.setText("Precio Unitario: "+datos.getString("Precio"));
+        edtDescripcionCRE.setText(datos.getString("Descrip"));
 
         //evento botones
         btnConfirmarCRE.setOnClickListener(new View.OnClickListener() {

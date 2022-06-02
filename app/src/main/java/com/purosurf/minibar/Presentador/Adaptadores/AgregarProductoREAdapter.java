@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.AdministradorEmpleado.AgregarProductoRE;
 
 import java.util.List;
 
@@ -74,7 +75,8 @@ public class AgregarProductoREAdapter extends RecyclerView.Adapter<AgregarProduc
                         public void onClick(View view) {
                             rdbseleccion = getAdapterPosition();
                             notifyDataSetChanged();
-                            Toast.makeText(context, item.getProductoNombre(), Toast.LENGTH_SHORT).show();
+                            AgregarProductoRE.PrdSelct.clear();
+                            AgregarProductoRE.PrdSelct.add(item);
                         }
                     });
         }
