@@ -97,65 +97,20 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         app:columnCount="2"
-                        app:rowCount="4"
+                        app:rowCount="3"
                         app:useDefaultMargins="true"
                         >
 
                         <TextView
                             android:id="@+id/tvNombreProductoRE"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:gravity="center_vertical"
-                            android:text="Nombre Producto"
+                            android:text="Nombre Producto Nombre Producto "
                             android:textColor="@color/black"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            app:layout_columnSpan="2" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/btnQuitarCantidadRE"
-                                style="@style/Widget.Material3.Button.TextButton"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:drawableLeft="@drawable/ic_icono_quitar"
-                                android:drawableTint="@color/azulOscuro"
-                                app:rippleColor="@color/azulClaro" />
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:boxStrokeColor="@color/azul"
-                                app:hintTextColor="@color/azul">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/edtCantidadProductoRE"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:gravity="center_vertical|center_horizontal"
-                                    android:inputType="number"
-                                    android:text="0"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <Button
-                                android:id="@+id/btnAgregarCantidadRE"
-                                style="@style/Widget.Material3.Button.TextButton"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:drawableLeft="@drawable/ic_icono_agregar"
-                                android:drawableTint="@color/azulOscuro"
-                                app:rippleColor="@color/azulClaro" />
-                        </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -239,60 +194,6 @@
                                 app:rippleColor="@color/azulClaro" />
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:gravity="center_vertical"
-                            android:text="Cantidad Máxima"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
-
-                        <LinearLayout
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/btnQuitarMaximaRE"
-                                style="@style/Widget.Material3.Button.TextButton"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:drawableLeft="@drawable/ic_icono_quitar"
-                                android:drawableTint="@color/azulOscuro"
-                                app:rippleColor="@color/azulClaro" />
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:boxStrokeColor="@color/azul"
-                                app:hintTextColor="@color/azul">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/edtMaximaProductoRE"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:gravity="clip_horizontal|center_horizontal"
-                                    android:inputType="number"
-                                    android:text="0"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <Button
-                                android:id="@+id/btnAgregarMaximaRE"
-                                style="@style/Widget.Material3.Button.TextButton"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:drawableLeft="@drawable/ic_icono_agregar"
-                                android:drawableTint="@color/azulOscuro"
-                                app:rippleColor="@color/azulClaro" />
-                        </LinearLayout>
 
                     </androidx.gridlayout.widget.GridLayout>
 
