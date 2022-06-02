@@ -84,7 +84,6 @@ public class IniciarSesionPresentador implements IIniciarSesionPresentador {
         {
             estado = true;
             iniciarSesion_view.IdUser(datos.getInt(0));
-            iniciarSesion_view.NombreUsuario(datos.getString(4));
         }
         return estado;
     }

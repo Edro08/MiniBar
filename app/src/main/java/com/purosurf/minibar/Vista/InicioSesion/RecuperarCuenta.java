@@ -17,13 +17,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.purosurf.minibar.Presentador.InicioSesion.RecuperarCuentaPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.InicioSesion.Interfaces.IRecuperarCuenta_View;
+
+import java.util.Random;
 
 
-public class RecuperarCuenta extends AppCompatActivity {
+public class RecuperarCuenta extends AppCompatActivity implements IRecuperarCuenta_View {
 
     //ELEMENTOS
     FrameLayout flRecuperarCuenta; //contenedor que muestra/oculta la pregunta de seguridad si se tiene o no acceso a internet
@@ -34,6 +39,12 @@ public class RecuperarCuenta extends AppCompatActivity {
 
     //variables
     String correo, respuesta;
+    int idUsuario;
+
+    Bundle data;
+    ConnectivityManager connectivityManager;
+    NetworkInfo networkInfo;
+    RecuperarCuentaPresentador recuperarCuentaPresentador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +60,17 @@ public class RecuperarCuenta extends AppCompatActivity {
         edtCorreoRC = findViewById(R.id.edtCorreoRecuperarCuenta);
         btnReestablecerRC = findViewById(R.id.btnReestablecerRecuperarCuenta);
         btnRegresarRC = findViewById(R.id.btnRegresarRecuperarCuenta);
+        recuperarCuentaPresentador = new RecuperarCuentaPresentador(this);
+        //extraemos los datos bungle
+        data = getIntent().getExtras();
+        idUsuario = data.getInt("IdUser");
 
         //asignar visibilidad a la pregunta de seguridad
         // VISIBLE - visible
         // GONE - OCULTO
         //Verificar conexion a internet
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (networkInfo != null && networkInfo.isConnected()) {
             // Si hay conexión a Internet en este momento
@@ -65,19 +80,11 @@ public class RecuperarCuenta extends AppCompatActivity {
             flRecuperarCuenta.setVisibility(View.GONE);
         }
 
-
         //metodo del boton
         btnReestablecerRC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validarCorreo();
-                if (flRecuperarCuenta.getVisibility() == View.VISIBLE){
-                    Intent verificar = new Intent(getApplicationContext(), Verificar.class);
-                   lanzarActividad.launch(verificar);
-                } else {
-                    Intent reestablecer = new Intent(getApplicationContext(), ReestablecerContrasena.class);
-                   lanzarActividad.launch(reestablecer);
-                }
+                ValidarDatos();
             }
         });
 
@@ -90,23 +97,82 @@ public class RecuperarCuenta extends AppCompatActivity {
     }
 
   // validar campos vacios
-  public void validarCorreo() {
+  @Override
+  public void ValidarDatos() {
         respuesta = edtRespuestaRC.getText().toString();
+
         if (flRecuperarCuenta.getVisibility() == View.VISIBLE) {
-            correo = edtCorreoRC.getText().toString();
-            if (TextUtils.isEmpty(correo)) {
-                tilCorreoRC.setError("Debe ingresar correo");
-                tilCorreoRC.requestFocus();
-            } else if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
-                tilCorreoRC.setError("Debe ingresar un correo válido");
-                tilCorreoRC.requestFocus();
+
+            if(TextUtils.isEmpty(respuesta))
+            {
+                correo = edtCorreoRC.getText().toString();
+
+                if (TextUtils.isEmpty(correo)) {
+                    tilCorreoRC.setError("Debe ingresar correo para Recuperar cuenta");
+                    tilRespuestaRC.setError("O debe ingresar respuesta a la pregunta");
+                    tilCorreoRC.requestFocus();
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+                    tilCorreoRC.setError("Debe ingresar un correo válido");
+                    tilCorreoRC.requestFocus();
+                }
+                else
+                {
+                    RecuperarConCorreo(correo);
+                }
+            }
+            else
+            {
+                RecuperarConPregunta(respuesta);
             }
         } else {
             if (TextUtils.isEmpty(respuesta)) {
                 tilRespuestaRC.setError("Debe ingresar respuesta");
                 tilCorreoRC.requestFocus();
             }
+            else
+            {
+                RecuperarConPregunta(respuesta);
+            }
         }
+    }
+
+    @Override
+    public void RecuperarConCorreo(String correo) {
+        if (networkInfo != null && networkInfo.isConnected()) {
+            int codigo = recuperarCuentaPresentador.NumeroAleatorio();
+            if(recuperarCuentaPresentador.EnviarCorreo(correo, codigo))
+            {
+                Intent verificar = new Intent(getApplicationContext(), Verificar.class);
+                verificar.putExtra("codigo",codigo);
+                verificar.putExtra("idUsuario",idUsuario);
+                lanzarActividad.launch(verificar);
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "Fallo la Conexion! Intente nuevamente",Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            // No hay conexión a Internet en este momento
+            Toast.makeText(getApplicationContext(), "Conexión a Internet no disponible",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void RecuperarConPregunta(String respuesta) {
+        if(recuperarCuentaPresentador.VerificarRespuesta(
+                getApplicationContext(), respuesta, idUsuario).equals(respuesta))
+        {
+            Intent reestablecer = new Intent(getApplicationContext(), ReestablecerContrasena.class);
+            reestablecer.putExtra("respuesta",respuesta);
+            reestablecer.putExtra("idUsuario",idUsuario);
+            lanzarActividad.launch(reestablecer);
+        }
+        else
+        {
+            tilRespuestaRC.setError("Respuesta incorrecta!");
+            tilCorreoRC.requestFocus();
+        }
+
     }
 
     //lanzar actividad

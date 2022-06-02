@@ -86,7 +86,6 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
                 if(validarCapturaRecuperación())
                 {
                     Intent recuperar = new Intent(getApplicationContext(), RecuperarCuenta.class);
-                    recuperar.putExtra("Nombre", nombreuser);
                     recuperar.putExtra("IdUser", iduser);
                     recuperarCuenta.launch(recuperar);
                 }

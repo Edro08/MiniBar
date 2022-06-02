@@ -9,9 +9,11 @@ import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.purosurf.minibar.Presentador.InicioSesion.ReestablecerContrasenaPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.InicioSesion.Interfaces.IReestablecerContrasena_View;
 
-public class ReestablecerContrasena extends AppCompatActivity {
+public class ReestablecerContrasena extends AppCompatActivity implements IReestablecerContrasena_View {
 
     //ELEMENTOS
     TextInputLayout tilNuevoPassReesC, tilConfirmarReesC; //contenedor edt
@@ -20,6 +22,11 @@ public class ReestablecerContrasena extends AppCompatActivity {
 
     //variables
     String nuevaPass, confirmarPass;
+    int idUsuario;
+
+    Bundle data;
+
+    ReestablecerContrasenaPresentador reestablecerContrasenaPresentador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +41,20 @@ public class ReestablecerContrasena extends AppCompatActivity {
         btnConfirmarReesC = findViewById(R.id.btnConfirmarReesC);
         btnRegresarReesC = findViewById(R.id.btnRegresarReesC);
 
+        //Recuperar datos de Bundle
+        data = getIntent().getExtras();
+        idUsuario = data.getInt("idUsuario");
         //botones
         btnConfirmarReesC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validarCampos();
-                setResult(RESULT_OK);
-                finish();
+                if(validarCampos())
+                {
+                    reestablecerContrasenaPresentador.ActualizarContrasena(
+                            getApplicationContext(),idUsuario,nuevaPass);
+                    setResult(RESULT_OK);
+                    finish();
+                }
             }
         });
 
@@ -52,7 +66,10 @@ public class ReestablecerContrasena extends AppCompatActivity {
         });
 
     }
-    public void validarCampos(){
+
+    @Override
+    public boolean validarCampos(){
+        Boolean estado = false;
         nuevaPass = edtNuevoPassReesC.getText().toString().trim();
         confirmarPass = edtConfirmarReesC.getText().toString().trim();
 
@@ -63,5 +80,19 @@ public class ReestablecerContrasena extends AppCompatActivity {
             tilConfirmarReesC.setError("Debe confirmar la nueva contraseña");
             tilConfirmarReesC.requestFocus();
         }
+        else
+        {
+            if(nuevaPass.equals(confirmarPass))
+            {
+                estado = true;
+            }
+            else
+            {
+                tilNuevoPassReesC.setError("La contraseña no coinciden!");
+                tilConfirmarReesC.setError("La contraseña no coinciden!");
+                tilConfirmarReesC.requestFocus();
+            }
+        }
+        return  estado;
     }
 }
