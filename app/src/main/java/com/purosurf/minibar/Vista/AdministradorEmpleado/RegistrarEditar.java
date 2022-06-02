@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.purosurf.minibar.Modelo.Entrada;
+import com.purosurf.minibar.Modelo.Salida;
 import com.purosurf.minibar.Presentador.Administrador.GestionarInventarios.GestionarInventario;
 import com.purosurf.minibar.Presentador.Administrador.GestionarInventarios.Interfaces.IntrfcGestionInventarios;
 import com.purosurf.minibar.R;
@@ -168,6 +169,7 @@ public class RegistrarEditar extends AppCompatActivity implements ISeleccionarPr
      *   code 3 = generar reporte
      *   code 4 = ver existencia
      * */
+
     ActivityResultLauncher<Intent> lanzarActividad = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -178,11 +180,17 @@ public class RegistrarEditar extends AppCompatActivity implements ISeleccionarPr
                         cantidadProducto = Integer.parseInt(edtMinimaProductoRE.getText().toString().trim());
                         total = precioU * cantidadProducto;
                         Entrada entrada = new Entrada(0,IniciarSesion.iduser, idProducto,edtDescripcionRE.getText().toString().trim(),
-                                "2020-01-01",cantidadProducto,(float) precioU,(float) total);
+                                "2020-01-01", cantidadProducto, (float) precioU, (float) total);
                         intrfcGestionInventarios.InsertEntrada(entrada, getApplicationContext());
                         finish();
                     }else if(result.getResultCode() == 2){
                         setResult(2);
+                        precioU = Float.parseFloat(edtPrecioUnitarioRE.getText().toString().trim());
+                        cantidadProducto = Integer.parseInt(edtMinimaProductoRE.getText().toString().trim());
+                        total = precioU * cantidadProducto;
+                        Salida salida = new Salida(0, IniciarSesion.iduser, idProducto, edtDescripcionRE.getText().toString().trim(),
+                                "2020-01-01", cantidadProducto, (float) precioU, (float) total);
+                        intrfcGestionInventarios.InsertSalida(salida, getApplicationContext());
                         finish();
                     } else if (result.getResultCode() == RESULT_OK){
                         flContenedorRE.setVisibility(View.VISIBLE); //mostrar contenedor
