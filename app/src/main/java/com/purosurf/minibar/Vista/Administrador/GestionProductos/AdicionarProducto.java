@@ -19,18 +19,22 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.purosurf.minibar.Presentador.Administrador.GestionProductos.Interfaces.ISeleccionarProductoPresentador;
+import com.purosurf.minibar.Presentador.Administrador.GestionProductos.SeleccionarProductoPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionProductos.Interfaces.ISeleccionarProducto_View;
 
 import java.util.ArrayList;
 
-public class AdicionarProducto extends AppCompatActivity {
+public class AdicionarProducto extends AppCompatActivity implements ISeleccionarProducto_View {
 
     //ELEMENTOS
     TextInputLayout tilNombreAP, tilCategoriaAP, tilPrecioAP; //contenedores de EditText
-    TextInputEditText edtNombreAP, edtPrecioAP; //edit text
+    TextInputEditText edtNombreAP, edtPrecioAP, edtMaximo, edtMinimo; //edit text
     Switch swActivoAP; //estado activo
     AutoCompleteTextView actvCategoriaAP; //dropdown menu
     Button btnCargarImagenAP, btnSiguienteAP, btnRegresarAP;
+
 
     //ArrayList para llenar el spinner
     ArrayList<String> listaCategoria;
@@ -38,6 +42,8 @@ public class AdicionarProducto extends AppCompatActivity {
     //variables
     String nombre, categoria;
     float precio;
+
+    ISeleccionarProductoPresentador seleccionarProductoPresentador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +61,13 @@ public class AdicionarProducto extends AppCompatActivity {
         btnCargarImagenAP = findViewById(R.id.btnCargarImagenAP);
         btnSiguienteAP = findViewById(R.id.btnSiguienteAP);
         btnRegresarAP = findViewById(R.id.btnRegresarAP);
+        edtMaximo = findViewById(R.id.edtMaximaAP);
+        edtMinimo = findViewById(R.id.edtMinimaAP);
 
+        seleccionarProductoPresentador = new SeleccionarProductoPresentador(this);
 
         //=======Llenar dropdown menu
-        listaCategoria = new ArrayList<String>();
-        for (int i = 0; i <=6 ; i++){
-            listaCategoria.add("Categoría "+i);
-        }
+        listaCategoria = (ArrayList<String>) seleccionarProductoPresentador.listaCategorias(getApplicationContext());
         //adaptador para llenar el spinner
         ArrayAdapter categoriaAdapter = new ArrayAdapter
                 (this, //contexto
@@ -91,6 +97,11 @@ public class AdicionarProducto extends AppCompatActivity {
                 validarCampos();
                 Intent confirmar = new Intent(getApplicationContext(), ConfirmarDetalleProducto.class);
                 confirmar.putExtra("accion","adicionar");
+                confirmar.putExtra("nombre", edtNombreAP.getText().toString().trim());
+                confirmar.putExtra("categoria", actvCategoriaAP.getText().toString().trim());
+                confirmar.putExtra("precio", edtPrecioAP.getText().toString().trim());
+                confirmar.putExtra("maximo", edtMaximo.getText().toString().trim());
+                confirmar.putExtra("minimo", edtMinimo.getText().toString().trim());
                 lanzarActividad.launch(confirmar);
             }
         });
