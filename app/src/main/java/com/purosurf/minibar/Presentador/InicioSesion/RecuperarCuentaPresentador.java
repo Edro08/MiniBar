@@ -69,8 +69,10 @@ public class RecuperarCuentaPresentador implements IRecuperarCuentaPresentador {
             mimeMessage.setFrom(new InternetAddress(stringSenderEmail));
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
             mimeMessage.setSubject("Subject: Recuperacion de cuenta App Mini Bar");
-            mimeMessage.setText("Hello Programmer, \n\nProgrammer World has sent you this 2nd email." +
-                    " \n\n Cheers!\nProgrammer World: " + codigo);
+            mimeMessage.setText("Hola Usuario, " +
+                    "\n\nEsperamos de parte de Mini Bar del Hotel Puro Surf que tengas un buen dia" +
+                    "\n\nEnviamos el código de seguridad respectivo para el acceso a tu cuenta" +
+                    "\n\nCódigo de verificación: " + codigo);
 
             Thread thread = new Thread(new Runnable() {
                 @Override
