@@ -1,10 +1,17 @@
 package com.purosurf.minibar.Presentador.InicioSesion;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.purosurf.minibar.DB.MinibarBD;
+import com.purosurf.minibar.Modelo.Persona;
 import com.purosurf.minibar.Presentador.InicioSesion.Interfaces.IRecuperarCuentaPresentador;
 import com.purosurf.minibar.Vista.InicioSesion.Interfaces.IRecuperarCuenta_View;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -33,13 +40,52 @@ public class RecuperarCuentaPresentador implements IRecuperarCuentaPresentador {
     }
 
     @Override
-    public String VerificarCorreo(Context context, String correo, int idUsuario) {
-        return null;
+    public String PreguntaPersona(Context context, int idUsuario) {
+        //Conexión a la BD
+        MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
+        SQLiteDatabase base = conexion.getWritableDatabase();
+        String consultaSql;
+        consultaSql = "SELECT PREGUNTASEGURIDAD FROM PERSONA " +
+                "INNER JOIN USUARIO ON PERSONA.IDPERSONA = USUARIO.IDPERSONA " +
+                "WHERE IDUSUARIO = '" + idUsuario + "'";
+        Cursor datos = base.rawQuery(consultaSql, null);
+        datos.moveToFirst();
+        return datos.getString(0);
     }
 
     @Override
-    public String VerificarRespuesta(Context context, String respuesta, int idUsuario) {
-        return null;
+    public boolean VerificarCorreo(Context context, String correo, int idUsuario) {
+        boolean estado = false;
+        //Conexión a la BD
+        MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
+        SQLiteDatabase base = conexion.getWritableDatabase();
+        String consultaSql;
+        consultaSql = "SELECT CORREOELECTRONICO FROM PERSONA " +
+                "INNER JOIN USUARIO ON PERSONA.IDPERSONA = USUARIO.IDPERSONA " +
+                "WHERE IDUSUARIO = '" + idUsuario + "'";
+        Cursor datos = base.rawQuery(consultaSql, null);
+        datos.moveToFirst();
+        String correoactual = datos.getString(0).toLowerCase();
+        if(correoactual.equals(correo.toLowerCase())){ estado = true;}
+
+        return estado;
+    }
+
+    @Override
+    public boolean VerificarRespuesta(Context context, String respuesta, int idUsuario) {
+        boolean estado = false;
+        //Conexión a la BD
+        MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
+        SQLiteDatabase base = conexion.getWritableDatabase();
+        String consultaSql;
+        consultaSql = "SELECT REPUESTASEGURIDAD FROM PERSONA " +
+                "INNER JOIN USUARIO ON PERSONA.IDPERSONA = USUARIO.IDPERSONA " +
+                "WHERE IDUSUARIO = '" + idUsuario + "'";
+        Cursor datos = base.rawQuery(consultaSql, null);
+        datos.moveToFirst();
+        if(datos.getString(0).equals(respuesta)){ estado = true;}
+
+        return estado;
     }
 
     @Override
@@ -68,7 +114,7 @@ public class RecuperarCuentaPresentador implements IRecuperarCuentaPresentador {
             MimeMessage mimeMessage = new MimeMessage(session);
             mimeMessage.setFrom(new InternetAddress(stringSenderEmail));
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
-            mimeMessage.setSubject("Subject: Recuperacion de cuenta App Mini Bar");
+            mimeMessage.setSubject("Recuperacion de cuenta App Mini Bar");
             mimeMessage.setText("Hola Usuario, " +
                     "\n\nEsperamos de parte de Mini Bar del Hotel Puro Surf que tengas un buen dia" +
                     "\n\nEnviamos el código de seguridad respectivo para el acceso a tu cuenta" +
@@ -88,7 +134,7 @@ public class RecuperarCuentaPresentador implements IRecuperarCuentaPresentador {
             estado= true;
 
         } catch (Exception e) {
-            Log.e("tag", e.toString());
+
         }
 
         return estado;

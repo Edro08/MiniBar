@@ -44,6 +44,7 @@ public class ReestablecerContrasena extends AppCompatActivity implements IReesta
         //Recuperar datos de Bundle
         data = getIntent().getExtras();
         idUsuario = data.getInt("idUsuario");
+        reestablecerContrasenaPresentador = new ReestablecerContrasenaPresentador(this);
         //botones
         btnConfirmarReesC.setOnClickListener(new View.OnClickListener() {
             @Override

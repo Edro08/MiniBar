@@ -64,6 +64,7 @@ public class RecuperarCuenta extends AppCompatActivity implements IRecuperarCuen
         //extraemos los datos bungle
         data = getIntent().getExtras();
         idUsuario = data.getInt("IdUser");
+        tvPreguntaRC.setText(recuperarCuentaPresentador.PreguntaPersona(getApplicationContext(),idUsuario));
 
         //asignar visibilidad a la pregunta de seguridad
         // VISIBLE - visible
@@ -138,29 +139,39 @@ public class RecuperarCuenta extends AppCompatActivity implements IRecuperarCuen
 
     @Override
     public void RecuperarConCorreo(String correo) {
-        if (networkInfo != null && networkInfo.isConnected()) {
-            int codigo = recuperarCuentaPresentador.NumeroAleatorio();
-            if(recuperarCuentaPresentador.EnviarCorreo(correo, codigo))
-            {
-                Intent verificar = new Intent(getApplicationContext(), Verificar.class);
-                verificar.putExtra("codigo",codigo);
-                verificar.putExtra("idUsuario",idUsuario);
-                lanzarActividad.launch(verificar);
+        if(recuperarCuentaPresentador.VerificarCorreo(getApplicationContext(),
+                correo, idUsuario))
+        {
+            if (networkInfo != null && networkInfo.isConnected()) {
+                int codigo = recuperarCuentaPresentador.NumeroAleatorio();
+                if(recuperarCuentaPresentador.EnviarCorreo(correo, codigo))
+                {
+                    Intent verificar = new Intent(getApplicationContext(), Verificar.class);
+                    verificar.putExtra("codigo",codigo);
+                    verificar.putExtra("idUsuario",idUsuario);
+                    lanzarActividad.launch(verificar);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Fallo la Conexion! Intente nuevamente",Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // No hay conexión a Internet en este momento
+                Toast.makeText(getApplicationContext(), "Conexión a Internet no disponible",Toast.LENGTH_SHORT).show();
             }
-            else
-            {
-                Toast.makeText(getApplicationContext(), "Fallo la Conexion! Intente nuevamente",Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            // No hay conexión a Internet en este momento
-            Toast.makeText(getApplicationContext(), "Conexión a Internet no disponible",Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            tilCorreoRC.setError("Correo Electronico Incorrecto!");
+            tilCorreoRC.requestFocus();
         }
     }
+
 
     @Override
     public void RecuperarConPregunta(String respuesta) {
         if(recuperarCuentaPresentador.VerificarRespuesta(
-                getApplicationContext(), respuesta, idUsuario).equals(respuesta))
+                getApplicationContext(), respuesta, idUsuario))
         {
             Intent reestablecer = new Intent(getApplicationContext(), ReestablecerContrasena.class);
             reestablecer.putExtra("respuesta",respuesta);
