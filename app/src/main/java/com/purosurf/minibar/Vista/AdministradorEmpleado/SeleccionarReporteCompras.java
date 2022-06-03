@@ -68,7 +68,7 @@ public class SeleccionarReporteCompras extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent compras = new Intent(getApplicationContext(), DetalleReporteCons.class);
-                compras.putExtra("accion","compras");
+                compras.putExtra("accion",accion);
                 lanzarActividad.launch(compras);
             }
         });

@@ -99,7 +99,7 @@ public class GestionarInventarios extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent consumos = new Intent(getApplicationContext(), SeleccionarReporteConsumo.class);
-                consumos.putExtra("accion","consumos");
+                consumos.putExtra("accion","Consumo");
                 ventanaModal.cancel();
                 lanzarActividad.launch(consumos);
             }
@@ -109,7 +109,7 @@ public class GestionarInventarios extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent compras = new Intent(getApplicationContext(), SeleccionarReporteCompras.class);
-                compras.putExtra("accion","compras");
+                compras.putExtra("accion","Compra");
                 ventanaModal.cancel();
                 lanzarActividad.launch(compras);
             }
@@ -119,7 +119,7 @@ public class GestionarInventarios extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent edicion = new Intent(getApplicationContext(), DetalleReporteCons.class);
-                edicion.putExtra("accion","inventario");
+                edicion.putExtra("accion","Inventario");
                 ventanaModal.cancel();
                 lanzarActividad.launch(edicion);
             }
@@ -157,7 +157,7 @@ public class GestionarInventarios extends AppCompatActivity {
                         }else if(result.getResultCode() == 6){
                             mensaje = "Reporte de Compras guardado";
                         } else if(result.getResultCode() == 7){
-                            mensaje = "Reporte de edición de existencias guardado";
+                            mensaje = "Reporte de Inventario guardado";
                         }
                         Snackbar.make(findViewById(R.id.constraintInventarios), mensaje, Snackbar.LENGTH_LONG)
                                 .setTextColor(getColor(R.color.azulOscuro))
