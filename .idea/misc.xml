@@ -9,29 +9,38 @@
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1135" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1135" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_adicionar_habitacion.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_adicionar_productos.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_agregar_producto_mb.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_agregar_producto_re.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_confirmar_detalle_producto.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_deshabilitar_usuario.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_detalle_confirmar_consumo.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_detalle_reporte_cons.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_detalle_reporte_es.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_gestionar_inventarios.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_iniciar_sesion.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_inventario_mb.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_login_vista.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_menu_principal_vista.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_recuperar_cuenta.xml" value="0.25" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_reestablecer_contrasena.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_registrar_consumos.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_registrar_editar.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_compras.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_cons.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_consumo.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_es.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/mipmap-anydpi-v26/logo_puro_surf.xml" value="0.1" />
         <entry key="..\:/Users/Edrog/AndroidStudioProjects/MiniBar/app/src/main/res/mipmap-hdpi/ic_launcher.xml" value="0.1" />
-        <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/drawable-v24/background_splash.xml" value="0.139" />
         <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/layout/activity_adicionar_productos.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/layout/activity_agregar_producto_mb.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/layout/activity_agregar_producto_re.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/layout/activity_confirmar_detalle_producto.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/layout/activity_confirmar_re.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/layout/activity_registrar_editar.xml" value="0.21481481481481482" />
-        <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_cons.xml" value="0.23645833333333333" />
-        <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_es.xml" value="0.23645833333333333" />
-        <entry key="..\:/Users/WALTER/Desktop/MiniBar/app/src/main/res/mipmap-anydpi-v26/logo_puro_surf.xml" value="0.139" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/drawable-v24/background_splash.xml" value="0.305" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/drawable-v24/ic_icono_gestionar_productos.xml" value="0.305" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/drawable-v24/ic_icono_usuario.xml" value="0.2785" />

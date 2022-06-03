@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Vista.AdministradorEmpleado.SeleccionarReporteCons">
+    tools:context=".Vista.AdministradorEmpleado.SeleccionarReporteCompras">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:background="@color/azulPalido">
 
                 <Button
-                    android:id="@+id/btnRegresarSelecCons"
+                    android:id="@+id/btnRegresarSR"
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -31,7 +31,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Seleccionar Reporte"
+                    android:text="Selecciona Reporte"
                     android:textSize="20sp"
                     android:textColor="@color/azulOscuro"
                     />
@@ -39,34 +39,16 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <TextView
+            android:id="@+id/tvEnunciadoSR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            android:textColor="@color/azulOscuro"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:text="Reportes de consumo" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_margin="15dp"
-            android:hint="Seleccionar Habitación"
-            app:boxStrokeColor="@color/azul"
-            app:hintTextColor="@color/azul">
-
-            <AutoCompleteTextView
-                android:id="@+id/actvHabitacionCons"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/azulOscuro"
-                android:inputType="none"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:text="Reportes de compras"
+            android:textColor="@color/azulOscuro"
+            android:textSize="23sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,7 +67,7 @@
                 android:textSize="22sp" />
 
             <EditText
-                android:id="@+id/edtFechDesdeCnsm"
+                android:id="@+id/edtFechDesdeES"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -113,7 +95,7 @@
                 android:textSize="22sp" />
 
             <EditText
-                android:id="@+id/edtFechHastaCnsm"
+                android:id="@+id/edtFechHastaES"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -125,7 +107,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnConfRepCsm"
+            android:id="@+id/btnConfRepES"
             style="@style/Widget.Material3.Button"
             android:layout_width="200dp"
             android:layout_height="50dp"
@@ -138,6 +120,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:rippleColor="@color/azulVerde" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

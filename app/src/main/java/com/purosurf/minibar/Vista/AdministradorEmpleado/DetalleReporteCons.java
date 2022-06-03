@@ -22,6 +22,12 @@ public class DetalleReporteCons extends AppCompatActivity {
                 tvUsuarioReporteCons;
     TableLayout tblReporteCons;
 
+    //BUNDLE
+    Bundle datos;
+
+    //VARIABLES
+    String accion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,9 @@ public class DetalleReporteCons extends AppCompatActivity {
         tvUsuarioReporteCons = findViewById(R.id.tvUsuarioReporteCons);
         tblReporteCons = findViewById(R.id.tblReporteCons);
 
+        datos = getIntent().getExtras();
+        accion = datos.getString("accion");
+
         //mostrar texto
         tvNumeroReporteCons.setText("N° Reporte: ");
         tvHabitacionReporteCons.setText("Habitación: ");
@@ -51,8 +60,18 @@ public class DetalleReporteCons extends AppCompatActivity {
         btnGenerarReporteCons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult(5);
-                finish();
+                if (accion.equals("compras")){
+                    setResult(6); //code reporte entrada/compras
+                    finish();
+                }else if (accion.equals("inventario")){
+                    setResult(7); //code reporte inventario
+                    finish();
+                }else if(accion.equals("consumo"))
+                {
+                    setResult(5);//code reporte consumo
+                    finish();
+                }
+
             }
         });
 

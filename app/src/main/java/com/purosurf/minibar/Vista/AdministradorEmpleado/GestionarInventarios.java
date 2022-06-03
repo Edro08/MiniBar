@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
@@ -99,33 +98,30 @@ public class GestionarInventarios extends AppCompatActivity {
         cvReporteConsumos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent consumos = new Intent(getApplicationContext(), SeleccionarReporteCons.class);
+                Intent consumos = new Intent(getApplicationContext(), SeleccionarReporteConsumo.class);
                 consumos.putExtra("accion","consumos");
                 ventanaModal.cancel();
                 lanzarActividad.launch(consumos);
-                Toast.makeText(getApplicationContext(), "Consumo", Toast.LENGTH_SHORT).show();
             }
         });
             //reportes de compras
         cvReporteCompras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent compras = new Intent(getApplicationContext(), SeleccionarReporteES.class);
+                Intent compras = new Intent(getApplicationContext(), SeleccionarReporteCompras.class);
                 compras.putExtra("accion","compras");
                 ventanaModal.cancel();
                 lanzarActividad.launch(compras);
-                Toast.makeText(getApplicationContext(), "Compra", Toast.LENGTH_SHORT).show();
             }
         });
             //reportes de edicion de existencias
         cvReporteEdicion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edicion = new Intent(getApplicationContext(), SeleccionarReporteES.class);
-                edicion.putExtra("accion","edicion");
+                Intent edicion = new Intent(getApplicationContext(), DetalleReporteCons.class);
+                edicion.putExtra("accion","inventario");
                 ventanaModal.cancel();
                 lanzarActividad.launch(edicion);
-                Toast.makeText(getApplicationContext(), "Edicion", Toast.LENGTH_SHORT).show();
             }
         });
 
