@@ -34,7 +34,8 @@ public class RegistrarConsumosPresentador implements IRegistrarConsumosPresentad
                 "PRODUCTO.PRECIOUNITARIO, INVENTARIOHABITACION.EXISTENCIAS ,INVENTARIOHABITACION.CANTIDADMINIMA FROM INVENTARIOHABITACION " +
                 "INNER JOIN HABITACION ON HABITACION.IDHABITACION = INVENTARIOHABITACION.IDHABITACION " +
                 "INNER JOIN PRODUCTO ON PRODUCTO.IDPRODUCTO = INVENTARIOHABITACION.IDPRODUCTO " +
-                "WHERE INVENTARIOHABITACION.IDHABITACION = '"+ idHabitacion +"'";
+                "WHERE INVENTARIOHABITACION.IDHABITACION = '"+ idHabitacion +"'" +
+                "AND INVENTARIOHABITACION.EXISTENCIAS > 0";
         Cursor datos = base.rawQuery(consultaSql, null);
         while(datos.moveToNext()){
             listaInventarioHabitacion.add(new InventarioHabitacionProducto(datos.getInt(0),datos.getInt(1),
