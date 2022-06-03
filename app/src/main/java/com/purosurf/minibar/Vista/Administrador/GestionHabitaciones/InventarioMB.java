@@ -11,12 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.purosurf.minibar.Modelo.InventarioHabitacion;
+import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.Presentador.Adaptadores.InventarioMBAdapter;
 import com.purosurf.minibar.R;
 
@@ -26,18 +29,18 @@ import java.util.List;
 public class InventarioMB extends AppCompatActivity {
 
     //ELEMENTOS
-    Button btnRegresarMB, btnProcesarMB;
+    Button btnRegresarMB;
     TextView tvHabitacionMB;
     RecyclerView rvListaInventarioMB;
-    FloatingActionButton fabAgregarProductoMB;
-    FrameLayout flContenedorProductos; //contenedor oculto, si se agregan productos se muestra el contenedor con el recyclerview en su interior
-    TextView tvComentarioMB; //comentario
+    AutoCompleteTextView actvFiltroMB; //filtrar lista de productos (si se encuentran o no en el inventario)
 
     //ADAPTADOR
     InventarioMBAdapter inventarioAdapter;
+    ArrayAdapter<String> filtroAdapter;
 
     //LIST
-    List<InventarioHabitacion> lsInventario;
+    List<Producto> lsProducto;
+    ArrayList<String> lsFiltro;
 
 
     @Override
@@ -47,26 +50,39 @@ public class InventarioMB extends AppCompatActivity {
 
         //ASIGNAR ELEMENTOS
         btnRegresarMB = findViewById(R.id.btnRegresarMB);
-        btnProcesarMB = findViewById(R.id.btnProcesarMB);
         tvHabitacionMB = findViewById(R.id.tvHabitacionMB);
         rvListaInventarioMB = findViewById(R.id.rvListaInventarioMB);
-        fabAgregarProductoMB = findViewById(R.id.fabAgregarProductoMB);
-        flContenedorProductos = findViewById(R.id.flContenedorProductos);
-        tvComentarioMB = findViewById(R.id.tvComentarioMB);
+        actvFiltroMB = findViewById(R.id.actvFiltroMB);
 
         tvHabitacionMB.setText("Habitación: ");
 
+        //llenar drop down
+        lsFiltro = new ArrayList<String>();
+        for(int i = 1; i < 3; i++){
+            lsFiltro.add("Filtro: "+i);
+        }
+        filtroAdapter = new ArrayAdapter<String>(this, R.layout.dropdown_texto, lsFiltro);
+        actvFiltroMB.setAdapter(filtroAdapter);
 
         //Asignar RecyclerView
-        lsInventario = new ArrayList<InventarioHabitacion>();
+        lsProducto = new ArrayList<Producto>();
         for (int i = 1; i <= 10; i++){
-            lsInventario.add(new InventarioHabitacion(1,1, i, 20, 5));
+            lsProducto.add(new Producto(i, "Producto "+i, 1, 20, 1, "htttpX", "XD"));
         }
         //recyclerview
-        inventarioAdapter = new InventarioMBAdapter(lsInventario, this);
+        inventarioAdapter = new InventarioMBAdapter(lsProducto, this);
         rvListaInventarioMB.setHasFixedSize(false);
         rvListaInventarioMB.setLayoutManager(new LinearLayoutManager(this));
         rvListaInventarioMB.setAdapter(inventarioAdapter);
+
+            //evento seleccionar elemento
+        inventarioAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent inventario = new Intent(getApplicationContext(), AgregarProductoMB.class);
+                lanzarActividad.launch(inventario);
+            }
+        });
 
         //EVENTO BOTONES
         btnRegresarMB.setOnClickListener(new View.OnClickListener() {
@@ -76,23 +92,6 @@ public class InventarioMB extends AppCompatActivity {
             }
         });
 
-            //agregar productos
-        fabAgregarProductoMB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent agregar = new Intent(getApplicationContext(), AgregarProductoMB.class);
-                lanzarActividad.launch(agregar);
-            }
-        });
-
-            //pasar a pantalla confirmar
-        btnProcesarMB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent confirmar = new Intent(getApplicationContext(), ConfirmarInventarioMB.class);
-                lanzarActividad.launch(confirmar);
-            }
-        });
     }
 
     //lanzador de actividades
@@ -109,8 +108,6 @@ public class InventarioMB extends AppCompatActivity {
         @Override
         public void onActivityResult(ActivityResult result) {
             if (result.getResultCode() == RESULT_OK){
-                flContenedorProductos.setVisibility(View.VISIBLE);
-                tvComentarioMB.setVisibility(View.GONE);
             } else if (result.getResultCode() == 5){
                 setResult(5);
                 finish();

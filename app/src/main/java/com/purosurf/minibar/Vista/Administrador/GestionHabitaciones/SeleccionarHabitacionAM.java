@@ -93,7 +93,7 @@ public class SeleccionarHabitacionAM extends AppCompatActivity implements ISelec
                 accion.putExtra("idhabitacion",idhabitacion);
                 lanzarActividad.launch(accion);
             }else if(datos.getString("accion").equals("minibar")){
-                accion = new Intent(getApplicationContext(), DeshabilitarHabitacion.class);
+                accion = new Intent(getApplicationContext(), InventarioMB.class);
                 accion.putExtra("idhabitacion",idhabitacion);
                 accion.putExtra("accion","minibar"); //accion = minibar
                 lanzarActividad.launch(accion);
