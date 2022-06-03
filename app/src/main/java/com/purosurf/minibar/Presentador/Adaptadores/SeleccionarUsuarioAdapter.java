@@ -37,7 +37,7 @@ public class SeleccionarUsuarioAdapter extends RecyclerView.Adapter<SeleccionarU
     //seleccionar contenedor CardView XML
     @Override
     public SeleccionarUsuarioAdapter.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
-        View view = minFlater.inflate(R.layout.cardview_lista_recyclerview, null);
+        View view = minFlater.inflate(R.layout.cardview_lista_recyclerview, parent, false);
 
         //declarar onclick
         view.setOnClickListener(this);

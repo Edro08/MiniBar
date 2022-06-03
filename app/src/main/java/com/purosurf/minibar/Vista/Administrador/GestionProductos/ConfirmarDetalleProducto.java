@@ -45,6 +45,13 @@ public class ConfirmarDetalleProducto extends AppCompatActivity {
         //asignar enunciado
         if(accion.equals("adicionar")){
             tvEnunciadoCDP.setText("Confirmar Nuevo Producto");
+            //tvNombreCDP.setText("Producto"+datos.getString("nombre"));
+            //mostrar texto en pantalla
+            tvNombreCDP.setText("Nombre: "+datos.getString("nombre"));
+            tvCategoriaCDP.setText("Categoria: "+datos.getString("categoria"));
+            tvPrecioCDP.setText("Precio : $" + datos.getString("precio"));
+            tvEstadoCDP.setText("Estado: ");
+
         }else if(accion.equals("actualizar")){
             tvEnunciadoCDP.setText("Confirmar Actualizacion de Producto");
         }else if(accion.equals("listar")){
@@ -53,11 +60,6 @@ public class ConfirmarDetalleProducto extends AppCompatActivity {
             btnConfirmarCDP.setVisibility(View.GONE);
         }
 
-        //mostrar texto en pantalla
-        tvNombreCDP.setText("Nombre: ");
-        tvCategoriaCDP.setText("Categoria: ");
-        tvPrecioCDP.setText("Precio : $");
-        tvEstadoCDP.setText("Estado: ");
 
         //evento botones
         btnConfirmarCDP.setOnClickListener(new View.OnClickListener() {

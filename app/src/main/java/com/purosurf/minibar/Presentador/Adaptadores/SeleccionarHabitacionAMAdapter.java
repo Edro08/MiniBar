@@ -37,7 +37,7 @@ public class SeleccionarHabitacionAMAdapter extends RecyclerView.Adapter<Selecci
     //Seleccionar el conteneedor CardView
     @Override
     public SeleccionarHabitacionAMAdapter.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
-        View view = minFlater.inflate(R.layout.cardview_seleccionar_habitacion_admi, null);
+        View view = minFlater.inflate(R.layout.cardview_seleccionar_habitacion_admi, parent, false);
 
         //declarar onclick
         view.setOnClickListener(this);

@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.MailTo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +17,15 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.purosurf.minibar.Modelo.Entrada;
+import com.purosurf.minibar.Modelo.Salida;
+import com.purosurf.minibar.Presentador.Administrador.GestionarInventarios.GestionarInventario;
+import com.purosurf.minibar.Presentador.Administrador.GestionarInventarios.Interfaces.IntrfcGestionInventarios;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionProductos.Interfaces.ISeleccionarProducto_View;
+import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
 
-public class RegistrarEditar extends AppCompatActivity {
+public class RegistrarEditar extends AppCompatActivity implements ISeleccionarProducto_View {
     //===============Actividad Registrar entrada y Editar Existencias (Salidas)===============
 
     //ELEMENTOS
@@ -33,18 +40,14 @@ public class RegistrarEditar extends AppCompatActivity {
         //Edit Text
     TextInputLayout tilPrecioUnitarioRE; //contenedor del edt precio
     TextInputEditText   edtPrecioUnitarioRE,//edt precio unitario producto
-                        edtCantidadProductoRE, //edt cantidad de producto
                         edtMinimaProductoRE, //edt cantidad minima producto
-                        edtMaximaProductoRE, //edt cantidad maxima producto
                         edtDescripcionRE; //edt descripcion del registro
 
         //Botones para controlar cantidades
-    Button  btnQuitarCantidadRE, // quitar cantidad de producto
-            btnAgregarCantidadRE, //agregar cantidad de producto
+    Button
             btnQuitarMinimaRE, //quitar cantidad minima
-            btnAgregarMinimaRE, //agregar cantidad minima
-            btnQuitarMaximaRE, //quitar cantidad maxima
-            btnAgregarMaximaRE; //agregar cantidad maxima
+            btnAgregarMinimaRE; //agregar cantidad minima
+
         //contenedor
     FrameLayout flContenedorRE; //contenedor que se muestra cuando el usuario agrega al producto
     TextView tvComentarioRE;
@@ -52,16 +55,19 @@ public class RegistrarEditar extends AppCompatActivity {
 
     //VARIABLES
     int cantidadProducto, // almacenar cantidad edt
+        idProducto,
         cantidadMinima, // almacenar cantidad minima edt
         cantidadMaxima; // almacenar cantidad maxima edt
 
-    double precioU; //precio unitario
+    double precioU, total; //precio unitario
     String descripcion; // descripcion de la entrada/salida
 
     String accion; //capturar bundle (si el formulario es de entrada o salida)
 
     //BUNDLE
     Bundle datos;
+
+    IntrfcGestionInventarios intrfcGestionInventarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,19 +82,15 @@ public class RegistrarEditar extends AppCompatActivity {
         tvEnunciadoRE = findViewById(R.id.tvEnunciadoRE);
         tvNombreProductoRE = findViewById(R.id.tvNombreProductoRE);
         tilPrecioUnitarioRE = findViewById(R.id.tilPrecioUnitarioRE);
-        edtCantidadProductoRE = findViewById(R.id.edtCantidadProductoRE);
         edtPrecioUnitarioRE = findViewById(R.id.edtPrecioUnitarioRE);
         edtMinimaProductoRE = findViewById(R.id.edtMinimaProductoRE);
-        edtMaximaProductoRE = findViewById(R.id.edtMaximaProductoRE);
         edtDescripcionRE = findViewById(R.id.edtDescripcionRE);
-        btnQuitarCantidadRE = findViewById(R.id.btnQuitarCantidadRE);
-        btnAgregarCantidadRE = findViewById(R.id.btnAgregarCantidadRE);
         btnQuitarMinimaRE = findViewById(R.id.btnQuitarMinimaRE);
         btnAgregarMinimaRE = findViewById(R.id.btnAgregarMinimaRE);
-        btnQuitarMaximaRE = findViewById(R.id.btnQuitarMaximaRE);
-        btnAgregarMaximaRE = findViewById(R.id.btnAgregarMaximaRE);
         flContenedorRE = findViewById(R.id.flContenedorRE);
         tvComentarioRE = findViewById(R.id.tvComentarioRE);
+
+        intrfcGestionInventarios = new GestionarInventario(this);
 
         //bundle
         datos = getIntent().getExtras();
@@ -121,9 +123,13 @@ public class RegistrarEditar extends AppCompatActivity {
         btnRegistrarRE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registo = new Intent(getApplicationContext(), ConfirmarRE.class);
-                registo.putExtra("accion", accion);
-                lanzarActividad.launch(registo);
+                    Intent registo = new Intent(getApplicationContext(), ConfirmarRE.class);
+                    registo.putExtra("accion", accion);
+                    registo.putExtra("ProdName", tvNombreProductoRE.getText().toString().trim());
+                    registo.putExtra("Cantidad", edtMinimaProductoRE.getText().toString().trim());
+                    registo.putExtra("Precio", edtPrecioUnitarioRE.getText().toString().trim());
+                    registo.putExtra("Descrip", edtDescripcionRE.getText().toString().trim());
+                    lanzarActividad.launch(registo);
             }
         });
             //seleccionar productos
@@ -133,27 +139,6 @@ public class RegistrarEditar extends AppCompatActivity {
                 Intent seleccionarProducto = new Intent(getApplicationContext(), AgregarProductoRE.class);
                 seleccionarProducto.putExtra("accion", accion);
                 lanzarActividad.launch(seleccionarProducto);
-            }
-        });
-
-
-
-        //AGREGAR - QUITAR CANTIDAD PRODUCTO
-        btnQuitarCantidadRE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(cantidadProducto > 0) {
-                    cantidadProducto--;
-                    edtCantidadProductoRE.setText(""+cantidadProducto);
-                }
-            }
-        });
-
-        btnAgregarCantidadRE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cantidadProducto++;
-                edtCantidadProductoRE.setText(""+cantidadProducto);
             }
         });
 
@@ -176,24 +161,6 @@ public class RegistrarEditar extends AppCompatActivity {
             }
         });
 
-        //AGREGAR - QUITAR CANTIDAD MAXIMA
-        btnQuitarMaximaRE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(cantidadMaxima > 0){
-                    cantidadMaxima--;
-                    edtMaximaProductoRE.setText(""+cantidadMaxima);
-                }
-            }
-        });
-
-        btnAgregarMaximaRE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cantidadMaxima++;
-                edtMaximaProductoRE.setText(""+cantidadMaxima);
-            }
-        });
     }
 
     //lanzador de actividades
@@ -202,18 +169,33 @@ public class RegistrarEditar extends AppCompatActivity {
      *   code 3 = generar reporte
      *   code 4 = ver existencia
      * */
+
     ActivityResultLauncher<Intent> lanzarActividad = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == 1){
                         setResult(1);
+                        precioU = Float.parseFloat(edtPrecioUnitarioRE.getText().toString().trim());
+                        cantidadProducto = Integer.parseInt(edtMinimaProductoRE.getText().toString().trim());
+                        total = precioU * cantidadProducto;
+                        Entrada entrada = new Entrada(0,IniciarSesion.iduser, idProducto,edtDescripcionRE.getText().toString().trim(),
+                                "2020-01-01", cantidadProducto, (float) precioU, (float) total);
+                        intrfcGestionInventarios.InsertEntrada(entrada, getApplicationContext());
                         finish();
                     }else if(result.getResultCode() == 2){
                         setResult(2);
+                        precioU = Float.parseFloat(edtPrecioUnitarioRE.getText().toString().trim());
+                        cantidadProducto = Integer.parseInt(edtMinimaProductoRE.getText().toString().trim());
+                        total = precioU * cantidadProducto;
+                        Salida salida = new Salida(0, IniciarSesion.iduser, idProducto, edtDescripcionRE.getText().toString().trim(),
+                                "2020-01-01", cantidadProducto, (float) precioU, (float) total);
+                        intrfcGestionInventarios.InsertSalida(salida, getApplicationContext());
                         finish();
                     } else if (result.getResultCode() == RESULT_OK){
                         flContenedorRE.setVisibility(View.VISIBLE); //mostrar contenedor
+                        tvNombreProductoRE.setText("Producto: " + result.getData().getStringExtra("name"));
+                        idProducto = result.getData().getIntExtra("id",0);
                         tvComentarioRE.setVisibility(View.GONE);
                     }
                 }
