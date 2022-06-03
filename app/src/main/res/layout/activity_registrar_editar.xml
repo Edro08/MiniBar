@@ -56,7 +56,7 @@
 
         <FrameLayout
             android:id="@+id/flContenedorRE"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -103,8 +103,8 @@
 
                         <TextView
                             android:id="@+id/tvNombreProductoRE"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:text="Nombre Producto Nombre Producto "
                             android:textColor="@color/black"
@@ -144,7 +144,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:gravity="center"
-                            android:text="Cantidad Mínima"
+                            android:text="Cantidad"
                             android:textColor="@color/black"
                             android:textSize="20sp" />
 
