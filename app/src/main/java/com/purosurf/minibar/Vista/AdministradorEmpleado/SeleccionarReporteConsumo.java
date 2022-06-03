@@ -5,6 +5,8 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -18,7 +20,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.purosurf.minibar.Modelo.Consumo;
 import com.purosurf.minibar.Modelo.Habitacion;
+import com.purosurf.minibar.Presentador.Adaptadores.ConsumoAdapter;
 import com.purosurf.minibar.Presentador.AdministradorEmpleado.SeleccionarReporteConsumoPresentador;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.AdministradorEmpleado.Interfaces.ISeleccionarReporteConsumo_View;
@@ -32,13 +36,18 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
     //ELEMENTOS
     Button btnRegresarSelecCons, btnConfRepCsm;
     AutoCompleteTextView actvHabitacionCons;
+    RecyclerView rvSeleccionarReporteCons;
 
     //LISTAS
     ArrayList<String> lsHabitacion;
+    List<Consumo> lsConsumo;
     List<Habitacion> datosHabitacion;
     SeleccionarReporteConsumoPresentador seleccionarReporteComprasPresentador;
+    String accion;
+    Bundle datos;
 
     //ADAPTADOR
+    ConsumoAdapter consumoAdapter;
     ArrayAdapter<String> habitacionAdapter;
 
     EditText edtFechDesde, edtFechHasta;
@@ -54,7 +63,12 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
         edtFechDesde = findViewById(R.id.edtFechDesdeCnsm);
         edtFechHasta = findViewById(R.id.edtFechHastaCnsm);
         btnConfRepCsm = findViewById(R.id.btnConfRepCsm);
+        rvSeleccionarReporteCons = findViewById(R.id.rvSeleccionarReporteCons);
         seleccionarReporteComprasPresentador = new SeleccionarReporteConsumoPresentador(this);
+
+        //obtener intent
+        datos = getIntent().getExtras();
+        accion = datos.getString("accion");
 
         //llenar dropdown menu
         lsHabitacion = new ArrayList<String>();
@@ -103,10 +117,29 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
             }
         });
 
+        //recyclerview
+        lsConsumo = new ArrayList<Consumo>();
+        consumoAdapter = new ConsumoAdapter(lsConsumo, this);
+        rvSeleccionarReporteCons.setHasFixedSize(false);
+        rvSeleccionarReporteCons.setLayoutManager(new LinearLayoutManager(this));
+
+        consumoAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent compras = new Intent(getApplicationContext(), DetalleReporteCons.class);
+                compras.putExtra("accion",accion);
+                lanzarActividad.launch(compras);
+            }
+        });
+
         btnConfRepCsm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                lsConsumo.clear();
+                for (int indice = 1; indice <= 7; indice++){
+                    lsConsumo.add(new Consumo(indice, 1, indice, indice+"/05/2022", 20));
+                }
+                rvSeleccionarReporteCons.setAdapter(consumoAdapter);
             }
         });
 
