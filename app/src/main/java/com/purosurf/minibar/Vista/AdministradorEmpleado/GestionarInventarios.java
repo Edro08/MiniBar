@@ -35,6 +35,7 @@ public class GestionarInventarios extends AppCompatActivity {
         cvEditarInventarios = findViewById(R.id.cvEditarInventarios); //editar existencias
         cvReportesInventarios = findViewById(R.id.cvReportesInventarios); //generar reportes
         cvExistenciasInventarios = findViewById(R.id.cvExistenciasInventarios); //ver existencias
+        cvEditarInventarios.setVisibility(View.GONE); //Ocultar editar existencias
 
         //evento boton
             //regresar pantalla anterior
