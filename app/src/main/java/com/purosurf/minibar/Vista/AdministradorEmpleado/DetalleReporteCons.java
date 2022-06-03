@@ -173,7 +173,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
             }
             tvProducto.setTextColor(getColor(R.color.black));
             tvProducto.setTextSize(16); //16sp
-            tvProducto.setMaxWidth(200);
+            tvProducto.setMaxWidth(400);
             tvProducto.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
             row1.addView(tvProducto);
 
@@ -208,6 +208,12 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
             row1.addView(tvSubTotal);
             //agregar a la fila
             tblReporteCons.addView(row1);
+
+            //divider
+            TableRow rowsep = new TableRow(this);
+            rowsep.setBackgroundColor(getColor(R.color.grisFondo));
+            rowsep.setMinimumHeight(2);//
+            tblReporteCons.addView(rowsep);
         }
 
         //divider
