@@ -33,6 +33,7 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
 
     String user, pass, nombreuser;
     public static int iduser;
+    public static String usuario;
     IIniciarSesionPresentador iniciarSesionPresentador;
 
 
@@ -59,19 +60,16 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
                 {
                     if (iniciarSesionPresentador.OnIniciarSesion(user,pass,getApplicationContext()))
                     {
+                        usuario = nombreuser;
                         if(iniciarSesionPresentador.typeUser(user))
                         {
                             Intent menu = new Intent(getApplicationContext(), SeleccionarGestion.class);
-                            menu.putExtra("Nombre", nombreuser);
-                            menu.putExtra("IdUser", iduser);
                             startActivity(menu);
                             finish();
                         }
                         else
                         {
                             Intent menu = new Intent(getApplicationContext(), MenuEmpleado.class);
-                            menu.putExtra("Nombre", nombreuser);
-                            menu.putExtra("IdUser", iduser);
                             startActivity(menu);
                             finish();
                         }

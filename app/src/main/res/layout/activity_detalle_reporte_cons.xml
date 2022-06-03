@@ -171,20 +171,20 @@
         </LinearLayout>
 
     </ScrollView>
-    
+
     <Button
         android:id="@+id/btnGenerarReporteCons"
         style="@style/Widget.Material3.Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="260dp"
+        android:layout_height="44dp"
         android:layout_gravity="center"
         android:layout_margin="15dp"
         android:backgroundTint="@color/azul"
-        app:rippleColor="@color/azulVerde"
-        android:text="Generar Reporte"
-        android:textSize="18sp"/>
+        android:text="Generar y Enviar Reporte"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:rippleColor="@color/azulVerde" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

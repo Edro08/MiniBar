@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.AdministradorEmpleado.GestionarInventarios;
+import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
 
 
 public class MenuEmpleado extends AppCompatActivity {
@@ -25,7 +26,6 @@ public class MenuEmpleado extends AppCompatActivity {
     TextView tvBienvenidoME;
     FloatingActionButton fabCerrarSesionME;
     CardView cvGestionarInventarioME, cvRegistrarConsumosME; //cardview que simulan los botones de navegacion
-    Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +38,8 @@ public class MenuEmpleado extends AppCompatActivity {
         cvGestionarInventarioME = findViewById(R.id.cvGestionarInventariosME);
         cvRegistrarConsumosME = findViewById(R.id.cvRegistrarConsumosME);
 
-        //extraemos los datos bungle
-        data = getIntent().getExtras();
 
-        tvBienvenidoME.setText("¡Bienvenido \" `"+ data.getString("Nombre") +" \" !"); //mensaje de bienvenida con el nombre de usuario
+        tvBienvenidoME.setText("¡Bienvenido \" `"+ IniciarSesion.usuario +" \" !"); //mensaje de bienvenida con el nombre de usuario
 
         //boton flotante
         fabCerrarSesionME.setOnClickListener(new View.OnClickListener() {

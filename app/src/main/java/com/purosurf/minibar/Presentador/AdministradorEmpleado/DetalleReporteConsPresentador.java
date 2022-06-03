@@ -1,12 +1,23 @@
 package com.purosurf.minibar.Presentador.AdministradorEmpleado;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.util.Log;
+import android.widget.Toast;
 
+import androidx.core.content.FileProvider;
+
+import com.purosurf.minibar.BuildConfig;
 import com.purosurf.minibar.DB.MinibarBD;
 import com.purosurf.minibar.Presentador.AdministradorEmpleado.Interfaces.IDetalleReporteConsPresentador;
 import com.purosurf.minibar.Vista.AdministradorEmpleado.Interfaces.IDetalleReporteCons_View;
+
+import java.io.File;
+import java.io.OutputStreamWriter;
 
 public class DetalleReporteConsPresentador implements IDetalleReporteConsPresentador {
     IDetalleReporteCons_View iDetalleReporteCons_view;

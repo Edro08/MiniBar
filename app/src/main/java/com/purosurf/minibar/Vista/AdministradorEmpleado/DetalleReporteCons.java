@@ -1,22 +1,32 @@
 package com.purosurf.minibar.Vista.AdministradorEmpleado;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
+import android.content.ClipData;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.purosurf.minibar.BuildConfig;
 import com.purosurf.minibar.Presentador.AdministradorEmpleado.DetalleReporteConsPresentador;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.AdministradorEmpleado.Interfaces.IDetalleReporteCons_View;
 import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
 
+import java.io.File;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -40,7 +50,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
     DetalleReporteConsPresentador detalleReporteConsPresentador;
 
     //VARIABLES
-    String accion, fecha = "", usuario = "", numReport = "", habitacion = "";
+    String accion, fecha = "", idusuario = "", numReport = "", habitacion = "", NombreArchivo = "";
     double Total = 0;
 
 
@@ -65,7 +75,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
 
         datos = getIntent().getExtras();
         accion = datos.getString("accion");
-        usuario = String.valueOf(IniciarSesion.iduser);
+        idusuario = String.valueOf(IniciarSesion.iduser);
 
         if(accion.equals("Consumo"))
         {
@@ -81,7 +91,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
             tvHabitacionReporteCons.setVisibility(View.GONE);
             if(accion.equals("Compra"))
             {
-                numReport = "RP-COM-" + usuario;
+                numReport = "RP-COM-" + idusuario;
                 fecha = "Desde " + datos.getString("fechaDesde") + " Hasta " + datos.getString("fechaHasta");
                 tv_TrCampo3.setText("Fecha");
                 datosReportes = detalleReporteConsPresentador.DatosCompra(getApplicationContext(),
@@ -90,7 +100,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
             else if(accion.equals("Inventario"))
             {
                 fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                numReport = "RP-INV-" + usuario + "-" + fecha;
+                numReport = "RP-INV-" + idusuario + "-" + fecha;
                 tv_TrCampo2.setText("Existencias");
                 tv_TrCampo3.setText("Precio");
                 datosReportes = detalleReporteConsPresentador.DatosInventario(getApplicationContext());
@@ -102,7 +112,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
         tvNumeroReporteCons.setText("N° Reporte: " + numReport);
         tvHabitacionReporteCons.setText("Habitación: " + habitacion);
         tvFechaReporteCons.setText("Fecha: " + fecha);
-        tvUsuarioReporteCons.setText("Usuario: " + usuario);
+        tvUsuarioReporteCons.setText("Usuario: " + IniciarSesion.usuario);
         TableLayoutllenarFilas();
 
         //evento botones
@@ -110,6 +120,11 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
         btnGenerarReporteCons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(GenerarReporte(numReport))
+                {
+                    CompartirReporte(NombreArchivo);
+                }
+
                 if (accion.equals("Compra")){
                     setResult(6); //code reporte entrada/compras
                     finish();
@@ -158,6 +173,8 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
             }
             tvProducto.setTextColor(getColor(R.color.black));
             tvProducto.setTextSize(16); //16sp
+            tvProducto.setMaxWidth(200);
+            tvProducto.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
             row1.addView(tvProducto);
 
             //columna cantidad o existencias
@@ -225,6 +242,52 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
             row3.addView(tvSuma);
 
             tblReporteCons.addView(row3);
+        }
+    }
+
+    @Override
+    public boolean GenerarReporte(String nombreReporte) {
+        boolean estado = false;
+        NombreArchivo = nombreReporte + ".txt";
+        String Informacion = "Información de mini bar";
+        try
+        {
+            OutputStreamWriter Archivo = new OutputStreamWriter(
+                    openFileOutput(NombreArchivo, Context.MODE_PRIVATE));
+            Archivo.write(Informacion);
+            Archivo.flush();
+            Archivo.close();
+            estado = true;
+        }
+        catch (Exception e)
+        {
+            Log.e("Error",e.toString());
+            Toast.makeText(getApplicationContext(), "No se puede Generar el reporte", Toast.LENGTH_SHORT).show();
+        }
+        return estado;
+    }
+
+    @Override
+    public void CompartirReporte(String nombreReporte) {
+        try {
+            File file = new File(getFilesDir(), nombreReporte);
+            Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", file);
+
+            Intent share = new Intent(Intent.ACTION_SEND);
+            share.setType("application/txt");
+            share.setClipData(ClipData.newRawUri("", contentUri));
+            share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            share.putExtra(Intent.EXTRA_SUBJECT, "Mini Bar");
+            share.putExtra(Intent.EXTRA_STREAM, contentUri);
+            String Cadena = "Información de App Mini Bar";
+            share.putExtra(Intent.EXTRA_TEXT, Cadena);
+            startActivity(Intent.createChooser(share, "Compartir"));
+
+        }
+        catch (Exception e)
+        {
+            Log.e("Error",e.toString());
         }
     }
 }
