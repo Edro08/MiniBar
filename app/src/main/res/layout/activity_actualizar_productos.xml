@@ -296,22 +296,28 @@
 
                 </ImageView>
 
-                <Button
-                    android:id="@+id/btnCargarNuevaACP"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:drawableLeft="@drawable/ic_icono_cargar_imagen"
-                    android:drawableTint="@color/azul"
-                    android:gravity="center"
-                    android:text="Cargar Imagen"
-                    android:textColor="@color/azul"
-                    android:textSize="18sp"
-                    app:rippleColor="@color/azulVerde"
-                    app:strokeColor="@color/azul">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilImagenACP"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Imagen URL"
+                    app:boxStrokeColor="@color/azul"
+                    app:hintTextColor="@color/azul">
 
-                </Button>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtImagenACP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_icono_imagen"
+                        android:drawablePadding="7dp"
+                        android:drawableTint="@color/azul"
+                        android:inputType=""
+                        android:textColor="@color/azulOscuro"
+                        android:textSize="18sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <Button
                     android:id="@+id/btnSiguienteACP"
