@@ -64,12 +64,11 @@
 
                 <TextView
                     android:id="@+id/tvNombreProductoAMB"
-                    android:layout_width="wrap_content"
-                    android:maxWidth="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Producto: NOMBRE COMPLETO PRODUCTO"
+                    android:text="Producto: NOMBRE COMPLETO PRODUCTO PRODUCTO"
                     android:textColor="@color/black"
                     android:layout_margin="15dp"/>
 
@@ -77,25 +76,25 @@
                     android:id="@+id/tvExistenciasAMB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:text="Existencias: "
                     android:textColor="@color/black"
                     android:layout_margin="15dp"/>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_gravity="center_vertical"
-                        android:layout_width="150dp"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        android:text="Cantidad a
-                        ingresar/Retirar: "
+                        android:text="Cantidad a ingresar/Retirar: "
                         android:textColor="@color/black"
                         android:layout_margin="15dp"/>
 
@@ -111,7 +110,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"
                         app:boxStrokeColor="@color/azul"
@@ -145,18 +144,19 @@
 
                 <LinearLayout
                     android:layout_marginBottom="7dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="150dp"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_margin="15dp"
                         android:text="Mínima: "
                         android:textColor="@color/black"
-                        android:textSize="16sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <Button
@@ -172,7 +172,7 @@
                     <com.google.android.material.textfield.TextInputLayout
 
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:boxStrokeColor="@color/azul"
                         app:hintTextColor="@color/azul">
