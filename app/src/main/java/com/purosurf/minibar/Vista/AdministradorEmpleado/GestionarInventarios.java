@@ -63,7 +63,7 @@ public class GestionarInventarios extends AppCompatActivity {
             public void onClick(View view) {
                 Intent salida = new Intent(getApplicationContext(), RegistrarEditar.class);
                 salida.putExtra("accion","salida");
-                lanzarActividad.launch(salida);
+                //lanzarActividad.launch(salida);
             }
         });
             ///generar reportes
