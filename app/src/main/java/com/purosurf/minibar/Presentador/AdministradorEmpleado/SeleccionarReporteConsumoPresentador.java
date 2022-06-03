@@ -52,12 +52,11 @@ public class SeleccionarReporteConsumoPresentador implements ISeleccionarReporte
         consultaSql = "SELECT * FROM CONSUMO " +
                 "WHERE IDHABITACION = '" + IdHabitacion + "'" +
                 "AND FECHA BETWEEN '" + FechaDesde + "' AND '" + FechaHasta + "'" +
-                "ORDER BY FECHA DESC";
+                "ORDER BY IDCONSUMO DESC";
         Cursor datos = base.rawQuery(consultaSql, null);
         while(datos.moveToNext()){
             datosConsumoHabitacion.add(new Consumo(datos.getInt(0),datos.getInt(1),
                     datos.getInt(2), datos.getString(3), datos.getFloat(4)));
-            Log.e("Tag","No hay datos");
         }
         datos.close();
         return datosConsumoHabitacion;
