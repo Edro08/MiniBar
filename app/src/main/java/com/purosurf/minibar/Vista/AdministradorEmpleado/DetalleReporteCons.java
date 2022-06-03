@@ -81,8 +81,8 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
         {
             tvHabitacionReporteCons.setVisibility(View.VISIBLE);
             numReport = "RP-CONS-" + datos.getInt("idHabitacion") + "-" + datos.getInt("idConsumo");
-            fecha = "ALGO";
-            habitacion = "" + datos.getInt("idHabitacion");
+            fecha = "" + datos.getString("fecha");
+            habitacion = "" + datos.getString("nombreHabitacion");
             datosReportes = detalleReporteConsPresentador.DatosConsumoHabitacion(
                     getApplicationContext(), datos.getInt("idConsumo"));
         }
@@ -92,7 +92,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
             if(accion.equals("Compra"))
             {
                 numReport = "RP-COM-" + idusuario;
-                fecha = "Desde " + datos.getString("fechaDesde") + " Hasta " + datos.getString("fechaHasta");
+                fecha = "desde " + datos.getString("fechaDesde") + " hasta " + datos.getString("fechaHasta");
                 tv_TrCampo3.setText("Fecha");
                 datosReportes = detalleReporteConsPresentador.DatosCompra(getApplicationContext(),
                         datos.getString("fechaDesde"),datos.getString("fechaHasta"));

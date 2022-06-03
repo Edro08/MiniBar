@@ -46,7 +46,7 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
     List<Consumo> lsConsumo;
     List<Habitacion> datosHabitacion;
     SeleccionarReporteConsumoPresentador seleccionarReporteConsumoPresentador;
-    String accion, fechaDesde, fechaHasta;
+    String accion, fechaDesde, fechaHasta, nombreHabitacion, fecha;
     int IdHabitacion, IdConsumo;
     Bundle datos;
 
@@ -85,6 +85,7 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 IdHabitacion = datosHabitacion.get(i).getIdHabitaccion();
+                nombreHabitacion = datosHabitacion.get(i).getNombreHabitacion();
             }
         });
 
@@ -157,10 +158,13 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
             @Override
             public void onClick(View view) {
                 IdConsumo = lsConsumo.get(rvSeleccionarReporteCons.getChildAdapterPosition(view)).getIdConsumo();
+                fecha = lsConsumo.get(rvSeleccionarReporteCons.getChildAdapterPosition(view)).getFecha();
                 Intent compras = new Intent(getApplicationContext(), DetalleReporteCons.class);
                 compras.putExtra("fechaDesde",fechaDesde);
                 compras.putExtra("fechaHasta",fechaHasta);
+                compras.putExtra("fecha",fecha);
                 compras.putExtra("idHabitacion",IdHabitacion);
+                compras.putExtra("nombreHabitacion",nombreHabitacion);
                 compras.putExtra("idConsumo",IdConsumo);
                 compras.putExtra("accion",accion);
                 lanzarActividad.launch(compras);
