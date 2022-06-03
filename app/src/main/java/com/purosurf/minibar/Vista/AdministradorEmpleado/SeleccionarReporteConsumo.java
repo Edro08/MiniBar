@@ -48,8 +48,7 @@ import java.util.List;
 public class SeleccionarReporteConsumo extends AppCompatActivity implements ISeleccionarReporteConsumo_View {
 
     //ELEMENTOS
-    Button btnRegresarSelecCons, btnGenerarRPT;
-    Button btnRegresarSelecCons, btnConfRepCsm;
+    Button btnRegresarSelecCons, btnGenerarRPT, btnConfRepCsm;
     AutoCompleteTextView actvHabitacionCons;
     RecyclerView rvSeleccionarReporteCons;
 
@@ -196,6 +195,11 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
         });
     }
 
+    @Override
+    public void ObtenerNombreHabitacion(String nombreHabitacion) {
+        lsHabitacion.add(nombreHabitacion);
+    }
+
     ActivityResultLauncher<Intent> lanzarActividad = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -206,37 +210,4 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
                     }
                 }
             });
-
-    private boolean checkPermission() {
-        // checking of permissions.
-        int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
-        int permission2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
-        return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestPermission() {
-        // requesting permissions if not provided.
-        ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0) {
-
-                // after requesting permissions we are showing
-                // users a toast message of permission granted.
-                boolean writeStorage = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                boolean readStorage = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-
-                if (writeStorage && readStorage) {
-                    Toast.makeText(this, "Permission Granted..", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Permission Denined.", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-            }
-        }
-
 }
