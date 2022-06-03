@@ -1,24 +1,16 @@
 package com.purosurf.minibar.Vista.AdministradorEmpleado;
 
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,19 +19,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.purosurf.minibar.Modelo.Consumo;
 import com.purosurf.minibar.Modelo.Habitacion;
 import com.purosurf.minibar.Presentador.Adaptadores.ConsumoAdapter;
-import com.purosurf.minibar.Printer.PrintPDF;
 import com.purosurf.minibar.Presentador.AdministradorEmpleado.SeleccionarReporteConsumoPresentador;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.AdministradorEmpleado.Interfaces.ISeleccionarReporteConsumo_View;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,7 +37,7 @@ import java.util.List;
 public class SeleccionarReporteConsumo extends AppCompatActivity implements ISeleccionarReporteConsumo_View {
 
     //ELEMENTOS
-    Button btnRegresarSelecCons, btnGenerarRPT, btnConfRepCsm;
+    Button btnRegresarSelecCons, btnConfRepCsm;
     AutoCompleteTextView actvHabitacionCons;
     RecyclerView rvSeleccionarReporteCons;
 
@@ -57,8 +46,8 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
     List<Consumo> lsConsumo;
     List<Habitacion> datosHabitacion;
     SeleccionarReporteConsumoPresentador seleccionarReporteConsumoPresentador;
-    String accion;
-    int IdHabitacion;
+    String accion, fechaDesde, fechaHasta;
+    int IdHabitacion, IdConsumo;
     Bundle datos;
 
     //ADAPTADOR
@@ -66,9 +55,6 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
     ArrayAdapter<String> habitacionAdapter;
 
     EditText edtFechDesde, edtFechHasta;
-    Bitmap bmp, scaledbmp;
-    int pageHeight = 1120, pagewidth = 792;
-    private static final int PERMISSION_REQUEST_CODE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +66,6 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
         actvHabitacionCons = findViewById(R.id.actvHabitacionCons);
         edtFechDesde = findViewById(R.id.edtFechDesdeCnsm);
         edtFechHasta = findViewById(R.id.edtFechHastaCnsm);
-        btnGenerarRPT = findViewById(R.id.btnConfRepCsm);
-
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.purosurf);
-        scaledbmp = Bitmap.createScaledBitmap(bmp, 130, 130, false);
         btnConfRepCsm = findViewById(R.id.btnConfRepCsm);
         rvSeleccionarReporteCons = findViewById(R.id.rvSeleccionarReporteCons);
         seleccionarReporteConsumoPresentador = new SeleccionarReporteConsumoPresentador(this);
@@ -103,14 +85,6 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 IdHabitacion = datosHabitacion.get(i).getIdHabitaccion();
-            }
-        });
-
-        btnGenerarRPT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PrintPDF print = new PrintPDF(bmp,scaledbmp);
-                print.generatePDF(getApplicationContext(), pagewidth, pageHeight);
             }
         });
 
@@ -167,23 +141,29 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
         rvSeleccionarReporteCons.setHasFixedSize(false);
         rvSeleccionarReporteCons.setLayoutManager(new LinearLayoutManager(this));
 
-        consumoAdapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent compras = new Intent(getApplicationContext(), DetalleReporteCons.class);
-                compras.putExtra("accion",accion);
-                lanzarActividad.launch(compras);
-            }
-        });
-
         btnConfRepCsm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 lsConsumo.clear();
+                fechaDesde = edtFechDesde.getText().toString().trim();
+                fechaHasta = edtFechHasta.getText().toString().trim();
                 lsConsumo.addAll(seleccionarReporteConsumoPresentador.DatosConsumoHabitacion(
-                        getApplicationContext(), IdHabitacion, edtFechDesde.getText().toString().trim(),
-                        edtFechHasta.getText().toString().trim()));
+                        getApplicationContext(), IdHabitacion, fechaDesde , fechaHasta));
                 rvSeleccionarReporteCons.setAdapter(consumoAdapter);
+            }
+        });
+
+        consumoAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IdConsumo = lsConsumo.get(rvSeleccionarReporteCons.getChildAdapterPosition(view)).getIdConsumo();
+                Intent compras = new Intent(getApplicationContext(), DetalleReporteCons.class);
+                compras.putExtra("fechaDesde",fechaDesde);
+                compras.putExtra("fechaHasta",fechaHasta);
+                compras.putExtra("idHabitacion",IdHabitacion);
+                compras.putExtra("idConsumo",IdConsumo);
+                compras.putExtra("accion",accion);
+                lanzarActividad.launch(compras);
             }
         });
 
