@@ -3,18 +3,11 @@ package com.purosurf.minibar.Presentador.InicioSesion;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
 import com.purosurf.minibar.DB.MinibarBD;
-import com.purosurf.minibar.Modelo.Persona;
 import com.purosurf.minibar.Presentador.InicioSesion.Interfaces.IRecuperarCuentaPresentador;
 import com.purosurf.minibar.Vista.InicioSesion.Interfaces.IRecuperarCuenta_View;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
-
-import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;

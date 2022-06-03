@@ -4,10 +4,10 @@ public class InventarioHabitacion {
     private int IdInventarioHabitación;
     private int IdHabitacion;
     private int IdProducto;
-    private float Existencias;
+    private int Existencias;
     private int CantidadMinima;
 
-    public InventarioHabitacion(int idInventarioHabitación, int idHabitacion, int idProducto, float existencias, int cantidadMinima) {
+    public InventarioHabitacion(int idInventarioHabitación, int idHabitacion, int idProducto, int existencias, int cantidadMinima) {
         IdInventarioHabitación = idInventarioHabitación;
         IdHabitacion = idHabitacion;
         IdProducto = idProducto;
@@ -39,11 +39,11 @@ public class InventarioHabitacion {
         IdProducto = idProducto;
     }
 
-    public float getExistencias() {
+    public int getExistencias() {
         return Existencias;
     }
 
-    public void setExistencias(float existencias) {
+    public void setExistencias(int existencias) {
         Existencias = existencias;
     }
 

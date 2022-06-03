@@ -59,6 +59,7 @@
             android:background="@color/azul" />
 
         <TextView
+            android:id="@+id/tv_nombreHabitacionDCC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"

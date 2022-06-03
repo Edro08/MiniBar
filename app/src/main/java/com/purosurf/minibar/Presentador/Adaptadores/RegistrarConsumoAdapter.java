@@ -1,41 +1,42 @@
 package com.purosurf.minibar.Presentador.Adaptadores;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.purosurf.minibar.Modelo.DetalleConsumo;
+import com.purosurf.minibar.Modelo.InventarioHabitacionProducto;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Empleado.Interfaces.IRegistrarConsumos_View;
+import com.purosurf.minibar.Vista.Empleado.RegistrarConsumos;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
 public class RegistrarConsumoAdapter extends RecyclerView.Adapter<RegistrarConsumoAdapter.ViewHolder> implements View.OnClickListener {
 
-
-
     //Declarar elemento del evento click
     private View.OnClickListener listener;
-
     //
-    private List<DetalleConsumo> mData; //lista
+    private List<InventarioHabitacionProducto> mData; //lista
     private LayoutInflater minFlater; //contenedor
     private Context context;
+    IRegistrarConsumos_View iRegistrarConsumos_view;
 
     //constructor
-    public RegistrarConsumoAdapter (List<DetalleConsumo> itemList, Context context){
+    public RegistrarConsumoAdapter (List<InventarioHabitacionProducto> itemList,
+                                    Context context,IRegistrarConsumos_View iRegistrarConsumos_view){
         this.minFlater = LayoutInflater.from(context);
         this.context = context;
         this.mData = itemList;
+        this.iRegistrarConsumos_view = iRegistrarConsumos_view;
     }
 
     //retornar cantidad de elementos
@@ -60,7 +61,7 @@ public class RegistrarConsumoAdapter extends RecyclerView.Adapter<RegistrarConsu
     }
 
     //reasignar lista
-    public void setItems(List<DetalleConsumo> items){
+    public void setItems(List<InventarioHabitacionProducto> items){
         mData = items;
     }
 
@@ -100,12 +101,12 @@ public class RegistrarConsumoAdapter extends RecyclerView.Adapter<RegistrarConsu
             edtCantidadRegCons = itemView.findViewById(R.id.edtCantidadRegCons);
 
         }
-        void bindData(final DetalleConsumo item){
+        void bindData(final InventarioHabitacionProducto item){
             //asignar datos a los elementos
             ivIconoRegCons.setImageResource(R.drawable.ic_icono_comida);
-            tvNombreRegCons.setText("Producto: "+item.getIdProducto());
+            tvNombreRegCons.setText("Producto: "+ item.getProductoNombre());
             //formato para dinero
-            String formato = new DecimalFormat("#,##0.00").format(item.getSubTotal());
+            String formato = new DecimalFormat("#,##0.00").format(item.getPrecioUnitario());
             tvSubtotalRegCons.setText("$ "+formato);
             //contador cantidad
             cantidad = 0;
@@ -113,10 +114,19 @@ public class RegistrarConsumoAdapter extends RecyclerView.Adapter<RegistrarConsu
             btnAgregarRegCons.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //añadir cantidad
-                    cantidad++;
-                    edtCantidadRegCons.setText(""+cantidad);
-                    item.setCantidad(cantidad);
+                    if(cantidad < item.getExistencias()) {
+                        //añadir cantidad
+                        cantidad++;
+                        edtCantidadRegCons.setText("" + cantidad);
+                        item.setCantidad(cantidad);
+                        item.setSubTotal(item.getPrecioUnitario() * item.getCantidad());
+                        iRegistrarConsumos_view.MostrarTotal(mData);
+                        iRegistrarConsumos_view.CalcularCantidadDetalleProductos(mData);
+                    }
+                    else
+                    {
+                        iRegistrarConsumos_view.ExistenciaMaxima("Limite de existencia en la habitación");
+                    }
                 }
             });
 
@@ -128,6 +138,9 @@ public class RegistrarConsumoAdapter extends RecyclerView.Adapter<RegistrarConsu
                         cantidad--;
                         edtCantidadRegCons.setText(""+ cantidad);
                         item.setCantidad(cantidad);
+                        item.setSubTotal(item.getPrecioUnitario() * item.getCantidad());
+                        iRegistrarConsumos_view.MostrarTotal(mData);
+                        iRegistrarConsumos_view.CalcularCantidadDetalleProductos(mData);
                     }
                 }
             });

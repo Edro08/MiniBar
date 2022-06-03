@@ -1,6 +1,8 @@
 package com.purosurf.minibar.Modelo;
 
-public class Consumo {
+import android.os.Parcelable;
+
+public class Consumo{
 
     private int IdConsumo,
                 IdUsuario,
