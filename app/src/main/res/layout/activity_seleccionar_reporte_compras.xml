@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Vista.AdministradorEmpleado.SeleccionarReporteES">
+    tools:context=".Vista.AdministradorEmpleado.SeleccionarReporteCompras">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,12 +43,12 @@
             android:id="@+id/tvEnunciadoSR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            android:textColor="@color/azulOscuro"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:text="TextView" />
+            android:text="Reportes de compras"
+            android:textColor="@color/azulOscuro"
+            android:textSize="23sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"

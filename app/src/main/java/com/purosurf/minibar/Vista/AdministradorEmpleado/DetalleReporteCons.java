@@ -19,8 +19,15 @@ public class DetalleReporteCons extends AppCompatActivity {
     TextView    tvNumeroReporteCons,
                 tvHabitacionReporteCons,
                 tvFechaReporteCons,
-                tvUsuarioReporteCons;
+                tvUsuarioReporteCons,
+                tv_nombreDetalleCons;
     TableLayout tblReporteCons;
+
+    //BUNDLE
+    Bundle datos;
+
+    //VARIABLES
+    String accion;
 
 
     @Override
@@ -36,23 +43,45 @@ public class DetalleReporteCons extends AppCompatActivity {
         tvFechaReporteCons = findViewById(R.id.tvFechaReporteCons);
         tvUsuarioReporteCons = findViewById(R.id.tvUsuarioReporteCons);
         tblReporteCons = findViewById(R.id.tblReporteCons);
+        tv_nombreDetalleCons = findViewById(R.id.tv_nombreDetalleCons);
+
+        datos = getIntent().getExtras();
+        accion = datos.getString("accion");
+
+        if(accion.equals("Consumo"))
+        {
+            tvHabitacionReporteCons.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            tvHabitacionReporteCons.setVisibility(View.GONE);
+        }
 
         //mostrar texto
+        tv_nombreDetalleCons.setText("Detalle de " + accion);
         tvNumeroReporteCons.setText("N° Reporte: ");
         tvHabitacionReporteCons.setText("Habitación: ");
         tvFechaReporteCons.setText("Fecha: ");
         tvUsuarioReporteCons.setText("Usuario: ");
-
         llenarFilas();
 
-
         //evento botones
-            //generar reportes
+        //generar reportes
         btnGenerarReporteCons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult(5);
-                finish();
+                if (accion.equals("Compra")){
+                    setResult(6); //code reporte entrada/compras
+                    finish();
+                }else if (accion.equals("Inventario")){
+                    setResult(7); //code reporte inventario
+                    finish();
+                }else if(accion.equals("Consumo"))
+                {
+                    setResult(5);//code reporte consumo
+                    finish();
+                }
+
             }
         });
 

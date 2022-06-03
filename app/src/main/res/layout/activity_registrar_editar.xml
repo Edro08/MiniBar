@@ -47,7 +47,7 @@
             android:id="@+id/tvEnunciadoRE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_margin="15dp"
             android:layout_gravity="center_horizontal"
             android:text="TextView"
             android:textColor="@color/azulOscuro"
@@ -67,13 +67,12 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:layout_gravity="left"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
                     android:text="Producto"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -103,12 +102,13 @@
 
                         <TextView
                             android:id="@+id/tvNombreProductoRE"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:gravity="center_vertical"
+                            android:layout_marginBottom="10dp"
                             android:text="Nombre Producto Nombre Producto "
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:layout_columnSpan="2" />
 
 
@@ -118,7 +118,7 @@
                             android:gravity="center_vertical"
                             android:text="Precio Unitario: "
                             android:textColor="@color/black"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilPrecioUnitarioRE"
@@ -144,9 +144,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:gravity="center"
-                            android:text="Cantidad Mínima"
+                            android:text="Cantidad"
                             android:textColor="@color/black"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"

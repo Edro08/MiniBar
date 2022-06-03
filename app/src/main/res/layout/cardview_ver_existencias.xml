@@ -17,19 +17,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:id="@+id/linearexistencias"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/tvProductoExistencias"
-                android:layout_width="wrap_content"
-                android:maxWidth="280dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_weight="1"
                 android:textStyle="bold"
                 android:text="Nombre Producto"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <TextView
+                android:layout_gravity="center_vertical"
                 android:id="@+id/tvCantidadExistencias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,11 +47,13 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/expandirExistencias"
-            app:layout_constraintTop_toBottomOf="@id/tvProductoExistencias"
+            app:layout_constraintTop_toBottomOf="@id/linearexistencias"
             android:layout_marginTop="5dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">

@@ -30,13 +30,10 @@
             android:name=".Vista.AdministradorEmpleado.DetalleReporteCons"
             android:exported="false" />
         <activity
-            android:name=".Vista.AdministradorEmpleado.DetalleReporteES"
+            android:name=".Vista.AdministradorEmpleado.SeleccionarReporteConsumo"
             android:exported="false" />
         <activity
-            android:name=".Vista.AdministradorEmpleado.SeleccionarReporteCons"
-            android:exported="false" />
-        <activity
-            android:name=".Vista.AdministradorEmpleado.SeleccionarReporteES"
+            android:name=".Vista.AdministradorEmpleado.SeleccionarReporteCompras"
             android:exported="false" />
         <activity
             android:name=".Vista.AdministradorEmpleado.VerExistencias"

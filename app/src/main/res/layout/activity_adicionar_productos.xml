@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_margin="15dp"
             android:text="Registro de Nuevo Produto"
             android:textColor="@color/azulOscuro"
             android:textSize="23sp"

@@ -9,7 +9,7 @@
     <LinearLayout
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -40,15 +40,6 @@
 
 
         </com.google.android.material.appbar.AppBarLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            android:textColor="@color/azulOscuro"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:text="Inventario Mini-Bar" />
 
         <TextView
             android:id="@+id/tvHabitacionMB"
@@ -59,72 +50,29 @@
             android:textColor="@color/black"
             android:text="TextView" />
 
-        <View
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/grisFondo" />
+            android:layout_height="65dp"
+            android:layout_margin="15dp"
+            android:hint=""
+            app:boxStrokeColor="@color/azul"
+            app:hintTextColor="@color/azul">
 
-        <FrameLayout
-            android:id="@+id/flContenedorProductos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvListaInventarioMB"
+            <AutoCompleteTextView
+                android:id="@+id/actvFiltroMB"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:textColor="@color/azulOscuro"
+                android:inputType="none"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        </FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvListaInventarioMB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAgregarProductoMB"
-        style="@style/Widget.Material3.FloatingActionButton.Surface"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/amarillo"
-        app:rippleColor="@color/azulPalido"
-        app:pressedTranslationZ="0dp"
-        app:fabSize="normal"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"
-        app:layout_constraintBottom_toTopOf="@id/btnProcesarMB"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_icono_agregar"
-        app:tint="@color/azulOscuro"/>
-
-
-
-    <TextView
-        android:id="@+id/tvComentarioMB"
-        app:layout_constraintRight_toLeftOf="@id/fabAgregarProductoMB"
-        app:layout_constraintBottom_toTopOf="@id/btnProcesarMB"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@color/grisFondo"
-        android:text="(Agrega productos)"
-        />
-
-    <Button
-        android:id="@+id/btnProcesarMB"
-        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:backgroundTint="@color/azulOscuro"
-        android:text="Procesar Inventario"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:rippleColor="@color/azulClaro" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

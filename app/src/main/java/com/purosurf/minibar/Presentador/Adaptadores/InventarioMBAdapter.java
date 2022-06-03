@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,57 +14,56 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.purosurf.minibar.Modelo.Entrada;
 import com.purosurf.minibar.Modelo.InventarioHabitacion;
+import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class InventarioMBAdapter extends RecyclerView.Adapter<InventarioMBAdapter.ViewHolder> implements View.OnClickListener {
-
-    //declarar elemento click
+    //Declarar elemeento de click
     private View.OnClickListener listener;
 
-    //
-    private List<InventarioHabitacion> mData; //lista
+    private List<Producto> mData; //lista
     private LayoutInflater minFlater; //contenedor
     private Context context;
 
     //constructor
-    public InventarioMBAdapter(List<InventarioHabitacion> itemList, Context context) {
-        this.mData = itemList;
+    public InventarioMBAdapter(List<Producto> itemList, Context context){
         this.minFlater = LayoutInflater.from(context);
         this.context = context;
+        this.mData = itemList;
     }
 
-    //cantidad elementos
+    //retornar cantidad de elementos
     @Override
-    public int getItemCount() {
-        return mData.size();
-    }
+    public  int getItemCount(){ return mData.size(); }
 
-        //seleccionar contenedor CardView XML
+    // Selccionar el contenedor CardView XML
     @Override
-    public InventarioMBAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = minFlater.inflate(R.layout.cardview_inventario_mb, parent, false);
+    public InventarioMBAdapter.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
+        View view = minFlater.inflate(R.layout.cardview_seleccionar_producto,parent, false);
 
-        //
+        //declarar onclick
         view.setOnClickListener(this);
 
+        //
         return new InventarioMBAdapter.ViewHolder(view);
     }
 
+    //posicion del elemento
     @Override
-    public void onBindViewHolder(InventarioMBAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder (final InventarioMBAdapter.ViewHolder holder, final int position){
         holder.bindData(mData.get(position));
     }
 
-    public void setItems (List<InventarioHabitacion> items) { mData = items; }
+    //reasignar lista
+    public void setItems (List<Producto> items ) { mData = items; }
 
-    //Asignar listener
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
-    }
+    //asignar listener
+    public void setOnClickListener(View.OnClickListener listener) { this.listener = listener; }
 
-    //creamos el click
+    //Creamos el click
     @Override
     public void onClick(View view) {
         if(listener!=null){
@@ -71,74 +71,31 @@ public class InventarioMBAdapter extends RecyclerView.Adapter<InventarioMBAdapte
         }
     }
 
-    //Asinar los datos dentro del contenedor CardView
+    //asignar datos dentro del contenedor cardview
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tvNombreMB; //nombre del producto
-        Button btnQuitarCantidadMB, //quitar cantidad de producto
-                btnAgregarCantidadMB, //agregar cantidad de producto
-                btnQuitarMinimaMB, //quitaar cantidad minima producto
-                btnAgregarMinimaMB; //argegar cantidad minima producto
-        TextInputEditText edtCantidadMB,
-                            edtMinimaMB;
+        //ELEMENTOS del cardView
+        ImageView ivIconoProductoSEP; // imagen producto
+        TextView tvNombreProductoSEP; // nombre producto
+        TextView tvEstadoProductoSEP; // estado producto (activo o desactivado)
+        TextView tvPrecioProductoSEP;
 
-        //variable para obtener y modificar la cantidad en base a los botones
-        int cantidad = 0, cantidadMin=0;
+        ViewHolder(View itemView){
+            super(itemView);
 
-        ViewHolder(View view){
-            super(view);
-            tvNombreMB = view.findViewById(R.id.tvNombreMB);
-            btnQuitarCantidadMB = view.findViewById(R.id.btnQuitarCantidadMB);
-            btnAgregarCantidadMB = view.findViewById(R.id.btnAgregarCantidadMB);
-            btnQuitarMinimaMB = view.findViewById(R.id.btnQuitarMinimaMB);
-            btnAgregarMinimaMB = view.findViewById(R.id.btnAgregarMinimaMB);
-            edtCantidadMB = view.findViewById(R.id.edtCantidadMB);
-            edtMinimaMB = view.findViewById(R.id.edtMinimaMB);
+            //Relacionamos elementos
+            ivIconoProductoSEP = itemView.findViewById(R.id.ivIconoProductoSEP);
+            tvNombreProductoSEP = itemView.findViewById(R.id.tvNombreProductoSEP);
+            tvEstadoProductoSEP = itemView.findViewById(R.id.tvEstadoProductoSEP);
+            tvPrecioProductoSEP = itemView.findViewById(R.id.tvPrecioProductoSEP);
         }
-        void bindData(final InventarioHabitacion item){
-
-            tvNombreMB.setText("Nombre Producto"); //dato quemado
-
-            //=======evento botones cantidad producto
-                //quitar cantidad a producto
-            btnQuitarCantidadMB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(cantidad >0 ){
-                        cantidad--;
-                        edtCantidadMB.setText(Integer.toString(cantidad));
-                    }
-                }
-            });
-                //agregar cantidad a producto
-            btnAgregarCantidadMB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    cantidad++;
-                    edtCantidadMB.setText(Integer.toString(cantidad));
-                }
-            });
-
-
-            //=======evento botones cantidad minima producto
-                //quitar cantidad minima
-            btnQuitarMinimaMB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(cantidadMin >0 ){
-                        cantidadMin--;
-                        edtMinimaMB.setText(Integer.toString(cantidadMin));
-                    }
-                }
-            });
-                //agregar cantidad minima
-            btnAgregarMinimaMB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    cantidadMin++;
-                    edtMinimaMB.setText(Integer.toString(cantidadMin));
-                }
-            });
+        void bindData(final Producto item){
+            //asignamos valores al cardview //trae los valores del modelo
+            ivIconoProductoSEP.setImageResource(R.drawable.ic_icono_comida);
+            tvNombreProductoSEP.setText(item.getProductoNombre());
+            tvEstadoProductoSEP.setText("Activo"); //dato quemado
+            //precio
+            String precio = new DecimalFormat("#,##0.00").format(item.getPrecioUnitario());
+            tvPrecioProductoSEP.setText("$ "+precio);
         }
     }
-
 }

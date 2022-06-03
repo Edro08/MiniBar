@@ -29,25 +29,33 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.purosurf.minibar.Modelo.Consumo;
+import com.purosurf.minibar.Modelo.Habitacion;
 import com.purosurf.minibar.Presentador.Adaptadores.ConsumoAdapter;
 import com.purosurf.minibar.Printer.PrintPDF;
+import com.purosurf.minibar.Presentador.AdministradorEmpleado.SeleccionarReporteConsumoPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.AdministradorEmpleado.Interfaces.ISeleccionarReporteConsumo_View;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class SeleccionarReporteCons extends AppCompatActivity {
+public class SeleccionarReporteConsumo extends AppCompatActivity implements ISeleccionarReporteConsumo_View {
 
     //ELEMENTOS
     Button btnRegresarSelecCons, btnGenerarRPT;
+    Button btnRegresarSelecCons, btnConfRepCsm;
     AutoCompleteTextView actvHabitacionCons;
+    RecyclerView rvSeleccionarReporteCons;
 
     //LISTAS
-    List<Consumo> lsConsumo;
     ArrayList<String> lsHabitacion;
+    List<Consumo> lsConsumo;
+    List<Habitacion> datosHabitacion;
+    SeleccionarReporteConsumoPresentador seleccionarReporteComprasPresentador;
+    String accion;
+    Bundle datos;
 
     //ADAPTADOR
     ConsumoAdapter consumoAdapter;
@@ -61,7 +69,7 @@ public class SeleccionarReporteCons extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seleccionar_reporte_cons);
+        setContentView(R.layout.activity_seleccionar_reporte_consumo);
 
         //ASIGNAR ELEMENTOS
         btnRegresarSelecCons = findViewById(R.id.btnRegresarSelecCons);
@@ -72,11 +80,25 @@ public class SeleccionarReporteCons extends AppCompatActivity {
 
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.purosurf);
         scaledbmp = Bitmap.createScaledBitmap(bmp, 130, 130, false);
+        btnConfRepCsm = findViewById(R.id.btnConfRepCsm);
+        rvSeleccionarReporteCons = findViewById(R.id.rvSeleccionarReporteCons);
+        seleccionarReporteComprasPresentador = new SeleccionarReporteConsumoPresentador(this);
 
-        btnRegresarSelecCons.setOnClickListener(new View.OnClickListener() {
+        //obtener intent
+        datos = getIntent().getExtras();
+        accion = datos.getString("accion");
+
+        //llenar dropdown menu
+        lsHabitacion = new ArrayList<String>();
+        datosHabitacion = new ArrayList<>(seleccionarReporteComprasPresentador.DatosHabitacion(getApplicationContext()));
+
+        habitacionAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.dropdown_texto, lsHabitacion);
+        actvHabitacionCons.setAdapter(habitacionAdapter);
+
+        actvHabitacionCons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                finish();
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), "" + datosHabitacion.get(i).getIdHabitaccion(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -96,7 +118,7 @@ public class SeleccionarReporteCons extends AppCompatActivity {
         edtFechDesde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteCons.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteConsumo.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         String date = year + "-" + month + "-" + day;
@@ -110,7 +132,7 @@ public class SeleccionarReporteCons extends AppCompatActivity {
         edtFechHasta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteCons.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteConsumo.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         String date = year + "-" + month + "-" + day;
@@ -121,34 +143,36 @@ public class SeleccionarReporteCons extends AppCompatActivity {
             }
         });
 
-        //llenar dropdown menu
-        lsHabitacion = new ArrayList<String>();
-            //llenar datos
-        for (int i = 1; i <= 6; i++){
-            lsHabitacion.add("Habitación #"+i);
-        }
-        habitacionAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.dropdown_texto, lsHabitacion);
-        actvHabitacionCons.setAdapter(habitacionAdapter);
-
         //recyclerview
         lsConsumo = new ArrayList<Consumo>();
         consumoAdapter = new ConsumoAdapter(lsConsumo, this);
-
-        actvHabitacionCons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lsConsumo.clear();
-                for (int indice = 1; indice <= 7; indice++){
-                    lsConsumo.add(new Consumo(indice, 1, i, indice+"/05/2022", 20));
-                }
-            }
-        });
+        rvSeleccionarReporteCons.setHasFixedSize(false);
+        rvSeleccionarReporteCons.setLayoutManager(new LinearLayoutManager(this));
 
         consumoAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent reporteConsumo = new Intent(getApplicationContext(), DetalleReporteCons.class);
-                lanzarActividad.launch(reporteConsumo);
+                Intent compras = new Intent(getApplicationContext(), DetalleReporteCons.class);
+                compras.putExtra("accion",accion);
+                lanzarActividad.launch(compras);
+            }
+        });
+
+        btnConfRepCsm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lsConsumo.clear();
+                for (int indice = 1; indice <= 7; indice++){
+                    lsConsumo.add(new Consumo(indice, 1, indice, indice+"/05/2022", 20));
+                }
+                rvSeleccionarReporteCons.setAdapter(consumoAdapter);
+            }
+        });
+
+        btnRegresarSelecCons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
@@ -158,10 +182,8 @@ public class SeleccionarReporteCons extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() > 0){
-                        if(result.getResultCode() == 5){
-                            setResult(5);
-                            finish();
-                        }
+                        setResult(5);
+                        finish();
                     }
                 }
             });
@@ -197,5 +219,5 @@ public class SeleccionarReporteCons extends AppCompatActivity {
                 }
             }
         }
-    }
+
 }

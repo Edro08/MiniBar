@@ -39,10 +39,10 @@
         </com.google.android.material.appbar.AppBarLayout>
         <TextView
             android:id="@+id/tvSeleccionarGH"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:text="Seleccione la Habitación"
             android:textColor="@color/azulOscuro"
             android:textSize="23sp"
