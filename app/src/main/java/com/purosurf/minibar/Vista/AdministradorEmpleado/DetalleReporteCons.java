@@ -10,7 +10,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DetalleReporteCons extends AppCompatActivity {
 
@@ -20,14 +25,17 @@ public class DetalleReporteCons extends AppCompatActivity {
                 tvHabitacionReporteCons,
                 tvFechaReporteCons,
                 tvUsuarioReporteCons,
-                tv_nombreDetalleCons;
+                tv_nombreDetalleCons,
+                tv_TrCampo1,
+                tv_TrCampo2,
+                tv_TrCampo3;
     TableLayout tblReporteCons;
 
     //BUNDLE
     Bundle datos;
 
     //VARIABLES
-    String accion;
+    String accion, fecha = "", usuario = "", numReport = "", habitacion = "";
 
 
     @Override
@@ -44,25 +52,45 @@ public class DetalleReporteCons extends AppCompatActivity {
         tvUsuarioReporteCons = findViewById(R.id.tvUsuarioReporteCons);
         tblReporteCons = findViewById(R.id.tblReporteCons);
         tv_nombreDetalleCons = findViewById(R.id.tv_nombreDetalleCons);
+        tv_TrCampo1 = findViewById(R.id.tv_TrCampo1);
+        tv_TrCampo2 = findViewById(R.id.tv_TrCampo2);
+        tv_TrCampo3 = findViewById(R.id.tv_TrCampo3);
 
         datos = getIntent().getExtras();
         accion = datos.getString("accion");
+        usuario = String.valueOf(IniciarSesion.iduser);
 
         if(accion.equals("Consumo"))
         {
             tvHabitacionReporteCons.setVisibility(View.VISIBLE);
+            numReport = "RP-CONS-" + datos.getInt("idHabitacion") + "-" + datos.getInt("idConsumo");
+            fecha = "Desde " + datos.getString("fechaDesde") + " Hasta " + datos.getString("fechaHasta");
+            habitacion = "" + datos.getInt("idHabitacion");
         }
         else
         {
             tvHabitacionReporteCons.setVisibility(View.GONE);
+            if(accion.equals("Compra"))
+            {
+                numReport = "RP-COM-" + usuario;
+                fecha = "Desde " + datos.getString("fechaDesde") + " Hasta " + datos.getString("fechaHasta");
+                tv_TrCampo2.setText("Fecha");
+            }
+            else if(accion.equals("Inventario"))
+            {
+                fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                numReport = "RP-INV-" + usuario + "-" + fecha;
+                tv_TrCampo2.setText("Existencias");
+                tv_TrCampo3.setText("Precio Unitario");
+            }
         }
 
         //mostrar texto
         tv_nombreDetalleCons.setText("Detalle de " + accion);
-        tvNumeroReporteCons.setText("N° Reporte: ");
-        tvHabitacionReporteCons.setText("Habitación: ");
-        tvFechaReporteCons.setText("Fecha: ");
-        tvUsuarioReporteCons.setText("Usuario: ");
+        tvNumeroReporteCons.setText("N° Reporte: " + numReport);
+        tvHabitacionReporteCons.setText("Habitación: " + habitacion);
+        tvFechaReporteCons.setText("Fecha: " + fecha);
+        tvUsuarioReporteCons.setText("Usuario: " + usuario);
         llenarFilas();
 
         //evento botones
@@ -102,16 +130,15 @@ public class DetalleReporteCons extends AppCompatActivity {
         row0.setMinimumHeight(2);
         tblReporteCons.addView(row0);
 
-
         //llenar de datos
         for(int i= 0; i < 10; i++){
             TableRow row1 = new TableRow(this);
-            TextView tvProducto = new TextView(this);
+            TextView tvProducto2 = new TextView(this);
             //columna producto
-            tvProducto.setText("Producto"+i);
-            tvProducto.setTextColor(getColor(R.color.black));
-            tvProducto.setTextSize(16); //16sp
-            row1.addView(tvProducto);
+            tvProducto2.setText("Producto"+i);
+            tvProducto2.setTextColor(getColor(R.color.black));
+            tvProducto2.setTextSize(16); //16sp
+            row1.addView(tvProducto2);
 
             //columna cantidad
             TextView tvCantidad = new TextView(this);
@@ -127,8 +154,6 @@ public class DetalleReporteCons extends AppCompatActivity {
             tvSubTotal.setTextColor(getColor(R.color.black));
             tvSubTotal.setTextSize(16); //16sp
             row1.addView(tvSubTotal);
-
-
             //agregar a la fila
             tblReporteCons.addView(row1);
         }
@@ -139,33 +164,32 @@ public class DetalleReporteCons extends AppCompatActivity {
         row2.setMinimumHeight(2);//
         tblReporteCons.addView(row2);
 
+        if(accion.equals("Consumo"))
+        {
+            //TOTAL
+            TableRow row3 = new TableRow(this);
+            TextView tvTotal = new TextView(this);
+            tvTotal.setText("TOTAL");
+            tvTotal.setTextColor(getColor(R.color.black));
+            tvTotal.setTextSize(20);
+            tvTotal.setGravity(Gravity.START);
+            row3.addView(tvTotal);
 
-        //TOTAL
-        TableRow row3 = new TableRow(this);
+            TextView tvEspacio = new TextView(this);
+            tvEspacio.setText("");
+            tvEspacio.setTextColor(getColor(R.color.black));
+            tvEspacio.setTextSize(20);
+            tvEspacio.setGravity(Gravity.START);
+            row3.addView(tvEspacio);
 
-        TextView tvTotal = new TextView(this);
-        tvTotal.setText("TOTAL");
-        tvTotal.setTextColor(getColor(R.color.black));
-        tvTotal.setTextSize(20);
-        tvTotal.setGravity(Gravity.START);
-        row3.addView(tvTotal);
+            TextView tvSuma = new TextView(this);
+            tvSuma.setText("$0.00");
+            tvSuma.setTextColor(getColor(R.color.black));
+            tvSuma.setTextSize(20);
+            tvSuma.setGravity(Gravity.END);
+            row3.addView(tvSuma);
 
-        TextView tvEspacio = new TextView(this);
-        tvEspacio.setText("");
-        tvEspacio.setTextColor(getColor(R.color.black));
-        tvEspacio.setTextSize(20);
-        tvEspacio.setGravity(Gravity.START);
-        row3.addView(tvEspacio);
-
-        TextView tvSuma = new TextView(this);
-        tvSuma.setText("$0.00");
-        tvSuma.setTextColor(getColor(R.color.black));
-        tvSuma.setTextSize(20);
-        tvSuma.setGravity(Gravity.END);
-        row3.addView(tvSuma);
-
-        tblReporteCons.addView(row3);
-
+            tblReporteCons.addView(row3);
+        }
     }
-
 }

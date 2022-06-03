@@ -73,14 +73,16 @@ public class RegistrarConsumosPresentador implements IRegistrarConsumosPresentad
     @Override
     public String[][] obtenerDatosDetalleProductos(List<InventarioHabitacionProducto> lista, int Cantidad) {
         String[][] Datos = new String[Cantidad][4];
+        int j = 0;
         for (int i = 0; i < lista.size(); i++)
         {
             if(lista.get(i).getCantidad() > 0)
             {
-                Datos[i][0] = String.valueOf(lista.get(i).getIdProducto());
-                Datos[i][1] = String.valueOf(lista.get(i).getProductoNombre());
-                Datos[i][2] = String.valueOf(lista.get(i).getCantidad());
-                Datos[i][3] = String.valueOf(lista.get(i).getSubTotal());
+                Datos[j][0] = String.valueOf(lista.get(i).getIdProducto());
+                Datos[j][1] = String.valueOf(lista.get(i).getProductoNombre());
+                Datos[j][2] = String.valueOf(lista.get(i).getCantidad());
+                Datos[j][3] = String.valueOf(lista.get(i).getSubTotal());
+                j++;
             }
         }
         return Datos;
