@@ -39,7 +39,7 @@ public class MenuEmpleado extends AppCompatActivity {
         cvRegistrarConsumosME = findViewById(R.id.cvRegistrarConsumosME);
 
 
-        tvBienvenidoME.setText("¡Bienvenido \" `"+ IniciarSesion.usuario +" \" !"); //mensaje de bienvenida con el nombre de usuario
+        tvBienvenidoME.setText("¡Bienvenido \" `"+ IniciarSesion.nombreUsuario +" \" !"); //mensaje de bienvenida con el nombre de usuario
 
         //boton flotante
         fabCerrarSesionME.setOnClickListener(new View.OnClickListener() {

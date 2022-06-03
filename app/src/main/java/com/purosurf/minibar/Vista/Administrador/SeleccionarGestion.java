@@ -45,7 +45,7 @@ public class SeleccionarGestion extends AppCompatActivity {
         cvGestionarUsuariosSG = findViewById(R.id.cvGestionarUsuariosSG);
         fabCerrarSesionSG = findViewById(R.id.fabCerrarSesionSG);
 
-        tvBienvenidoSG.setText("¡Bienvenido \" `" + IniciarSesion.usuario +" \" !");; //mensaje de bienvenida con el nombre de usuario
+        tvBienvenidoSG.setText("¡Bienvenido \" `" + IniciarSesion.nombreUsuario +" \" !");; //mensaje de bienvenida con el nombre de usuario
 
         //eventos cardview
         cvGestionarProductoSG.setOnClickListener(new View.OnClickListener() {
