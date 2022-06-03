@@ -2,6 +2,7 @@ package com.purosurf.minibar.Vista.AdministradorEmpleado;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -11,13 +12,15 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
+import com.purosurf.minibar.Presentador.AdministradorEmpleado.DetalleReporteConsPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.AdministradorEmpleado.Interfaces.IDetalleReporteCons_View;
 import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DetalleReporteCons extends AppCompatActivity {
+public class DetalleReporteCons extends AppCompatActivity implements IDetalleReporteCons_View {
 
     //ELEMENTOS
     Button btnRegresarReporteCons, btnGenerarReporteCons;
@@ -30,12 +33,15 @@ public class DetalleReporteCons extends AppCompatActivity {
                 tv_TrCampo2,
                 tv_TrCampo3;
     TableLayout tblReporteCons;
+    Cursor datosReportes;
 
     //BUNDLE
     Bundle datos;
+    DetalleReporteConsPresentador detalleReporteConsPresentador;
 
     //VARIABLES
     String accion, fecha = "", usuario = "", numReport = "", habitacion = "";
+    double Total = 0;
 
 
     @Override
@@ -55,6 +61,7 @@ public class DetalleReporteCons extends AppCompatActivity {
         tv_TrCampo1 = findViewById(R.id.tv_TrCampo1);
         tv_TrCampo2 = findViewById(R.id.tv_TrCampo2);
         tv_TrCampo3 = findViewById(R.id.tv_TrCampo3);
+        detalleReporteConsPresentador = new DetalleReporteConsPresentador(this);
 
         datos = getIntent().getExtras();
         accion = datos.getString("accion");
@@ -64,8 +71,10 @@ public class DetalleReporteCons extends AppCompatActivity {
         {
             tvHabitacionReporteCons.setVisibility(View.VISIBLE);
             numReport = "RP-CONS-" + datos.getInt("idHabitacion") + "-" + datos.getInt("idConsumo");
-            fecha = "Desde " + datos.getString("fechaDesde") + " Hasta " + datos.getString("fechaHasta");
+            fecha = "ALGO";
             habitacion = "" + datos.getInt("idHabitacion");
+            datosReportes = detalleReporteConsPresentador.DatosConsumoHabitacion(
+                    getApplicationContext(), datos.getInt("idConsumo"));
         }
         else
         {
@@ -74,14 +83,17 @@ public class DetalleReporteCons extends AppCompatActivity {
             {
                 numReport = "RP-COM-" + usuario;
                 fecha = "Desde " + datos.getString("fechaDesde") + " Hasta " + datos.getString("fechaHasta");
-                tv_TrCampo2.setText("Fecha");
+                tv_TrCampo3.setText("Fecha");
+                datosReportes = detalleReporteConsPresentador.DatosCompra(getApplicationContext(),
+                        datos.getString("fechaDesde"),datos.getString("fechaHasta"));
             }
             else if(accion.equals("Inventario"))
             {
                 fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                 numReport = "RP-INV-" + usuario + "-" + fecha;
                 tv_TrCampo2.setText("Existencias");
-                tv_TrCampo3.setText("Precio Unitario");
+                tv_TrCampo3.setText("Precio");
+                datosReportes = detalleReporteConsPresentador.DatosInventario(getApplicationContext());
             }
         }
 
@@ -91,7 +103,7 @@ public class DetalleReporteCons extends AppCompatActivity {
         tvHabitacionReporteCons.setText("Habitación: " + habitacion);
         tvFechaReporteCons.setText("Fecha: " + fecha);
         tvUsuarioReporteCons.setText("Usuario: " + usuario);
-        llenarFilas();
+        TableLayoutllenarFilas();
 
         //evento botones
         //generar reportes
@@ -123,7 +135,8 @@ public class DetalleReporteCons extends AppCompatActivity {
     }
 
     //llenar filas TableLayout
-    public void llenarFilas(){
+    @Override
+    public void TableLayoutllenarFilas(){
         //divider
         TableRow row0 = new TableRow(this);
         row0.setBackgroundColor(getColor(R.color.black));
@@ -131,26 +144,48 @@ public class DetalleReporteCons extends AppCompatActivity {
         tblReporteCons.addView(row0);
 
         //llenar de datos
-        for(int i= 0; i < 10; i++){
-            TableRow row1 = new TableRow(this);
-            TextView tvProducto2 = new TextView(this);
+        while (datosReportes.moveToNext()){
             //columna producto
-            tvProducto2.setText("Producto"+i);
-            tvProducto2.setTextColor(getColor(R.color.black));
-            tvProducto2.setTextSize(16); //16sp
-            row1.addView(tvProducto2);
+            TableRow row1 = new TableRow(this);
+            TextView tvProducto = new TextView(this);
+            if (accion.equals("Compra")){
+                tvProducto.setText(datosReportes.getString(3));;
+            }else if (accion.equals("Inventario")){
+                tvProducto.setText(datosReportes.getString(1));
+            }else if(accion.equals("Consumo"))
+            {
+                tvProducto.setText(datosReportes.getString(1));
+            }
+            tvProducto.setTextColor(getColor(R.color.black));
+            tvProducto.setTextSize(16); //16sp
+            row1.addView(tvProducto);
 
-            //columna cantidad
+            //columna cantidad o existencias
             TextView tvCantidad = new TextView(this);
-            tvCantidad.setText("Cantidado"+i);
+            if (accion.equals("Compra")){
+                tvCantidad.setText(datosReportes.getString(5));
+            }else if (accion.equals("Inventario")){
+                tvCantidad.setText(datosReportes.getString(3));
+            }else if(accion.equals("Consumo"))
+            {
+                tvCantidad.setText(datosReportes.getString(2));
+            }
             tvCantidad.setGravity(Gravity.CENTER);
             tvCantidad.setTextColor(getColor(R.color.black));
             tvCantidad.setTextSize(16); //16sp
             row1.addView(tvCantidad);
 
-            //columna subtotal
+            //columna subtotal o Fecha
             TextView tvSubTotal = new TextView(this);
-            tvSubTotal.setText("SubTotal"+i);
+            if (accion.equals("Compra")){
+                tvSubTotal.setText(datosReportes.getString(4));
+            }else if (accion.equals("Inventario")){
+                tvSubTotal.setText("$" + datosReportes.getDouble(4));
+            }else if(accion.equals("Consumo"))
+            {
+                tvSubTotal.setText("$" + datosReportes.getDouble(3));
+                Total = Total + datosReportes.getDouble(3);
+            }
             tvSubTotal.setTextColor(getColor(R.color.black));
             tvSubTotal.setTextSize(16); //16sp
             row1.addView(tvSubTotal);
@@ -183,7 +218,7 @@ public class DetalleReporteCons extends AppCompatActivity {
             row3.addView(tvEspacio);
 
             TextView tvSuma = new TextView(this);
-            tvSuma.setText("$0.00");
+            tvSuma.setText("$" + Total);
             tvSuma.setTextColor(getColor(R.color.black));
             tvSuma.setTextSize(20);
             tvSuma.setGravity(Gravity.END);

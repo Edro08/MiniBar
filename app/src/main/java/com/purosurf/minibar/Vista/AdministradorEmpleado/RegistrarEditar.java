@@ -25,6 +25,9 @@ import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.Administrador.GestionProductos.Interfaces.ISeleccionarProducto_View;
 import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class RegistrarEditar extends AppCompatActivity implements ISeleccionarProducto_View {
     //===============Actividad Registrar entrada y Editar Existencias (Salidas)===============
 
@@ -174,13 +177,14 @@ public class RegistrarEditar extends AppCompatActivity implements ISeleccionarPr
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
+                    String fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                     if(result.getResultCode() == 1){
                         setResult(1);
                         precioU = Float.parseFloat(edtPrecioUnitarioRE.getText().toString().trim());
                         cantidadProducto = Integer.parseInt(edtMinimaProductoRE.getText().toString().trim());
                         total = precioU * cantidadProducto;
                         Entrada entrada = new Entrada(0,IniciarSesion.iduser, idProducto,edtDescripcionRE.getText().toString().trim(),
-                                "2020-01-01", cantidadProducto, (float) precioU, (float) total);
+                                fecha, cantidadProducto, (float) precioU, (float) total);
                         intrfcGestionInventarios.InsertEntrada(entrada, getApplicationContext());
                         finish();
                     }else if(result.getResultCode() == 2){
@@ -189,7 +193,7 @@ public class RegistrarEditar extends AppCompatActivity implements ISeleccionarPr
                         cantidadProducto = Integer.parseInt(edtMinimaProductoRE.getText().toString().trim());
                         total = precioU * cantidadProducto;
                         Salida salida = new Salida(0, IniciarSesion.iduser, idProducto, edtDescripcionRE.getText().toString().trim(),
-                                "2020-01-01", cantidadProducto, (float) precioU, (float) total);
+                                fecha, cantidadProducto, (float) precioU, (float) total);
                         intrfcGestionInventarios.InsertSalida(salida, getApplicationContext());
                         finish();
                     } else if (result.getResultCode() == RESULT_OK){

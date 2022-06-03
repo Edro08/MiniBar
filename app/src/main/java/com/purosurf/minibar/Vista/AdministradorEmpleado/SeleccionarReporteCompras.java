@@ -21,8 +21,11 @@ import com.purosurf.minibar.Presentador.Adaptadores.EntradaAdapter;
 import com.purosurf.minibar.Presentador.Adaptadores.SalidaAdapter;
 import com.purosurf.minibar.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class SeleccionarReporteCompras extends AppCompatActivity {
@@ -35,7 +38,7 @@ public class SeleccionarReporteCompras extends AppCompatActivity {
     Bundle datos;
 
     //VARIABLES
-    String accion; //capturar intento
+    String accion, fechaDesde, fechaHasta; //capturar intento
 
     EditText edtFechDesde, edtFechHasta;
 
@@ -67,8 +70,12 @@ public class SeleccionarReporteCompras extends AppCompatActivity {
         btnConfRepES.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fechaDesde = edtFechDesde.getText().toString().trim();
+                fechaHasta = edtFechHasta.getText().toString().trim();
                 Intent compras = new Intent(getApplicationContext(), DetalleReporteCons.class);
                 compras.putExtra("accion",accion);
+                compras.putExtra("fechaDesde",fechaDesde);
+                compras.putExtra("fechaHasta",fechaHasta);
                 lanzarActividad.launch(compras);
             }
         });
@@ -84,7 +91,14 @@ public class SeleccionarReporteCompras extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteCompras.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        String date = year + "-" + month + "-" + day;
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Date Fecha = null;
+                        try {
+                            Fecha = simpleDateFormat.parse(year +"-" + month +"-" + day);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String date = new SimpleDateFormat("yyyy-MM-dd").format(Fecha);
                         edtFechDesde.setText(date);
                     }
                 },year_,mes_,dia_);
@@ -98,7 +112,14 @@ public class SeleccionarReporteCompras extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteCompras.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        String date = year + "-" + month + "-" + day;
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Date Fecha = null;
+                        try {
+                            Fecha = simpleDateFormat.parse(year +"-" + month +"-" + day);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String date = new SimpleDateFormat("yyyy-MM-dd").format(Fecha);
                         edtFechHasta.setText(date);
                     }
                 },year_,mes_,dia_);
