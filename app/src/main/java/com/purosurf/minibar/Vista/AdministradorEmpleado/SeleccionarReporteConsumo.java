@@ -1,5 +1,6 @@
 package com.purosurf.minibar.Vista.AdministradorEmpleado;
 
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -18,7 +19,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.purosurf.minibar.Modelo.Consumo;
 import com.purosurf.minibar.Modelo.Habitacion;
@@ -27,8 +27,11 @@ import com.purosurf.minibar.Presentador.AdministradorEmpleado.SeleccionarReporte
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.AdministradorEmpleado.Interfaces.ISeleccionarReporteConsumo_View;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class SeleccionarReporteConsumo extends AppCompatActivity implements ISeleccionarReporteConsumo_View {
@@ -42,8 +45,9 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
     ArrayList<String> lsHabitacion;
     List<Consumo> lsConsumo;
     List<Habitacion> datosHabitacion;
-    SeleccionarReporteConsumoPresentador seleccionarReporteComprasPresentador;
-    String accion;
+    SeleccionarReporteConsumoPresentador seleccionarReporteConsumoPresentador;
+    String accion, fechaDesde, fechaHasta;
+    int IdHabitacion, IdConsumo;
     Bundle datos;
 
     //ADAPTADOR
@@ -64,7 +68,7 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
         edtFechHasta = findViewById(R.id.edtFechHastaCnsm);
         btnConfRepCsm = findViewById(R.id.btnConfRepCsm);
         rvSeleccionarReporteCons = findViewById(R.id.rvSeleccionarReporteCons);
-        seleccionarReporteComprasPresentador = new SeleccionarReporteConsumoPresentador(this);
+        seleccionarReporteConsumoPresentador = new SeleccionarReporteConsumoPresentador(this);
 
         //obtener intent
         datos = getIntent().getExtras();
@@ -72,7 +76,7 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
 
         //llenar dropdown menu
         lsHabitacion = new ArrayList<String>();
-        datosHabitacion = new ArrayList<>(seleccionarReporteComprasPresentador.DatosHabitacion(getApplicationContext()));
+        datosHabitacion = new ArrayList<>(seleccionarReporteConsumoPresentador.DatosHabitacion(getApplicationContext()));
 
         habitacionAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.dropdown_texto, lsHabitacion);
         actvHabitacionCons.setAdapter(habitacionAdapter);
@@ -80,7 +84,7 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
         actvHabitacionCons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "" + datosHabitacion.get(i).getIdHabitaccion(), Toast.LENGTH_SHORT).show();
+                IdHabitacion = datosHabitacion.get(i).getIdHabitaccion();
             }
         });
 
@@ -95,7 +99,14 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteConsumo.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        String date = year + "-" + month + "-" + day;
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Date Fecha = null;
+                        try {
+                            Fecha = simpleDateFormat.parse(year +"-" + month +"-" + day);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String date = new SimpleDateFormat("yyyy-MM-dd").format(Fecha);
                         edtFechDesde.setText(date);
                     }
                 },year_,mes_,dia_);
@@ -109,7 +120,14 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteConsumo.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        String date = year + "-" + month + "-" + day;
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Date Fecha = null;
+                        try {
+                            Fecha = simpleDateFormat.parse(year +"-" + month +"-" + day);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String date = new SimpleDateFormat("yyyy-MM-dd").format(Fecha);
                         edtFechHasta.setText(date);
                     }
                 },year_,mes_,dia_);
@@ -118,28 +136,34 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
         });
 
         //recyclerview
-        lsConsumo = new ArrayList<Consumo>();
+        lsConsumo = new ArrayList<>();
         consumoAdapter = new ConsumoAdapter(lsConsumo, this);
         rvSeleccionarReporteCons.setHasFixedSize(false);
         rvSeleccionarReporteCons.setLayoutManager(new LinearLayoutManager(this));
-
-        consumoAdapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent compras = new Intent(getApplicationContext(), DetalleReporteCons.class);
-                compras.putExtra("accion",accion);
-                lanzarActividad.launch(compras);
-            }
-        });
 
         btnConfRepCsm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 lsConsumo.clear();
-                for (int indice = 1; indice <= 7; indice++){
-                    lsConsumo.add(new Consumo(indice, 1, indice, indice+"/05/2022", 20));
-                }
+                fechaDesde = edtFechDesde.getText().toString().trim();
+                fechaHasta = edtFechHasta.getText().toString().trim();
+                lsConsumo.addAll(seleccionarReporteConsumoPresentador.DatosConsumoHabitacion(
+                        getApplicationContext(), IdHabitacion, fechaDesde , fechaHasta));
                 rvSeleccionarReporteCons.setAdapter(consumoAdapter);
+            }
+        });
+
+        consumoAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IdConsumo = lsConsumo.get(rvSeleccionarReporteCons.getChildAdapterPosition(view)).getIdConsumo();
+                Intent compras = new Intent(getApplicationContext(), DetalleReporteCons.class);
+                compras.putExtra("fechaDesde",fechaDesde);
+                compras.putExtra("fechaHasta",fechaHasta);
+                compras.putExtra("idHabitacion",IdHabitacion);
+                compras.putExtra("idConsumo",IdConsumo);
+                compras.putExtra("accion",accion);
+                lanzarActividad.launch(compras);
             }
         });
 
@@ -149,6 +173,11 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
                 finish();
             }
         });
+    }
+
+    @Override
+    public void ObtenerNombreHabitacion(String nombreHabitacion) {
+        lsHabitacion.add(nombreHabitacion);
     }
 
     ActivityResultLauncher<Intent> lanzarActividad = registerForActivityResult(
@@ -161,9 +190,4 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
                     }
                 }
             });
-
-    @Override
-    public void ObtenerNombreHabitacion(String nombreHabitacion) {
-        lsHabitacion.add(nombreHabitacion);
-    }
 }

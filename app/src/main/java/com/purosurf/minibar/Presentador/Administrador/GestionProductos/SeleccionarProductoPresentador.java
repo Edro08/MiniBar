@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.purosurf.minibar.DB.MinibarBD;
 import com.purosurf.minibar.Modelo.Categoria;
+import com.purosurf.minibar.Modelo.Inventario;
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.Presentador.Administrador.GestionProductos.Interfaces.ISeleccionarProductoPresentador;
 import com.purosurf.minibar.Vista.Administrador.GestionProductos.Interfaces.ISeleccionarProducto_View;
@@ -58,5 +59,36 @@ public class SeleccionarProductoPresentador implements ISeleccionarProductoPrese
         }
 
         return listaCategorias;
+    }
+
+    @Override
+    public Boolean InsertarProd_Ivnt(Producto producto, Context context, Inventario inventario) {
+        boolean exito = false;
+        //Conexión a la BD
+        MinibarBD conexion = new MinibarBD(context, "Minibar_Sistema", null, 1);
+        SQLiteDatabase base = conexion.getWritableDatabase();
+        try{
+            String consultaSql;
+            consultaSql = "INSERT INTO PRODUCTO(PRODUCTONOMBRE, IDCATEGORIA, PRECIOUNITARIO, IDESTADO, IMAGENURL) " +
+                    "VALUES('"+ producto.getProductoNombre() +"' ,"+ producto.getIdCategoria() +" ," + producto.getPrecioUnitario() +
+                    "," + 1 + " , '"+ producto.getImagenURL() + "')";
+            base.execSQL(consultaSql);
+            exito = true;
+        } catch (Exception e){
+
+        }
+
+        try {
+            exito = false;
+            String consultaSql;
+            consultaSql = "INSERT INTO INVENTARIO (IDPRODUCTO, CANTIDADMINIMA, CANTIDADMAXIMA, EXISTENCIAS) " +
+                    "VALUES("+ inventario.getIdProducto() +" ,"+ inventario.getCantidadMinima() +" ," + inventario.getCantidadMaxima() +
+                    "," + 0 + "')";
+            base.execSQL(consultaSql);
+            exito = true;
+        } catch (Exception e){
+
+        }
+        return exito;
     }
 }
