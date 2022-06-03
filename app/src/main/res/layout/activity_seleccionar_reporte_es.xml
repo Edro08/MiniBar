@@ -50,10 +50,77 @@
             android:layout_marginTop="15dp"
             android:text="TextView" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSeleccionarReporteSR"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvFechaD"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif"
+                android:text="Desde:"
+                android:textAlignment="center"
+                android:textColor="#070707"
+                android:textSize="22sp" />
+
+            <EditText
+                android:id="@+id/edtFechDesdeES"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Seleccionar Fecha"
+                android:fontFamily="sans-serif"
+                android:textAlignment="center"
+                android:textColor="#070707"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvFechaP"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif"
+                android:text="Hasta"
+                android:textAlignment="center"
+                android:textColor="#070707"
+                android:textSize="22sp" />
+
+            <EditText
+                android:id="@+id/edtFechHastaES"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Seleccionar Fecha"
+                android:fontFamily="sans-serif"
+                android:textAlignment="center"
+                android:textColor="#070707"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnConfRepES"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:backgroundTint="@color/azul"
+            android:text="Generar Reporte"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:rippleColor="@color/azulVerde" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

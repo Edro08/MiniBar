@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.purosurf.minibar.Modelo.Consumo;
@@ -22,6 +25,7 @@ import com.purosurf.minibar.Presentador.Adaptadores.ConsumoAdapter;
 import com.purosurf.minibar.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class SeleccionarReporteCons extends AppCompatActivity {
@@ -29,7 +33,6 @@ public class SeleccionarReporteCons extends AppCompatActivity {
     //ELEMENTOS
     Button btnRegresarSelecCons;
     AutoCompleteTextView actvHabitacionCons;
-    RecyclerView rvSeleccionarReporteCons;
 
     //LISTAS
     List<Consumo> lsConsumo;
@@ -39,6 +42,8 @@ public class SeleccionarReporteCons extends AppCompatActivity {
     ConsumoAdapter consumoAdapter;
     ArrayAdapter<String> habitacionAdapter;
 
+    EditText edtFechDesde, edtFechHasta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +52,48 @@ public class SeleccionarReporteCons extends AppCompatActivity {
         //ASIGNAR ELEMENTOS
         btnRegresarSelecCons = findViewById(R.id.btnRegresarSelecCons);
         actvHabitacionCons = findViewById(R.id.actvHabitacionCons);
-        rvSeleccionarReporteCons = findViewById(R.id.rvSeleccionarReporteCons);
+        edtFechDesde = findViewById(R.id.edtFechDesdeCnsm);
+        edtFechHasta = findViewById(R.id.edtFechHastaCnsm);
+
+        btnRegresarSelecCons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        Calendar calendar = Calendar.getInstance();
+        final int year_ = calendar.get(Calendar.YEAR);
+        final int mes_ = calendar.get(Calendar.MONTH) + 1;
+        final int dia_ = calendar.get(Calendar.DAY_OF_MONTH);
+
+        edtFechDesde.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteCons.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        String date = year + "-" + month + "-" + day;
+                        edtFechDesde.setText(date);
+                    }
+                },year_,mes_,dia_);
+                datePickerDialog.show();
+            }
+        });
+
+        edtFechHasta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteCons.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        String date = year + "-" + month + "-" + day;
+                        edtFechHasta.setText(date);
+                    }
+                },year_,mes_,dia_);
+                datePickerDialog.show();
+            }
+        });
 
         //llenar dropdown menu
         lsHabitacion = new ArrayList<String>();
@@ -61,9 +107,6 @@ public class SeleccionarReporteCons extends AppCompatActivity {
         //recyclerview
         lsConsumo = new ArrayList<Consumo>();
         consumoAdapter = new ConsumoAdapter(lsConsumo, this);
-        rvSeleccionarReporteCons.setHasFixedSize(false);
-        rvSeleccionarReporteCons.setLayoutManager(new LinearLayoutManager(this));
-
 
         actvHabitacionCons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,7 +115,6 @@ public class SeleccionarReporteCons extends AppCompatActivity {
                 for (int indice = 1; indice <= 7; indice++){
                     lsConsumo.add(new Consumo(indice, 1, i, indice+"/05/2022", 20));
                 }
-                rvSeleccionarReporteCons.setAdapter(consumoAdapter);
             }
         });
 

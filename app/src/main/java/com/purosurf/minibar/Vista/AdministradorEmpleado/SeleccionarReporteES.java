@@ -8,10 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,13 +25,13 @@ import com.purosurf.minibar.Presentador.Adaptadores.SalidaAdapter;
 import com.purosurf.minibar.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class SeleccionarReporteES extends AppCompatActivity {
 
     //ELEMENTOS
     Button btnRegresarSR;
-    RecyclerView rvSeleccionarReporteSR;
     TextView tvEnunciadoSR;
 
     //BUNDLE
@@ -45,6 +48,8 @@ public class SeleccionarReporteES extends AppCompatActivity {
     //VARIABLES
     String accion; //capturar intento
 
+    EditText edtFechDesde, edtFechHasta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +57,9 @@ public class SeleccionarReporteES extends AppCompatActivity {
 
         //ASIGNAR ELEMENTOS
         btnRegresarSR = findViewById(R.id.btnRegresarSR);
-        rvSeleccionarReporteSR = findViewById(R.id.rvSeleccionarReporteSR);
         tvEnunciadoSR = findViewById(R.id.tvEnunciadoSR);
+        edtFechDesde = findViewById(R.id.edtFechDesdeES);
+        edtFechHasta = findViewById(R.id.edtFechHastaES);
 
         //obtener intent
         datos = getIntent().getExtras();
@@ -65,9 +71,6 @@ public class SeleccionarReporteES extends AppCompatActivity {
             lsEntrada = new ArrayList<Entrada>();
             for (int i = 1; i <= 10; i++){ lsEntrada.add(new Entrada(i, 1, i, "Descripcion producto", i+"/05/2022", 30, 2, 60 )); }
             entradaAdapter = new EntradaAdapter(lsEntrada, this);
-            rvSeleccionarReporteSR.setHasFixedSize(false);
-            rvSeleccionarReporteSR.setLayoutManager(new LinearLayoutManager(this));
-            rvSeleccionarReporteSR.setAdapter(entradaAdapter); //asignar adaptador
 
             //evento seleccionar reporte de compras
             entradaAdapter.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +80,6 @@ public class SeleccionarReporteES extends AppCompatActivity {
                     entradaDetalle.putExtra("accion", accion);
                     lanzarActividad.launch(entradaDetalle);
                     //obtener elemento
-                    Toast.makeText(getApplicationContext(), "Entrada: "+lsEntrada.get(rvSeleccionarReporteSR.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -86,9 +88,6 @@ public class SeleccionarReporteES extends AppCompatActivity {
             lsSalida = new ArrayList<Salida>();
             for (int i = 10; i <=20 ; i++){ lsSalida.add(new Salida(i, 1, i, "Descripcion producto", i+"/05/2022", 30, 2, 60 )); }
             salidaAdapter = new SalidaAdapter(lsSalida, this);
-            rvSeleccionarReporteSR.setHasFixedSize(false);
-            rvSeleccionarReporteSR.setLayoutManager(new LinearLayoutManager(this));
-            rvSeleccionarReporteSR.setAdapter(salidaAdapter); //asignar adaptador
 
             //evento seleccionar reporte de edicion
             //evento seleccionar reporte de compras
@@ -99,7 +98,6 @@ public class SeleccionarReporteES extends AppCompatActivity {
                     salidaDetalle.putExtra("accion", accion);
                     lanzarActividad.launch(salidaDetalle);
                     //obtener elemento
-                    Toast.makeText(getApplicationContext(),"Salida: "+ lsSalida.get(rvSeleccionarReporteSR.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -109,6 +107,39 @@ public class SeleccionarReporteES extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        Calendar calendar = Calendar.getInstance();
+        final int year_ = calendar.get(Calendar.YEAR);
+        final int mes_ = calendar.get(Calendar.MONTH) + 1;
+        final int dia_ = calendar.get(Calendar.DAY_OF_MONTH);
+
+        edtFechDesde.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteES.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        String date = year + "-" + month + "-" + day;
+                        edtFechDesde.setText(date);
+                    }
+                },year_,mes_,dia_);
+                datePickerDialog.show();
+            }
+        });
+
+        edtFechHasta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SeleccionarReporteES.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        String date = year + "-" + month + "-" + day;
+                        edtFechHasta.setText(date);
+                    }
+                },year_,mes_,dia_);
+                datePickerDialog.show();
             }
         });
     }
