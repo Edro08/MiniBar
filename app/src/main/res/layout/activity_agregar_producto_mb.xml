@@ -7,8 +7,9 @@
     tools:context=".Vista.Administrador.GestionHabitaciones.AgregarProductoMB">
 
     <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -39,49 +40,173 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
-            android:text="Seleccione los productos"
-            android:textColor="@color/azulOscuro"
-            android:textSize="23sp"
-            android:textStyle="bold" />
 
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_margin="15dp"
-            android:hint="Selecciona Categoría"
-            app:boxStrokeColor="@color/azul"
-            app:hintTextColor="@color/azul">
-
-            <AutoCompleteTextView
-                android:id="@+id/actvCategoriaMB"
+            android:layout_margin="10dp"
+            app:cardElevation="4dp"
+            app:contentPadding="5dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/azulOscuro"
-                android:inputType="none"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/grisFondo" />
+                <TextView
+                    android:id="@+id/tvHabitacionAMB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="Habitación: "
+                    android:textColor="@color/black"
+                    android:layout_margin="15dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAgregarProductosMB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+                <TextView
+                    android:id="@+id/tvNombreProductoAMB"
+                    android:layout_width="wrap_content"
+                    android:maxWidth="250dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="Producto: NOMBRE COMPLETO PRODUCTO"
+                    android:textColor="@color/black"
+                    android:layout_margin="15dp"/>
+
+                <TextView
+                    android:id="@+id/tvExistenciasAMB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Existencias: "
+                    android:textColor="@color/black"
+                    android:layout_margin="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:text="Cantidad a
+                        ingresar/Retirar: "
+                        android:textColor="@color/black"
+                        android:layout_margin="15dp"/>
+
+                    <Button
+                        android:id="@+id/btnQuitarCantidadAMB"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/ic_icono_quitar"
+                        android:drawableTint="@color/azulOscuro"
+                        app:rippleColor="@color/azulClaro" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"
+                        app:boxStrokeColor="@color/azul"
+                        app:hintTextColor="@color/azul">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtCantidadAMB"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:layout_gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnAgregarCantidadAMB"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/ic_icono_agregar"
+                        android:drawableTint="@color/azulOscuro"
+                        app:rippleColor="@color/azulClaro" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginBottom="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="15dp"
+                        android:text="Mínima: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnQuitarMinimaAMB"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/ic_icono_quitar"
+                        android:drawableTint="@color/azulOscuro"
+                        app:rippleColor="@color/azulClaro" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxStrokeColor="@color/azul"
+                        app:hintTextColor="@color/azul">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtMinimaAMB"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnAgregarMinimaAMB"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/ic_icono_agregar"
+                        android:drawableTint="@color/azulOscuro"
+                        app:rippleColor="@color/azulClaro" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
 
     <Button
@@ -96,7 +221,7 @@
         android:layout_margin="15dp"
         android:backgroundTint="@color/azul"
         app:rippleColor="@color/azulVerde"
-        android:text="Agregar Productos"
+        android:text="Confirmar"
         android:textSize="18sp"
         />
 
