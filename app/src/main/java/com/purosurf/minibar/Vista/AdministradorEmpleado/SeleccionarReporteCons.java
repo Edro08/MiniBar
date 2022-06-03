@@ -1,15 +1,24 @@
 package com.purosurf.minibar.Vista.AdministradorEmpleado;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,10 +27,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.purosurf.minibar.Modelo.Consumo;
 import com.purosurf.minibar.Presentador.Adaptadores.ConsumoAdapter;
+import com.purosurf.minibar.Printer.PrintPDF;
 import com.purosurf.minibar.R;
 
 import java.util.ArrayList;
@@ -31,7 +42,7 @@ import java.util.List;
 public class SeleccionarReporteCons extends AppCompatActivity {
 
     //ELEMENTOS
-    Button btnRegresarSelecCons;
+    Button btnRegresarSelecCons, btnGenerarRPT;
     AutoCompleteTextView actvHabitacionCons;
 
     //LISTAS
@@ -43,6 +54,9 @@ public class SeleccionarReporteCons extends AppCompatActivity {
     ArrayAdapter<String> habitacionAdapter;
 
     EditText edtFechDesde, edtFechHasta;
+    Bitmap bmp, scaledbmp;
+    int pageHeight = 1120, pagewidth = 792;
+    private static final int PERMISSION_REQUEST_CODE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +68,23 @@ public class SeleccionarReporteCons extends AppCompatActivity {
         actvHabitacionCons = findViewById(R.id.actvHabitacionCons);
         edtFechDesde = findViewById(R.id.edtFechDesdeCnsm);
         edtFechHasta = findViewById(R.id.edtFechHastaCnsm);
+        btnGenerarRPT = findViewById(R.id.btnConfRepCsm);
+
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.purosurf);
+        scaledbmp = Bitmap.createScaledBitmap(bmp, 130, 130, false);
 
         btnRegresarSelecCons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        btnGenerarRPT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PrintPDF print = new PrintPDF(bmp,scaledbmp);
+                print.generatePDF(getApplicationContext(), pagewidth, pageHeight);
             }
         });
 
@@ -140,4 +166,36 @@ public class SeleccionarReporteCons extends AppCompatActivity {
                 }
             });
 
+    private boolean checkPermission() {
+        // checking of permissions.
+        int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+        int permission2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
+        return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission() {
+        // requesting permissions if not provided.
+        ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0) {
+
+                // after requesting permissions we are showing
+                // users a toast message of permission granted.
+                boolean writeStorage = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                boolean readStorage = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+                if (writeStorage && readStorage) {
+                    Toast.makeText(this, "Permission Granted..", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Permission Denined.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        }
+    }
 }
