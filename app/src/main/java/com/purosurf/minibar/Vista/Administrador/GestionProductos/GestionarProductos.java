@@ -15,6 +15,11 @@ import android.widget.Button;
 import com.google.android.material.snackbar.Snackbar;
 import com.purosurf.minibar.R;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class GestionarProductos extends AppCompatActivity {
 
     //ELEMENTOS
@@ -32,6 +37,14 @@ public class GestionarProductos extends AppCompatActivity {
         cvDeshabilitarProductos = findViewById(R.id.cvDeshabilitarProductos);
         cvActualizarProductos = findViewById(R.id.cvActualizarProductos);
         cvListarProductos = findViewById(R.id.cvListarProductos);
+
+        //Crear Carpeta para imagenes de productos
+        File nuevaCarpeta = new File(getFilesDir(), "ImgProductos");
+
+        if(!nuevaCarpeta.exists())
+        {
+            nuevaCarpeta.mkdirs();
+        }
 
         //eventos click
         btnRegresarProductos.setOnClickListener(new View.OnClickListener() {

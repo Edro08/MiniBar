@@ -9,43 +9,68 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.purosurf.minibar.Modelo.Consumo;
+import com.purosurf.minibar.Presentador.Empleado.DetalleConfirmarConsumoPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Empleado.Interfaces.IDetalleConfirmarConsumo_View;
+import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
 
 import java.util.ArrayList;
 
-public class DetalleConfirmarConsumo extends AppCompatActivity {
+public class DetalleConfirmarConsumo extends AppCompatActivity implements IDetalleConfirmarConsumo_View {
 
     //ELEMENTOS
     TableLayout tblDetalleDCC;
     Button btnConfirmarDCC, btnRegresarDCC;
+    TextView tvNombreHabitacion;
+    String[][] datosDetalleConfirmar;
+    int Cantidad, IdConsumo, IdHabitacion,Idusuario;
+    double total;
 
     Bundle datos;
-    ArrayList<String> listadoConsumo;
+    DetalleConfirmarConsumoPresentador detalleConfirmarConsumoPresentador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_confirmar_consumo);
-
-        datos = getIntent().getExtras();
         tblDetalleDCC = findViewById(R.id.tblDetalleDCC);
-
-
-        //ASIGNAR ELEMENTOS
         btnConfirmarDCC = findViewById(R.id.btnConfirmarDCC);
         btnRegresarDCC = findViewById(R.id.btnRegresarDCC);
+        tvNombreHabitacion = findViewById(R.id.tv_nombreHabitacionDCC);
 
-        llenarFilas();
+        datos = getIntent().getExtras();
+        datosDetalleConfirmar = (String[][]) datos.getSerializable("Consumo");
+        tvNombreHabitacion.setText(datos.getString("NombreHabitacion"));
+        total = datos.getDouble("Total");
+        IdHabitacion = datos.getInt("IdHabitacion");
+        Idusuario = IniciarSesion.iduser;
 
+        //Mostrar tabla de Detalle de consumo
+        MostrarDatosdeConsumo(datosDetalleConfirmar);
+        detalleConfirmarConsumoPresentador = new DetalleConfirmarConsumoPresentador(this);
 
         //evento botones
         btnConfirmarDCC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult(RESULT_OK);
-                finish();
+                if(detalleConfirmarConsumoPresentador.RegistrarConsumos(
+                        getApplicationContext(),Idusuario,IdHabitacion,total))
+                {
+                    if(detalleConfirmarConsumoPresentador.RegistrarDetalleConsumo(
+                            getApplicationContext(),datosDetalleConfirmar,IdConsumo, IdHabitacion))
+                    {
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Fallo, Intente nuevamente", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -58,7 +83,8 @@ public class DetalleConfirmarConsumo extends AppCompatActivity {
 
     }
 
-    public void llenarFilas(){
+    @Override
+    public void MostrarDatosdeConsumo(String[][] datos){
         //divider
         TableRow row0 = new TableRow(this);
         row0.setBackgroundColor(getColor(R.color.black));
@@ -67,18 +93,18 @@ public class DetalleConfirmarConsumo extends AppCompatActivity {
 
 
         //llenar de datos
-        for(int i= 0; i < 10; i++){
+        for(int i= 0; i < datos.length ; i++){
             TableRow row1 = new TableRow(this);
             TextView tvProducto = new TextView(this);
             //columna producto
-            tvProducto.setText("Producto"+i);
+            tvProducto.setText(datos[i][1]);
             tvProducto.setTextColor(getColor(R.color.black));
             tvProducto.setTextSize(16); //16sp
             row1.addView(tvProducto);
 
             //columna cantidad
             TextView tvCantidad = new TextView(this);
-            tvCantidad.setText("Cantidado"+i);
+            tvCantidad.setText(datos[i][2]);
             tvCantidad.setGravity(Gravity.CENTER);
             tvCantidad.setTextColor(getColor(R.color.black));
             tvCantidad.setTextSize(16); //16sp
@@ -86,11 +112,10 @@ public class DetalleConfirmarConsumo extends AppCompatActivity {
 
             //columna subtotal
             TextView tvSubTotal = new TextView(this);
-            tvSubTotal.setText("SubTotal"+i);
+            tvSubTotal.setText("$" + datos[i][3]);
             tvSubTotal.setTextColor(getColor(R.color.black));
             tvSubTotal.setTextSize(16); //16sp
             row1.addView(tvSubTotal);
-
 
             //agregar a la fila
             tblDetalleDCC.addView(row1);
@@ -101,7 +126,6 @@ public class DetalleConfirmarConsumo extends AppCompatActivity {
         row2.setBackgroundColor(getColor(R.color.black));
         row2.setMinimumHeight(2);//
         tblDetalleDCC.addView(row2);
-
 
         //TOTAL
         TableRow row3 = new TableRow(this);
@@ -121,7 +145,7 @@ public class DetalleConfirmarConsumo extends AppCompatActivity {
         row3.addView(tvEspacio);
 
         TextView tvSuma = new TextView(this);
-        tvSuma.setText("$0.00");
+        tvSuma.setText("$" + total);
         tvSuma.setTextColor(getColor(R.color.black));
         tvSuma.setTextSize(20);
         tvSuma.setGravity(Gravity.END);
@@ -130,5 +154,10 @@ public class DetalleConfirmarConsumo extends AppCompatActivity {
         tblDetalleDCC.addView(row3);
 
 
+    }
+
+    @Override
+    public void ObtenerIdConsumo(int IdConsumo) {
+        this.IdConsumo = IdConsumo;
     }
 }

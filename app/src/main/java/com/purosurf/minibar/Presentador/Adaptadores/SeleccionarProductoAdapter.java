@@ -39,7 +39,7 @@ public class SeleccionarProductoAdapter extends RecyclerView.Adapter<Seleccionar
     // Selccionar el contenedor CardView XML
     @Override
     public SeleccionarProductoAdapter.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
-        View view = minFlater.inflate(R.layout.cardview_seleccionar_producto, null);
+        View view = minFlater.inflate(R.layout.cardview_seleccionar_producto,parent, false);
 
         //declarar onclick
         view.setOnClickListener(this);

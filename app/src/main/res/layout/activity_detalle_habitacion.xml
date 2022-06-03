@@ -40,6 +40,16 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Datos Habitación"
+            android:textColor="@color/azulOscuro"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,15 +61,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_horizontal"
-                    android:text="Datos Habitación"
-                    android:textColor="@color/azulOscuro"
-                    android:textSize="23sp"
-                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvNombreHabitacionDEH"

@@ -16,12 +16,14 @@ import android.widget.Toast;
 
 import com.purosurf.minibar.Modelo.Habitacion;
 import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarHabitacionEMAdapter;
+import com.purosurf.minibar.Presentador.Empleado.SeleccionarHabitacionEMPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Empleado.Interfaces.ISeleccionarHabitacionEM_View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SeleccionarHabitacionEM extends AppCompatActivity {
+public class SeleccionarHabitacionEM extends AppCompatActivity implements ISeleccionarHabitacionEM_View {
 
     //ELEMENTOS
     RecyclerView rvSeleccionarSH; //
@@ -29,9 +31,12 @@ public class SeleccionarHabitacionEM extends AppCompatActivity {
 
     //Adaptador RecyclerView
     SeleccionarHabitacionEMAdapter lsHabitacionesRV;
+    SeleccionarHabitacionEMPresentador seleccionarHabitacionEMPresentador;
 
     //Listado de habitaciones
     List<Habitacion> listadoHabitacion;
+    int IdHabitaccion, IdUsuario;
+    Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +46,11 @@ public class SeleccionarHabitacionEM extends AppCompatActivity {
         //asignar elementos
         rvSeleccionarSH = findViewById(R.id.rvSeleccionarSH);
         btnRegresarSH = findViewById(R.id.btnRegresarSH);
+        seleccionarHabitacionEMPresentador = new SeleccionarHabitacionEMPresentador(this);
 
         //llenar listado
-        listadoHabitacion = new ArrayList <Habitacion> (); //asignar arraylist
-        for(int i = 0; i <= 10; i++){
-            listadoHabitacion.add(new Habitacion(i, "Habitacion"+ i, 1));
-        }
-
+        listadoHabitacion = new ArrayList <Habitacion> (
+                seleccionarHabitacionEMPresentador.listaHabitacion(getApplicationContext())); //asignar arraylist
 
         //Asignar adaptador a RecyclerView
         lsHabitacionesRV = new SeleccionarHabitacionEMAdapter(listadoHabitacion, this); //asignamos el adaptador
@@ -60,9 +63,11 @@ public class SeleccionarHabitacionEM extends AppCompatActivity {
           @Override
           public void onClick(View view) {
               Intent registrar = new Intent(getApplicationContext(), RegistrarConsumos.class);
-              registrarConsumo.launch(registrar);
+              IdHabitaccion = listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getIdHabitaccion();
+              registrar.putExtra("IdHabitaccion",IdHabitaccion);
               listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getIdHabitaccion();  // obtener ID de la habitacion seleccionada
-              Toast.makeText(getApplicationContext(), ""+listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getNombreHabitacion(), Toast.LENGTH_LONG).show();
+              Toast.makeText(getApplicationContext(), ""+listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getNombreHabitacion(), Toast.LENGTH_SHORT).show();
+              registrarConsumo.launch(registrar);
           }
         });
 

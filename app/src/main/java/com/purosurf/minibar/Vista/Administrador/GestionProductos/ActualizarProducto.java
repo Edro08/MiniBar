@@ -25,9 +25,9 @@ import java.util.ArrayList;
 public class ActualizarProducto extends AppCompatActivity {
 
     //ELEMENTOS
-    Button btnRegresarACP,btnCargarNuevaACP ,btnSiguienteACP;
-    TextInputLayout tilProductoACP, tilCategoriaACP, tilPrecioACP;
-    EditText edtProductoACP, edtPrecioACP;
+    Button btnRegresarACP,btnSiguienteACP;
+    TextInputLayout tilProductoACP, tilCategoriaACP, tilPrecioACP, tilImagenACP;
+    EditText edtProductoACP, edtPrecioACP, edtImagenACP;
     AutoCompleteTextView actvCategoriaACP;
     Switch swActivoACP;
     ImageView ivImagenProductoACP;
@@ -35,7 +35,7 @@ public class ActualizarProducto extends AppCompatActivity {
     ArrayList listaCategoria;
 
     //variables obtener datos edt
-    String nombre, categoria;
+    String nombre, categoria, imagen;
     float precio;
 
     @Override
@@ -45,13 +45,14 @@ public class ActualizarProducto extends AppCompatActivity {
 
         //ASIGNAR ELEMENTOS
         btnRegresarACP = findViewById(R.id.btnRegresarACP);
-        btnCargarNuevaACP = findViewById(R.id.btnCargarNuevaACP);
         btnSiguienteACP = findViewById(R.id.btnSiguienteACP);
         tilProductoACP = findViewById(R.id.tilProductoACP);
         tilCategoriaACP = findViewById(R.id.tilCategoriaACP);
         tilPrecioACP = findViewById(R.id.tilPrecioACP);
+        tilImagenACP = findViewById(R.id.tilImagenACP);
         edtProductoACP = findViewById(R.id.edtProductoACP);
         edtPrecioACP = findViewById(R.id.edtPrecioACP);
+        edtImagenACP = findViewById(R.id.edtImagenACP);
         actvCategoriaACP = findViewById(R.id.actvCategoriaACP);
         swActivoACP = findViewById(R.id.swActivoACP);
         ivImagenProductoACP = findViewById(R.id.ivImagenProductoACP);
@@ -79,13 +80,7 @@ public class ActualizarProducto extends AppCompatActivity {
                 finish();
             }
         });
-            //cargar nueva imagen
-        btnCargarNuevaACP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
             //pasar a pantalla confirmar datos
         btnSiguienteACP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +98,7 @@ public class ActualizarProducto extends AppCompatActivity {
         nombre = edtProductoACP.getText().toString().trim();
         String validarPrecio = edtPrecioACP.getText().toString().trim();
         categoria = actvCategoriaACP.getText().toString();
+        imagen = edtImagenACP.getText().toString();
 
         //validacion
         if(TextUtils.isEmpty(nombre)) {
@@ -114,6 +110,9 @@ public class ActualizarProducto extends AppCompatActivity {
         }else if(TextUtils.isEmpty(validarPrecio)){
             tilPrecioACP.setError("Debe ingresar el precio");
             tilPrecioACP.requestFocus();
+        } else if (TextUtils.isEmpty(imagen)){
+            tilImagenACP.setError("Debe ingresar la imagen");
+            tilImagenACP.requestFocus();
         }
 
     }

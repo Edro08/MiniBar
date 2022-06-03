@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.Presentador.Adaptadores.AgregarProductoMBAdapter;
 import com.purosurf.minibar.R;
@@ -22,16 +24,14 @@ public class AgregarProductoMB extends AppCompatActivity {
 
     //ELEMENTOS
     Button btnRegresar2MB, btnAgregarProductosMB;
-    AutoCompleteTextView actvCategoriaMB;
-    RecyclerView rvAgregarProductosMB;
+    TextView tvHabitacionAMB, //nombre habitacion
+            tvExistenciasAMB,
+            tvNombreProductoAMB; //nombre producto
+    TextInputEditText edtCantidadAMB,edtMinimaAMB; //cantidad y minima
+    Button btnQuitarCantidadAMB, btnAgregarCantidadAMB, btnQuitarMinimaAMB, btnAgregarMinimaAMB;
 
-    //ADAPTADORES
-    AgregarProductoMBAdapter agregarAdapter;
-    ArrayAdapter<String> categoriaAdapter;
 
-    //LISTAS
-    List<Producto> lsProducto;
-    ArrayList<String> lsCategoria;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,39 +41,19 @@ public class AgregarProductoMB extends AppCompatActivity {
         //asignar elementos
         btnRegresar2MB = findViewById(R.id.btnRegresar2MB);
         btnAgregarProductosMB = findViewById(R.id.btnAgregarProductosMB);
-        actvCategoriaMB = findViewById(R.id.actvCategoriaMB);
-        rvAgregarProductosMB = findViewById(R.id.rvAgregarProductosMB);
+        tvHabitacionAMB = findViewById(R.id.tvHabitacionAMB);
+        tvExistenciasAMB = findViewById(R.id.tvExistenciasAMB);
+        tvNombreProductoAMB = findViewById(R.id.tvNombreProductoAMB);
+        edtCantidadAMB = findViewById(R.id.edtCantidadAMB);
+        edtMinimaAMB = findViewById(R.id.edtMinimaAMB);
+        btnQuitarCantidadAMB = findViewById(R.id.btnQuitarCantidadAMB);
+        btnAgregarCantidadAMB = findViewById(R.id.btnAgregarCantidadAMB);
+        btnQuitarMinimaAMB = findViewById(R.id.btnQuitarMinimaAMB);
+        btnAgregarMinimaAMB = findViewById(R.id.btnAgregarMinimaAMB);
 
-
-        //Llenar dropdown menu
-        lsCategoria = new ArrayList<String>();
-        for (int i = 1; i <= 6; i++){
-            lsCategoria.add("Categoría #"+i);
-        }
-        categoriaAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.dropdown_texto, lsCategoria);
-        actvCategoriaMB.setAdapter(categoriaAdapter);
-
-
-        //recyclerview
-        lsProducto = new ArrayList<Producto>();
-        agregarAdapter = new AgregarProductoMBAdapter(lsProducto, this);
-        rvAgregarProductosMB.setHasFixedSize(false);
-        rvAgregarProductosMB.setLayoutManager(new LinearLayoutManager(this));
-        //rvAgregarProductosMB.setAdapter(agregarAdapter);
-
-
-        //evento seleccionar categorías
-        actvCategoriaMB.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                lsProducto.clear();
-                for (int indice = 1; indice <= 15; indice++){
-                    lsProducto.add(new Producto(indice, "Producto"+indice, i, 1, 1, "xd",""));
-                }
-                rvAgregarProductosMB.setAdapter(agregarAdapter);
-            }
-        });
+        tvHabitacionAMB.setText("Habitaión: ");
+        tvNombreProductoAMB.setText("Producto: ");
+        tvExistenciasAMB.setText("Existencias Actuales: ");
 
         //evento botones
             //regresar pantalla anterior
@@ -87,7 +67,7 @@ public class AgregarProductoMB extends AppCompatActivity {
         btnAgregarProductosMB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult(RESULT_OK);
+                //setResult(RESULT_OK);
                 finish();
             }
         });

@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,6 +34,7 @@ public class GestionarInventarios extends AppCompatActivity {
         cvEditarInventarios = findViewById(R.id.cvEditarInventarios); //editar existencias
         cvReportesInventarios = findViewById(R.id.cvReportesInventarios); //generar reportes
         cvExistenciasInventarios = findViewById(R.id.cvExistenciasInventarios); //ver existencias
+        cvEditarInventarios.setVisibility(View.GONE); //Ocultar editar existencias
 
         //evento boton
             //regresar pantalla anterior
@@ -63,7 +63,7 @@ public class GestionarInventarios extends AppCompatActivity {
             public void onClick(View view) {
                 Intent salida = new Intent(getApplicationContext(), RegistrarEditar.class);
                 salida.putExtra("accion","salida");
-                lanzarActividad.launch(salida);
+                //lanzarActividad.launch(salida);
             }
         });
             ///generar reportes
@@ -98,33 +98,30 @@ public class GestionarInventarios extends AppCompatActivity {
         cvReporteConsumos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent consumos = new Intent(getApplicationContext(), SeleccionarReporteCons.class);
-                consumos.putExtra("accion","consumos");
+                Intent consumos = new Intent(getApplicationContext(), SeleccionarReporteConsumo.class);
+                consumos.putExtra("accion","Consumo");
                 ventanaModal.cancel();
                 lanzarActividad.launch(consumos);
-                Toast.makeText(getApplicationContext(), "Consumo", Toast.LENGTH_SHORT).show();
             }
         });
             //reportes de compras
         cvReporteCompras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent compras = new Intent(getApplicationContext(), SeleccionarReporteES.class);
-                compras.putExtra("accion","compras");
+                Intent compras = new Intent(getApplicationContext(), SeleccionarReporteCompras.class);
+                compras.putExtra("accion","Compra");
                 ventanaModal.cancel();
                 lanzarActividad.launch(compras);
-                Toast.makeText(getApplicationContext(), "Compra", Toast.LENGTH_SHORT).show();
             }
         });
             //reportes de edicion de existencias
         cvReporteEdicion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent edicion = new Intent(getApplicationContext(), SeleccionarReporteES.class);
-                edicion.putExtra("accion","edicion");
+                Intent edicion = new Intent(getApplicationContext(), DetalleReporteCons.class);
+                edicion.putExtra("accion","Inventario");
                 ventanaModal.cancel();
                 lanzarActividad.launch(edicion);
-                Toast.makeText(getApplicationContext(), "Edicion", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -160,7 +157,7 @@ public class GestionarInventarios extends AppCompatActivity {
                         }else if(result.getResultCode() == 6){
                             mensaje = "Reporte de Compras guardado";
                         } else if(result.getResultCode() == 7){
-                            mensaje = "Reporte de edición de existencias guardado";
+                            mensaje = "Reporte de Inventario guardado";
                         }
                         Snackbar.make(findViewById(R.id.constraintInventarios), mensaje, Snackbar.LENGTH_LONG)
                                 .setTextColor(getColor(R.color.azulOscuro))

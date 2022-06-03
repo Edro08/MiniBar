@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -28,13 +30,10 @@
             android:name=".Vista.AdministradorEmpleado.DetalleReporteCons"
             android:exported="false" />
         <activity
-            android:name=".Vista.AdministradorEmpleado.DetalleReporteES"
+            android:name=".Vista.AdministradorEmpleado.SeleccionarReporteConsumo"
             android:exported="false" />
         <activity
-            android:name=".Vista.AdministradorEmpleado.SeleccionarReporteCons"
-            android:exported="false" />
-        <activity
-            android:name=".Vista.AdministradorEmpleado.SeleccionarReporteES"
+            android:name=".Vista.AdministradorEmpleado.SeleccionarReporteCompras"
             android:exported="false" />
         <activity
             android:name=".Vista.AdministradorEmpleado.VerExistencias"
@@ -103,16 +102,6 @@
             android:name=".Vista.Administrador.GestionProductos.GestionarProductos"
             android:exported="false" />
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
-
         <activity
             android:name=".Vista.SplashActivity_Vista"
             android:exported="true"
@@ -150,6 +139,16 @@
         <activity
             android:name=".Vista.Empleado.SeleccionarHabitacionEM"
             android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:text="Nombre Producto"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
