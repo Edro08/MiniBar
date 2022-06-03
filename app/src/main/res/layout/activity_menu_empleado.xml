@@ -76,7 +76,7 @@
             android:animateLayoutChanges="true"
             android:backgroundTint="@color/azulOscuro"
             app:cardCornerRadius="20dp"
-            app:cardElevation="5dp"
+            app:cardElevation="1dp"
             app:contentPadding="5dp"
             app:rippleColor="@color/azulPalido">
 
@@ -112,7 +112,7 @@
             android:animateLayoutChanges="true"
             android:backgroundTint="@color/azulOscuro"
             app:cardCornerRadius="20dp"
-            app:cardElevation="5dp"
+            app:cardElevation="1dp"
             app:contentPadding="5dp"
             app:rippleColor="@color/azulPalido">
 

@@ -70,12 +70,12 @@
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_inventario_mb.xml" value="0.5" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_jaja.xml" value="0.21557971014492755" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_lista_productos.xml" value="0.25" />
-        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_menu_empleado.xml" value="0.22" />
+        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_menu_empleado.xml" value="0.67" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_recuperar_cuenta.xml" value="0.3640625" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_reestablecer_contrasena.xml" value="0.3640625" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_registrar_consumos.xml" value="0.3640625" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_registrar_editar.xml" value="0.1" />
-        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_gestion.xml" value="0.3640625" />
+        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_gestion.xml" value="0.75" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_habitacion.xml" value="0.3640625" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_habitacion2.xml" value="0.25" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_habitacion_am.xml" value="0.33" />
@@ -83,9 +83,9 @@
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_producto.xml" value="0.33" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_c.xml" value="0.31203703703703706" />
-        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_compras.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_compras.xml" value="0.33" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_cons.xml" value="0.25" />
-        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_consumo.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_consumo.xml" value="0.45215157353885677" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_reporte_es.xml" value="0.3111111111111111" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_seleccionar_usuario.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jonaj/AndroidStudioProjects/MiniBar/app/src/main/res/layout/activity_ver_existencias.xml" value="0.36666666666666664" />
