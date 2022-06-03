@@ -35,7 +35,8 @@ public class SeleccionarHabitacionEM extends AppCompatActivity implements ISelec
 
     //Listado de habitaciones
     List<Habitacion> listadoHabitacion;
-    int IdHabitaccion;
+    int IdHabitaccion, IdUsuario;
+    Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

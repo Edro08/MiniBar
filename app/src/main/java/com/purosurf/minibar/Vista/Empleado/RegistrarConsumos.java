@@ -40,7 +40,7 @@ public class RegistrarConsumos extends AppCompatActivity implements IRegistrarCo
     List<InventarioHabitacionProducto> listadoInventario, ListaDetalleConfirmar;
     String[][] datosDetalleConfirmar;
     RegistrarConsumosPresentador registrarConsumosPresentador;
-    int IdHabitacion, CantidadDetalleConfirmar;
+    int IdHabitacion, CantidadDetalleConfirmar, IdUsuario;
     double total;
     Bundle data;
 
@@ -98,6 +98,7 @@ public class RegistrarConsumos extends AppCompatActivity implements IRegistrarCo
                     detalleConfirmar.putExtra("Consumo",datosDetalleConfirmar);
                     detalleConfirmar.putExtra("Total",total);
                     detalleConfirmar.putExtra("NombreHabitacion",listadoInventario.get(0).getNombreHabitacion());
+                    detalleConfirmar.putExtra("IdHabitacion",IdHabitacion);
                     lanzarDetalle.launch(detalleConfirmar);
                 }
                 else

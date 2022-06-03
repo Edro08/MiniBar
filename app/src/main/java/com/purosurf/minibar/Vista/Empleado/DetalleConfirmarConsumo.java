@@ -9,11 +9,14 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.purosurf.minibar.Modelo.Consumo;
+import com.purosurf.minibar.Presentador.Empleado.DetalleConfirmarConsumoPresentador;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.Empleado.Interfaces.IDetalleConfirmarConsumo_View;
+import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
 
 import java.util.ArrayList;
 
@@ -24,10 +27,11 @@ public class DetalleConfirmarConsumo extends AppCompatActivity implements IDetal
     Button btnConfirmarDCC, btnRegresarDCC;
     TextView tvNombreHabitacion;
     String[][] datosDetalleConfirmar;
-    int Cantidad;
+    int Cantidad, IdConsumo, IdHabitacion,Idusuario;
     double total;
 
     Bundle datos;
+    DetalleConfirmarConsumoPresentador detalleConfirmarConsumoPresentador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +46,31 @@ public class DetalleConfirmarConsumo extends AppCompatActivity implements IDetal
         datosDetalleConfirmar = (String[][]) datos.getSerializable("Consumo");
         tvNombreHabitacion.setText(datos.getString("NombreHabitacion"));
         total = datos.getDouble("Total");
-        MostrarDatosdeConsumo(datosDetalleConfirmar);
+        IdHabitacion = datos.getInt("IdHabitacion");
+        Idusuario = IniciarSesion.iduser;
 
+        //Mostrar tabla de Detalle de consumo
+        MostrarDatosdeConsumo(datosDetalleConfirmar);
+        detalleConfirmarConsumoPresentador = new DetalleConfirmarConsumoPresentador(this);
 
         //evento botones
         btnConfirmarDCC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult(RESULT_OK);
-                finish();
+                if(detalleConfirmarConsumoPresentador.RegistrarConsumos(
+                        getApplicationContext(),Idusuario,IdHabitacion,total))
+                {
+                    if(detalleConfirmarConsumoPresentador.RegistrarDetalleConsumo(
+                            getApplicationContext(),datosDetalleConfirmar,IdConsumo, IdHabitacion))
+                    {
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Fallo, Intente nuevamente", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -134,5 +154,10 @@ public class DetalleConfirmarConsumo extends AppCompatActivity implements IDetal
         tblDetalleDCC.addView(row3);
 
 
+    }
+
+    @Override
+    public void ObtenerIdConsumo(int IdConsumo) {
+        this.IdConsumo = IdConsumo;
     }
 }
