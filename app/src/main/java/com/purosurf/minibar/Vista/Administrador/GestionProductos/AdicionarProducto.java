@@ -29,18 +29,18 @@ import java.util.ArrayList;
 public class AdicionarProducto extends AppCompatActivity implements ISeleccionarProducto_View {
 
     //ELEMENTOS
-    TextInputLayout tilNombreAP, tilCategoriaAP, tilPrecioAP; //contenedores de EditText
-    TextInputEditText edtNombreAP, edtPrecioAP, edtMaximo, edtMinimo; //edit text
+    TextInputLayout tilNombreAP, tilCategoriaAP, tilPrecioAP, tilImagenAP; //contenedores de EditText
+    TextInputEditText edtNombreAP, edtPrecioAP, edtMaximo, edtMinimo, edtImagenAP; //edit text
     Switch swActivoAP; //estado activo
     AutoCompleteTextView actvCategoriaAP; //dropdown menu
-    Button btnCargarImagenAP, btnSiguienteAP, btnRegresarAP;
+    Button btnSiguienteAP, btnRegresarAP;
 
 
     //ArrayList para llenar el spinner
     ArrayList<String> listaCategoria;
 
     //variables
-    String nombre, categoria;
+    String nombre, categoria, imagen;
     float precio;
 
     ISeleccionarProductoPresentador seleccionarProductoPresentador;
@@ -58,7 +58,8 @@ public class AdicionarProducto extends AppCompatActivity implements ISeleccionar
         edtPrecioAP = findViewById(R.id.edtPrecioAP);
         actvCategoriaAP = findViewById(R.id.actvCategoriaAP);
         swActivoAP = findViewById(R.id.swActivoAP);
-        btnCargarImagenAP = findViewById(R.id.btnCargarImagenAP);
+        tilImagenAP = findViewById(R.id.tilImagenAP);
+        edtImagenAP = findViewById(R.id.edtImagenAP);
         btnSiguienteAP = findViewById(R.id.btnSiguienteAP);
         btnRegresarAP = findViewById(R.id.btnRegresarAP);
         edtMaximo = findViewById(R.id.edtMaximaAP);
@@ -84,12 +85,6 @@ public class AdicionarProducto extends AppCompatActivity implements ISeleccionar
             }
         });
 
-        btnCargarImagenAP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         btnSiguienteAP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +116,7 @@ public class AdicionarProducto extends AppCompatActivity implements ISeleccionar
         nombre = edtNombreAP.getText().toString().trim();
         String validarPrecio = edtPrecioAP.getText().toString().trim();
         categoria = actvCategoriaAP.getText().toString();
+        imagen = edtImagenAP.getText().toString();
 
         //validacion
         if(TextUtils.isEmpty(nombre)) {
@@ -133,8 +129,10 @@ public class AdicionarProducto extends AppCompatActivity implements ISeleccionar
         }else if(TextUtils.isEmpty(validarPrecio)){
             tilPrecioAP.setError("Debe ingresar el precio");
             tilPrecioAP.requestFocus();
+        } else if(TextUtils.isEmpty(imagen)){
+            tilImagenAP.setError("Debe ingresar el link de la imagen");
+            tilImagenAP.requestFocus();
         }
-
     }
 
     //=====================lanzador de actividades
