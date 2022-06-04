@@ -65,8 +65,7 @@ public class SeleccionarHabitacionEM extends AppCompatActivity implements ISelec
               Intent registrar = new Intent(getApplicationContext(), RegistrarConsumos.class);
               IdHabitaccion = listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getIdHabitaccion();
               registrar.putExtra("IdHabitaccion",IdHabitaccion);
-              listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getIdHabitaccion();  // obtener ID de la habitacion seleccionada
-              Toast.makeText(getApplicationContext(), ""+listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getNombreHabitacion(), Toast.LENGTH_SHORT).show();
+              registrar.putExtra("nombreHabitacion",listadoHabitacion.get(rvSeleccionarSH.getChildAdapterPosition(view)).getNombreHabitacion());
               registrarConsumo.launch(registrar);
           }
         });

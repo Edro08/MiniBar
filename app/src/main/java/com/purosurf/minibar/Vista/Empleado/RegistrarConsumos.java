@@ -62,6 +62,7 @@ public class RegistrarConsumos extends AppCompatActivity implements IRegistrarCo
 
         data = getIntent().getExtras();
         IdHabitacion = data.getInt("IdHabitaccion");
+        tvHabitacionRegCons.setText("Habitacion: " + data.getString("nombreHabitacion"));
 
         //llenar listado
         ListaDetalleConfirmar = new ArrayList<>();
