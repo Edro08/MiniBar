@@ -69,7 +69,7 @@ public class PrintPDF {
         }
 
         pdfDocument.finishPage(myPage);
-        File file = new File(Environment.getExternalStorageDirectory(), "rptConsumos.pdf");
+        File file = new File(context.getFilesDir(), "rptConsumos.pdf");
 
         try {
             pdfDocument.writeTo(new FileOutputStream(file));

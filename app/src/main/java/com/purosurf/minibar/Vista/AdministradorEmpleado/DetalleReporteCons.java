@@ -7,6 +7,8 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import com.purosurf.minibar.BuildConfig;
 import com.purosurf.minibar.Presentador.AdministradorEmpleado.DetalleReporteConsPresentador;
+import com.purosurf.minibar.Printer.PrintPDF;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.AdministradorEmpleado.Interfaces.IDetalleReporteCons_View;
 import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
@@ -52,7 +55,10 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
     //VARIABLES
     String accion, fecha = "", idusuario = "", numReport = "", habitacion = "", NombreArchivo = "";
     double Total = 0;
-
+    Bitmap bmp, scaledbmp;
+    private static final int PERMISSION_REQUEST_CODE = 200;
+    int pageHeight = 1120;
+    int pagewidth = 792;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +78,9 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
         tv_TrCampo2 = findViewById(R.id.tv_TrCampo2);
         tv_TrCampo3 = findViewById(R.id.tv_TrCampo3);
         detalleReporteConsPresentador = new DetalleReporteConsPresentador(this);
+
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.cama_azul);
+        scaledbmp = Bitmap.createScaledBitmap(bmp, 130, 130, false);
 
         datos = getIntent().getExtras();
         accion = datos.getString("accion");
@@ -254,15 +263,17 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
     @Override
     public boolean GenerarReporte(String nombreReporte) {
         boolean estado = false;
-        NombreArchivo = nombreReporte + ".txt";
-        String Informacion = "Información de mini bar";
+        NombreArchivo = "rptConsumos.pdf";
+        //String Informacion = "Información de mini bar";
         try
         {
-            OutputStreamWriter Archivo = new OutputStreamWriter(
-                    openFileOutput(NombreArchivo, Context.MODE_PRIVATE));
-            Archivo.write(Informacion);
-            Archivo.flush();
-            Archivo.close();
+            PrintPDF print = new PrintPDF(bmp,scaledbmp);
+            print.generatePDF(getApplicationContext(), pagewidth, pageHeight);
+            //OutputStreamWriter Archivo = new OutputStreamWriter(
+            //        openFileOutput(NombreArchivo, Context.MODE_PRIVATE));
+            //Archivo.write(Informacion);
+            //Archivo.flush();
+            //Archivo.close();
             estado = true;
         }
         catch (Exception e)
@@ -280,7 +291,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
             Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", file);
 
             Intent share = new Intent(Intent.ACTION_SEND);
-            share.setType("application/txt");
+            share.setType("application/pdf");
             share.setClipData(ClipData.newRawUri("", contentUri));
             share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
