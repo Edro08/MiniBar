@@ -68,5 +68,13 @@ public class DeshabilitarProducto extends AppCompatActivity implements IDeshabil
                 }
             }
         });
+
+        swActivoDP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                swActivoDP.setText(swActivoDP.isChecked()? "Activo": "Inactivo");
+            }
+        });
     }
+
 }

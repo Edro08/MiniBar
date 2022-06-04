@@ -16,6 +16,7 @@ import com.purosurf.minibar.Modelo.Entrada;
 import com.purosurf.minibar.Modelo.InventarioHabitacion;
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.R;
+import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -90,7 +91,7 @@ public class InventarioMBAdapter extends RecyclerView.Adapter<InventarioMBAdapte
         }
         void bindData(final Producto item){
             //asignamos valores al cardview //trae los valores del modelo
-            ivIconoProductoSEP.setImageResource(R.drawable.ic_icono_comida);
+            Picasso.with(context).load(item.getImagenURL()).into(ivIconoProductoSEP);
             tvNombreProductoSEP.setText(item.getProductoNombre());
             tvEstadoProductoSEP.setText("Activo"); //dato quemado
             //precio
