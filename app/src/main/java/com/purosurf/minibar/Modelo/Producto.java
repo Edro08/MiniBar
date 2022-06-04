@@ -19,6 +19,16 @@ public class Producto {
         NombreCate = nombreCate;
     }
 
+    public Producto(int idProducto, String productoNombre, int idCategoria, float precioUnitario, int idestado, String imagenURL) {
+        IdProducto = idProducto;
+        ProductoNombre = productoNombre;
+        IdCategoria = idCategoria;
+        PrecioUnitario = precioUnitario;
+        IdEstado = idestado;
+        ImagenURL = imagenURL;
+    }
+
+
     public int getIdProducto() {
         return IdProducto;
     }

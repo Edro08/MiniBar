@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Producto: NOMBRE COMPLETO PRODUCTO PRODUCTO"
+                    android:text="Producto: "
                     android:textColor="@color/black"
                     android:layout_margin="15dp"/>
 
@@ -76,11 +76,11 @@
                     android:id="@+id/tvExistenciasAMB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Existencias: "
+                    android:layout_margin="15dp"
+                    android:text="Existencias Actuales: "
                     android:textColor="@color/black"
-                    android:layout_margin="15dp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -141,6 +141,16 @@
                         app:rippleColor="@color/azulClaro" />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCantidadMinAMB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Cantidad Minima Actual: "
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_marginBottom="7dp"

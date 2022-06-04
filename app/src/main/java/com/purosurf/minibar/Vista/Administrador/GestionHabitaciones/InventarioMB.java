@@ -11,22 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.purosurf.minibar.Modelo.InventarioHabitacion;
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.Presentador.Adaptadores.InventarioMBAdapter;
+import com.purosurf.minibar.Presentador.Administrador.GestionHabitaciones.InventarioMBPresentador;
 import com.purosurf.minibar.R;
+import com.purosurf.minibar.Vista.Administrador.GestionHabitaciones.Interfaces.IInventarioMB_View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventarioMB extends AppCompatActivity {
+public class InventarioMB extends AppCompatActivity implements IInventarioMB_View {
 
     //ELEMENTOS
     Button btnRegresarMB;
@@ -37,10 +37,14 @@ public class InventarioMB extends AppCompatActivity {
     //ADAPTADOR
     InventarioMBAdapter inventarioAdapter;
     ArrayAdapter<String> filtroAdapter;
+    InventarioMBPresentador inventarioMBPresentador;
 
     //LIST
     List<Producto> lsProducto;
     ArrayList<String> lsFiltro;
+    int idHabitacion, idProducto;
+    String nombreHabitacion, filtro;
+    Bundle data;
 
 
     @Override
@@ -53,33 +57,45 @@ public class InventarioMB extends AppCompatActivity {
         tvHabitacionMB = findViewById(R.id.tvHabitacionMB);
         rvListaInventarioMB = findViewById(R.id.rvListaInventarioMB);
         actvFiltroMB = findViewById(R.id.actvFiltroMB);
+        inventarioMBPresentador = new InventarioMBPresentador(this);
+        //Extraer datos Bundle
+        data = getIntent().getExtras();
+        idHabitacion = data.getInt("idhabitacion");
+        nombreHabitacion = data.getString("nombreHabitacion");
 
-        tvHabitacionMB.setText("Habitación: ");
+        tvHabitacionMB.setText("Habitación: " + nombreHabitacion);
 
         //llenar drop down
-        lsFiltro = new ArrayList<String>();
-        for(int i = 1; i < 3; i++){
-            lsFiltro.add("Filtro: "+i);
-        }
+        lsFiltro = new ArrayList<String>(inventarioMBPresentador.FiltoProductos());
         filtroAdapter = new ArrayAdapter<String>(this, R.layout.dropdown_texto, lsFiltro);
         actvFiltroMB.setAdapter(filtroAdapter);
 
-        //Asignar RecyclerView
+        //recyclerview Productos
         lsProducto = new ArrayList<Producto>();
-        for (int i = 1; i <= 10; i++){
-            lsProducto.add(new Producto(i, "Producto "+i, 1, 20, 1, "htttpX", "XD"));
-        }
-        //recyclerview
         inventarioAdapter = new InventarioMBAdapter(lsProducto, this);
         rvListaInventarioMB.setHasFixedSize(false);
         rvListaInventarioMB.setLayoutManager(new LinearLayoutManager(this));
         rvListaInventarioMB.setAdapter(inventarioAdapter);
 
+        actvFiltroMB.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                filtro = lsFiltro.get(i);
+                lsProducto.clear();
+                lsProducto.addAll(inventarioMBPresentador.listaProductos(
+                        getApplicationContext(), filtro, idHabitacion));
+                rvListaInventarioMB.setAdapter(inventarioAdapter);
+            }
+        });
+
             //evento seleccionar elemento
         inventarioAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                idProducto = lsProducto.get(rvListaInventarioMB.getChildAdapterPosition(view)).getIdProducto();
                 Intent inventario = new Intent(getApplicationContext(), AgregarProductoMB.class);
+                inventario.putExtra("idHabitacion",idHabitacion);
+                inventario.putExtra("iidProducto ",idProducto);
                 lanzarActividad.launch(inventario);
             }
         });

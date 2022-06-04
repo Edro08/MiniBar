@@ -25,7 +25,6 @@ public class VerExistenciasAdapter extends RecyclerView.Adapter<VerExistenciasAd
     //declarar click
     private  View.OnClickListener listener;
 
-    //
     private List<Inventario> mData;
     private LayoutInflater minFlater;
     private Context context;

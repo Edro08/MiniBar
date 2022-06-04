@@ -27,6 +27,7 @@ public class SeleccionarHabitacionAM extends AppCompatActivity implements ISelec
     TextView tvSeleccionarGH;
     RecyclerView rvHabitacionesGH;
     int idhabitacion;
+    String nombreHabitacion;
 
     //List<Habitacion>
     List<Habitacion> listadoHabitaciones;
@@ -77,7 +78,7 @@ public class SeleccionarHabitacionAM extends AppCompatActivity implements ISelec
         //evento click o seleccionar habitacion
         rvHabitacionesAdapter.setOnClickListener(view -> {
             idhabitacion = listadoHabitaciones.get(rvHabitacionesGH.getChildAdapterPosition(view)).getIdHabitaccion();
-
+            nombreHabitacion =  listadoHabitaciones.get(rvHabitacionesGH.getChildAdapterPosition(view)).getNombreHabitacion();
             Intent accion;
             if(datos.getString("accion").equals("deshabilitar")){
                 accion = new Intent(getApplicationContext(), DeshabilitarHabitacion.class);
@@ -95,6 +96,7 @@ public class SeleccionarHabitacionAM extends AppCompatActivity implements ISelec
             }else if(datos.getString("accion").equals("minibar")){
                 accion = new Intent(getApplicationContext(), InventarioMB.class);
                 accion.putExtra("idhabitacion",idhabitacion);
+                accion.putExtra("nombreHabitacion",nombreHabitacion);
                 accion.putExtra("accion","minibar"); //accion = minibar
                 lanzarActividad.launch(accion);
             }
