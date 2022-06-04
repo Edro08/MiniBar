@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.purosurf.minibar.BuildConfig;
 import com.purosurf.minibar.Presentador.AdministradorEmpleado.DetalleReporteConsPresentador;
+import com.purosurf.minibar.Printer.PrintPDF;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.AdministradorEmpleado.Interfaces.IDetalleReporteCons_View;
 import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
@@ -266,9 +267,23 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
         //String Informacion = "Información de mini bar";
         try
         {
-            String[] datos = {"Detalle de Inventario", numReport, fecha, IniciarSesion.usuario, NombreArchivo};
-            PrintPDF print = new PrintPDF(bmp, scaledbmp, datos, detalleReporteConsPresentador.DatosInventario(getApplicationContext()));
-            print.generatePDF(getApplicationContext(), pagewidth, pageHeight);
+            PrintPDF printPDF;
+            if (accion.equals("Inventario")){
+                String[] Title = {"Detalle de Inventario", numReport, fecha, IniciarSesion.usuario, NombreArchivo, accion};
+                printPDF = new PrintPDF(bmp, scaledbmp, Title, detalleReporteConsPresentador.DatosInventario(getApplicationContext()));
+                printPDF.generatePDF(getApplicationContext(), pagewidth, pageHeight);
+            } else if (accion.equals("Consumo")){
+                String[] Title = {"",numReport, fecha, IniciarSesion.usuario, NombreArchivo, accion};
+                printPDF = new PrintPDF(bmp, scaledbmp, Title, detalleReporteConsPresentador.DatosConsumoHabitacion(getApplicationContext(), datos.getInt("idConsumo")));
+                printPDF.generatePDF(getApplicationContext(), pagewidth, pageHeight);
+            } else if (accion.equals("Compra")){
+                String[] Title = {"Detalle de Compra", numReport, fecha, IniciarSesion.usuario, NombreArchivo, accion};
+                printPDF = new PrintPDF(bmp, scaledbmp, Title, detalleReporteConsPresentador.DatosCompra(getApplicationContext(),
+                        datos.getString("fechaDesde"),datos.getString("fechaHasta")));
+                printPDF.generatePDF(getApplicationContext(),pagewidth, pageHeight);
+            }
+
+
             estado = true;
         }
         catch (Exception e)
