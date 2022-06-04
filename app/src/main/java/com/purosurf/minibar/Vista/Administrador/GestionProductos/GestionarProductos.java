@@ -93,11 +93,12 @@ public class GestionarProductos extends AppCompatActivity {
 
 
     //=====================lanzador de actividades
-        /*        resultCode = 1 -> adicionar
+                /*resultCode = 1 -> adicionar
                   resultCode = 2 -> deshabilitar
-                  resultCode = 3 -> actualizar
-                  resultCode = 4 -> listar
-        */
+                  resultCode = 3 -> Habilitar
+                * resultCode = 4 -> actualizar
+                * resultCode = 5 -> listar
+                * */
     ActivityResultLauncher<Intent> lanzarActividad = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>(){
@@ -110,6 +111,8 @@ public class GestionarProductos extends AppCompatActivity {
                         }else if(result.getResultCode() == 2){
                             mensaje = "Producto Deshabilitado correctamente";
                         }else if(result.getResultCode() == 3){
+                            mensaje = "Producto Habilitado Correctamente";
+                        } else if (result.getResultCode() == 4){
                             mensaje = "Producto Actualizado Correctamente";
                         }
                         Snackbar.make(findViewById(R.id.constraintGestionProductos), mensaje, Snackbar.LENGTH_LONG)

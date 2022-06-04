@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +18,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.purosurf.minibar.Modelo.Categoria;
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.Presentador.Adaptadores.SeleccionarProductoAdapter;
 import com.purosurf.minibar.Presentador.Administrador.GestionProductos.Interfaces.ISeleccionarProductoPresentador;
@@ -28,7 +26,6 @@ import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.Administrador.GestionProductos.Interfaces.ISeleccionarProducto_View;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SeleccionarProducto extends AppCompatActivity implements ISeleccionarProducto_View {
 
@@ -139,15 +136,27 @@ public class SeleccionarProducto extends AppCompatActivity implements ISeleccion
 
                 Intent accionProducto;
                 if (accion.equals("deshabilitar")){
-                    accionProducto = new Intent(getApplicationContext(), DeshabilitarProductos.class);
+                    accionProducto = new Intent(getApplicationContext(), DeshabilitarProducto.class);
+                    accionProducto.putExtra("idproducto",idProducto);
+                    accionProducto.putExtra("producto",listadoProducto.get(rvSeleccionarProductoSP.getChildAdapterPosition(view)).getProductoNombre());
+                    accionProducto.putExtra("estado",listadoProducto.get(rvSeleccionarProductoSP.getChildAdapterPosition(view)).getIdEstado());
                     lanzarActividad.launch(accionProducto);
                 }else if(accion.equals("actualizar")){
                     accionProducto = new Intent(getApplicationContext(), ActualizarProducto.class);
+                    accionProducto.putExtra("idproducto",idProducto);
                     accionProducto.putExtra("accion","actualizar");
                     lanzarActividad.launch(accionProducto);
                 }else if(accion.equals("listar")){
                     accionProducto = new Intent(getApplicationContext(), ConfirmarDetalleProducto.class);
                     accionProducto.putExtra("accion","listar");
+                    seleccionarProductoPresentador.cargarProducto(getApplicationContext(), idProducto);
+                    accionProducto.putExtra("nombre", listadoProducto.get(rvSeleccionarProductoSP.getChildAdapterPosition(view)).getProductoNombre());
+                    accionProducto.putExtra("categoria", listadoProducto.get(rvSeleccionarProductoSP.getChildAdapterPosition(view)).getNombreCate());
+                    accionProducto.putExtra("precio", listadoProducto.get(rvSeleccionarProductoSP.getChildAdapterPosition(view)).getPrecioUnitario());
+                    accionProducto.putExtra("estado", listadoProducto.get(rvSeleccionarProductoSP.getChildAdapterPosition(view)).getIdEstado());
+                    accionProducto.putExtra("maximo",seleccionarProductoPresentador.cargarCantidades(getApplicationContext()).get(1));
+                    accionProducto.putExtra("minimo",seleccionarProductoPresentador.cargarCantidades(getApplicationContext()).get(0));
+                    accionProducto.putExtra("imagen", listadoProducto.get(rvSeleccionarProductoSP.getChildAdapterPosition(view)).getImagenURL());
                     lanzarActividad.launch(accionProducto);
                 }
             }
@@ -157,8 +166,9 @@ public class SeleccionarProducto extends AppCompatActivity implements ISeleccion
     //=====================lanzador de actividades
                 /*resultCode = 1 -> adicionar
                   resultCode = 2 -> deshabilitar
-                * resultCode = 3 -> actualizar
-                * resultCode = 4 -> listar
+                  resultCode = 3 -> Habilitar
+                * resultCode = 4 -> actualizar
+                * resultCode = 5 -> listar
                 * */
 
     ActivityResultLauncher<Intent> lanzarActividad = registerForActivityResult(
@@ -173,6 +183,9 @@ public class SeleccionarProducto extends AppCompatActivity implements ISeleccion
                         setResult(3);
                         finish();
                     }else if (result.getResultCode() == 4){
+                        setResult(4);
+                        finish();
+                    } else if (result.getResultCode() == 5 ){
                         finish();
                     }
                 }

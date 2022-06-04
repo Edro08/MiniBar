@@ -87,7 +87,7 @@
             android:name=".Vista.Administrador.GestionProductos.ActualizarProducto"
             android:exported="false" />
         <activity
-            android:name=".Vista.Administrador.GestionProductos.DeshabilitarProductos"
+            android:name=".Vista.Administrador.GestionProductos.DeshabilitarProducto"
             android:exported="false" />
         <activity
             android:name=".Vista.Administrador.GestionProductos.SeleccionarProducto"

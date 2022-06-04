@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -89,6 +91,34 @@ public class ConfirmarUsuario extends AppCompatActivity implements IConfirmarUsu
         }
 
 
+        //quitar error
+        edtPasswordADDU.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (edtPasswordADDU.toString().length()>0){
+                    tilPasswordADDU.setError(null);
+                }
+            }
+        });
+
+        //quitar error
+        edtConfirmarPassADDU.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (edtConfirmarPassADDU.toString().length()>0){
+                    tilConfirmarPassADDU.setError(null);
+                }
+            }
+        });
+
         //evento botones
         btnRegresar2ADDU.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,25 +164,25 @@ public class ConfirmarUsuario extends AppCompatActivity implements IConfirmarUsu
         claveVerificar = edtConfirmarPassADDU.getText().toString();
 
         if (TextUtils.isEmpty(usuario)){
-            edtUsuarioADDU.setError("Debe ingresar el usuario");
-            edtUsuarioADDU.requestFocus();
+            tilUsuarioADDU.setError("Debe ingresar el usuario");
+            tilUsuarioADDU.requestFocus();
         } else if (TextUtils.isEmpty(clave)){
-            edtPasswordADDU.setError("Debe ingresar la contraseña");
-            edtPasswordADDU.requestFocus();
+            tilPasswordADDU.setError("Debe ingresar la contraseña");
+            tilPasswordADDU.requestFocus();
         } else if (TextUtils.isEmpty(claveVerificar)){
-            edtConfirmarPassADDU.setError("Debe ingresar la contraseña nuevamente");
-            edtConfirmarPassADDU.requestFocus();
+            tilConfirmarPassADDU.setError("Debe ingresar la contraseña nuevamente");
+            tilConfirmarPassADDU.requestFocus();
         } else if (!clave.equals(claveVerificar)) {
-            edtConfirmarPassADDU.setError("Las contraseñas no coinciden!");
-            edtConfirmarPassADDU.requestFocus();
+            tilConfirmarPassADDU.setError("Las contraseñas no coinciden!");
+            tilConfirmarPassADDU.requestFocus();
         }
         else
         {
             if(!usuario.equals(usuarioVerificar))
             {
                 if(confirmarUsuarioPresentador.VerificarUsuario(getApplicationContext(),usuario)){
-                    edtUsuarioADDU.setError("Usuario se encuentra en uso!");
-                    edtUsuarioADDU.requestFocus();
+                    tilUsuarioADDU.setError("Usuario se encuentra en uso!");
+                    tilUsuarioADDU.requestFocus();
                 }
                 else
                 {

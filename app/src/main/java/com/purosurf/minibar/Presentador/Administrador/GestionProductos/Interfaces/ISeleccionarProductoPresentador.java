@@ -13,4 +13,7 @@ public interface ISeleccionarProductoPresentador {
     List<Producto> listaProductos(Context context, String nombreCategoria);
     List<String> listaCategorias(Context context);
     Boolean InsertarProd_Ivnt(Producto producto, Context context, Inventario inventario);
+    void cargarProducto(Context context, int idproducto);
+    List<Integer> cargarCantidades(Context context);
+
 }
