@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
@@ -64,6 +65,9 @@ public class PrintPDF {
         canvas.drawText("Cantidad", 505,240, title);
         canvas.drawText("Precio", 680,240, title);
 
+        paint.setStrokeWidth(2);
+        canvas.drawLine(60,255,canvas.getWidth()-60,255, paint);
+
         title.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         title.setColor(ContextCompat.getColor(context, R.color.black));
         title.setTextSize(18);
@@ -73,7 +77,7 @@ public class PrintPDF {
         while (data.moveToNext()){
             canvas.drawText(data.getString(1),80,y,title);
             canvas.drawText(data.getString(3), 500, y, title);
-            canvas.drawText("$ "+ data.getString(4),670, y, title);
+            canvas.drawText("$ "+ data.getString(4),650, y, title);
             y += 30;
         }
 
