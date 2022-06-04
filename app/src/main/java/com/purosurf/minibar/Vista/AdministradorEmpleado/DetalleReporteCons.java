@@ -263,7 +263,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
     @Override
     public boolean GenerarReporte(String nombreReporte) {
         boolean estado = false;
-        NombreArchivo = nombreReporte + ".pdf";
+        NombreArchivo = "rpt" + accion + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".pdf";
         //String Informacion = "Información de mini bar";
         try
         {
@@ -273,7 +273,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
                 printPDF = new PrintPDF(bmp, scaledbmp, Title, detalleReporteConsPresentador.DatosInventario(getApplicationContext()));
                 printPDF.generatePDF(getApplicationContext(), pagewidth, pageHeight);
             } else if (accion.equals("Consumo")){
-                String[] Title = {"",numReport, fecha, IniciarSesion.usuario, NombreArchivo, accion};
+                String[] Title = {"Detalle de Consumo",numReport, fecha, IniciarSesion.usuario, NombreArchivo, accion};
                 printPDF = new PrintPDF(bmp, scaledbmp, Title, detalleReporteConsPresentador.DatosConsumoHabitacion(getApplicationContext(), datos.getInt("idConsumo")));
                 printPDF.generatePDF(getApplicationContext(), pagewidth, pageHeight);
             } else if (accion.equals("Compra")){

@@ -54,7 +54,7 @@ public class PrintPDF {
         title.setColor(ContextCompat.getColor(context, R.color.black));
         canvas.drawText(Title[0], 450, 75, title);
         canvas.drawText("Reporte: " + Title[1], 450,105,title);
-        if (Title[5].equals("Inventario") || Title.equals("Consumo")) { canvas.drawText("Fecha Impresion: " + Title[2],450,135, title); }
+        if (Title[5].equals("Inventario") || Title[5].equals("Consumo")) { canvas.drawText("Fecha Impresion: " + Title[2],450,135, title); }
         if (Title[5].equals("Compra")) { canvas.drawText("Periodo: " + Title[2], 450,135,title); }
         canvas.drawText("Usuario Genero: " + Title[3],450,165,title);
 
@@ -90,7 +90,6 @@ public class PrintPDF {
             if (Title[5].equals("Consumo")) { canvas.drawText(data.getString(1),80, y, title); }
             if (Title[5].equals("Consumo")) { canvas.drawText(data.getString(2), 500, y, title); }
             if (Title[5].equals("Consumo")) { canvas.drawText("$" + data.getString(3), 650, y, title); }
-
             y += 30;
         }
 
