@@ -77,11 +77,12 @@ public class PrintPDF {
         title.setTextAlign(Paint.Align.LEFT);
         //recorrido de productos
         int y = 280;
+        double total = 0;
         while (data.moveToNext()){
             //inventario
             if (Title[5].equals("Inventario")) { canvas.drawText(data.getString(1),80,y,title); }
             if (Title[5].equals("Inventario")) { canvas.drawText(data.getString(3), 500, y, title); }
-            if (Title[5].equals("Inventario")) { canvas.drawText("$ "+ data.getString(4),650, y, title); }
+            if (Title[5].equals("Inventario")) { canvas.drawText("$ "+ Double.parseDouble(data.getString(4)),650, y, title); }
             //compras
             if (Title[5].equals("Compra")) { canvas.drawText(data.getString(3),80,y, title); }
             if (Title[5].equals("Compra")) { canvas.drawText(data.getString(5), 500, y, title); }
@@ -89,10 +90,15 @@ public class PrintPDF {
             //consumo
             if (Title[5].equals("Consumo")) { canvas.drawText(data.getString(1),80, y, title); }
             if (Title[5].equals("Consumo")) { canvas.drawText(data.getString(2), 500, y, title); }
-            if (Title[5].equals("Consumo")) { canvas.drawText("$" + data.getString(3), 650, y, title); }
+            if (Title[5].equals("Consumo")) { canvas.drawText("$" + Double.parseDouble(data.getString(3)), 650, y, title); }
             y += 30;
+            if (Title[5].equals("Consumo")) { total += data.getDouble(3);}
         }
 
+        paint.setStrokeWidth(3);
+        if (Title[5].equals("Consumo")) { canvas.drawLine(60,y-12,canvas.getWidth()-60,y-12, paint); }
+        if (Title[5].equals("Consumo")) { canvas.drawText("Total", 80,y+10,title);}
+        if (Title[5].equals("Consumo")) { canvas.drawText("$ " + total, 650,y+10,title);}
         pdfDocument.finishPage(myPage);
         File file = new File(context.getFilesDir(), Title[4]);
         if(file.exists()){
