@@ -60,7 +60,7 @@ public class MinibarBD extends SQLiteOpenHelper {
                 "[IDCATEGORIA][INT] NOT NULL," +
                 "[PRECIOUNITARIO][FLOAT] NOT NULL," +
                 "[IDESTADO][INT] NOT NULL," +
-                "[IMAGENURL][NVARCHAR](250) NOT NULL," +
+                "[IMAGENURL][NVARCHAR](2000) NOT NULL," +
                 "CONSTRAINT FK_IDCATEGORIA_PRODUCTO FOREIGN KEY (IDCATEGORIA) REFERENCES CATEGORIA(IDCATEGORIA)," +
                 "CONSTRAINT FK_IDESTADO_PRODUCTO FOREIGN KEY (IDESTADO) REFERENCES ESTADO(IDESTADO))";
         sqLiteDatabase.execSQL(consultaSql);
