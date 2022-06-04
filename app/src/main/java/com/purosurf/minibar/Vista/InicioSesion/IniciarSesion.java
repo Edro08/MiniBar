@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -51,6 +53,21 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
         btnRecuperarLogin = findViewById(R.id.btnRecuperarLogin);
 
         iniciarSesionPresentador = new IniciarSesionPresentador(this);
+
+            //quitar error
+        edtPasswordLogin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {
+                    if (edtPasswordLogin.toString().length()>0){
+                        tilPasswordLogin.setError(null);
+                    }
+            }
+        });
+
 
         //botones
         btnIngresarAdmi.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +126,7 @@ public class IniciarSesion extends AppCompatActivity implements IIniciarSesion_V
         }
         else
         {
+            tilPasswordLogin.setError(null);
             estado = true;
         }
         return estado;

@@ -162,7 +162,7 @@
                         />
 
                     <LinearLayout
-                        android:layout_width="150dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -185,7 +185,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edtMinimaAP"
-                                android:layout_width="50dp"
+                                android:layout_width="70dp"
                                 android:layout_height="50dp"
                                 android:enabled="false"
                                 android:gravity="clip_horizontal|center_horizontal"
@@ -216,17 +216,16 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:text="Cantidad Máxima"
-                        android:textSize="18sp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
+                        android:layout_width="232dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="Cantidad Máxima"
                         android:textColor="@color/black"
-                        />
+                        android:textSize="18sp" />
 
                     <LinearLayout
-                        android:layout_width="150dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -249,7 +248,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edtMaximaAP"
-                                android:layout_width="50dp"
+                                android:layout_width="70dp"
                                 android:layout_height="50dp"
                                 android:enabled="false"
                                 android:gravity="clip_horizontal|center_horizontal"

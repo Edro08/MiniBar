@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.purosurf.minibar.Modelo.Producto;
 import com.purosurf.minibar.R;
+import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.Format;
@@ -87,9 +88,13 @@ public class SeleccionarProductoAdapter extends RecyclerView.Adapter<Seleccionar
         }
         void bindData(final Producto item){
             //asignamos valores al cardview //trae los valores del modelo
-            ivIconoProductoSEP.setImageResource(R.drawable.ic_icono_comida);
+            Picasso.with(context).load(item.getImagenURL()).into(ivIconoProductoSEP);
             tvNombreProductoSEP.setText(item.getProductoNombre());
-            tvEstadoProductoSEP.setText("Activo"); //dato quemado
+            if (item.getIdEstado() == 1){
+                tvEstadoProductoSEP.setText("Activo"); //dato quemado
+            } else {
+                tvEstadoProductoSEP.setText("Inactivo"); //dato quemado
+            }
             //precio
             String precio = new DecimalFormat("#,##0.00").format(item.getPrecioUnitario());
             tvPrecioProductoSEP.setText("$ "+precio);
