@@ -95,10 +95,12 @@ public class InventarioMB extends AppCompatActivity implements IInventarioMB_Vie
             public void onClick(View view) {
                 idProducto = lsProducto.get(rvListaInventarioMB.getChildAdapterPosition(view)).getIdProducto();
                 nombreProducto = lsProducto.get(rvListaInventarioMB.getChildAdapterPosition(view)).getProductoNombre();
+                double precio = lsProducto.get(rvListaInventarioMB.getChildAdapterPosition(view)).getPrecioUnitario();
                 Intent inventario = new Intent(getApplicationContext(), AgregarProductoMB.class);
                 inventario.putExtra("idHabitacion",idHabitacion);
                 inventario.putExtra("nombreHabitacion",nombreHabitacion);
                 inventario.putExtra("idProducto",idProducto);
+                inventario.putExtra("precio",precio);
                 inventario.putExtra("nombreProducto",nombreProducto);
                 lanzarActividad.launch(inventario);
             }

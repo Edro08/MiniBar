@@ -253,8 +253,8 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
 
     @Override
     public boolean GenerarReporte(String nombreReporte) {
-        boolean estado = false;
-        NombreArchivo = nombreReporte + ".txt";
+        boolean estado = true;
+        NombreArchivo = nombreReporte + ".pdf";
         String Informacion = "Información de mini bar";
         try
         {
@@ -264,6 +264,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
             Archivo.flush();
             Archivo.close();
             estado = true;
+
         }
         catch (Exception e)
         {
@@ -276,11 +277,11 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
     @Override
     public void CompartirReporte(String nombreReporte) {
         try {
-            File file = new File(getFilesDir(), nombreReporte);
+            File file = new File(getFilesDir(), "Networking glossary.pdf");
             Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", file);
 
             Intent share = new Intent(Intent.ACTION_SEND);
-            share.setType("application/txt");
+            share.setType("application/pdf");
             share.setClipData(ClipData.newRawUri("", contentUri));
             share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 

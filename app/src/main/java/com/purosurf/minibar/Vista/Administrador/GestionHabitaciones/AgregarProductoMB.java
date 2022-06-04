@@ -20,6 +20,7 @@ import com.purosurf.minibar.Presentador.Adaptadores.AgregarProductoMBAdapter;
 import com.purosurf.minibar.Presentador.Administrador.GestionHabitaciones.AgregarProductoMBPresentador;
 import com.purosurf.minibar.R;
 import com.purosurf.minibar.Vista.Administrador.GestionHabitaciones.Interfaces.IAgregarProductoMB_View;
+import com.purosurf.minibar.Vista.InicioSesion.IniciarSesion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,8 @@ public class AgregarProductoMB extends AppCompatActivity implements IAgregarProd
             cantidadMin = 0,
             inventarioGeneral = 0;
 
+    boolean ExistenciaRegistro;
+    double precio = 0;
     //Bundle y otros
     Bundle data;
     AgregarProductoMBPresentador agregarProductoMBPresentador;
@@ -79,9 +82,12 @@ public class AgregarProductoMB extends AppCompatActivity implements IAgregarProd
         nombreProducto = data.getString("nombreProducto");
         idProducto = data.getInt("idProducto");
         idHabitacion = data.getInt("idHabitacion");
+        precio = data.getDouble("precio");
 
-        if (agregarProductoMBPresentador.VerificarInventarioHabitacion(
-                getApplicationContext(), idProducto, idHabitacion))
+        ExistenciaRegistro = agregarProductoMBPresentador.VerificarInventarioHabitacion(
+                getApplicationContext(), idProducto, idHabitacion);
+
+        if (ExistenciaRegistro)
         {
             cantidadExistencia = existenciasActuales;
             cantidadMin = cantidadMinActual;
@@ -99,8 +105,10 @@ public class AgregarProductoMB extends AppCompatActivity implements IAgregarProd
         btnAgregarCantidadAMB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cantidadExistencia++;
-                edtCantidadAMB.setText("" + cantidadExistencia);
+                if(cantidadExistencia < (inventarioGeneral + existenciasActuales)) {
+                    cantidadExistencia++;
+                    edtCantidadAMB.setText("" + cantidadExistencia);
+                }
             }
         });
 
@@ -145,6 +153,8 @@ public class AgregarProductoMB extends AppCompatActivity implements IAgregarProd
         btnAgregarProductosMB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                agregarProductoMBPresentador.AgregarEliminarProductoMiniBar(getApplicationContext(), idProducto,idHabitacion,
+                        nombreHabitacion,ExistenciaRegistro,cantidadExistencia,existenciasActuales,cantidadMin,precio, IniciarSesion.iduser);
                 //setResult(RESULT_OK);
                 finish();
             }
@@ -155,6 +165,11 @@ public class AgregarProductoMB extends AppCompatActivity implements IAgregarProd
     @Override
     public void ObtenerExistenciasActuales(int existenciasActuales) {
         this.existenciasActuales = existenciasActuales;
+    }
+
+    @Override
+    public void ObtenerExistenciasInventarioGeneral(int existenciasActuales) {
+        this.inventarioGeneral = existenciasActuales;
     }
 
     @Override
