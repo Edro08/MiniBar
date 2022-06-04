@@ -42,8 +42,6 @@ public class RecuperarCuenta extends AppCompatActivity implements IRecuperarCuen
     int idUsuario;
 
     Bundle data;
-    ConnectivityManager connectivityManager;
-    NetworkInfo networkInfo;
     RecuperarCuentaPresentador recuperarCuentaPresentador;
 
     @Override
@@ -70,8 +68,8 @@ public class RecuperarCuenta extends AppCompatActivity implements IRecuperarCuen
         // VISIBLE - visible
         // GONE - OCULTO
         //Verificar conexion a internet
-        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        networkInfo = connectivityManager.getActiveNetworkInfo();
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (networkInfo != null && networkInfo.isConnected()) {
             // Si hay conexión a Internet en este momento
@@ -142,6 +140,9 @@ public class RecuperarCuenta extends AppCompatActivity implements IRecuperarCuen
         if(recuperarCuentaPresentador.VerificarCorreo(getApplicationContext(),
                 correo, idUsuario))
         {
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
             if (networkInfo != null && networkInfo.isConnected()) {
                 int codigo = recuperarCuentaPresentador.NumeroAleatorio();
                 if(recuperarCuentaPresentador.EnviarCorreo(correo, codigo))
