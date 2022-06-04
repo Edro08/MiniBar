@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,7 +44,7 @@ public class InventarioMB extends AppCompatActivity implements IInventarioMB_Vie
     List<Producto> lsProducto;
     ArrayList<String> lsFiltro;
     int idHabitacion, idProducto;
-    String nombreHabitacion, filtro;
+    String nombreHabitacion, filtro, nombreProducto;
     Bundle data;
 
 
@@ -93,9 +94,12 @@ public class InventarioMB extends AppCompatActivity implements IInventarioMB_Vie
             @Override
             public void onClick(View view) {
                 idProducto = lsProducto.get(rvListaInventarioMB.getChildAdapterPosition(view)).getIdProducto();
+                nombreProducto = lsProducto.get(rvListaInventarioMB.getChildAdapterPosition(view)).getProductoNombre();
                 Intent inventario = new Intent(getApplicationContext(), AgregarProductoMB.class);
                 inventario.putExtra("idHabitacion",idHabitacion);
-                inventario.putExtra("iidProducto ",idProducto);
+                inventario.putExtra("nombreHabitacion",nombreHabitacion);
+                inventario.putExtra("idProducto",idProducto);
+                inventario.putExtra("nombreProducto",nombreProducto);
                 lanzarActividad.launch(inventario);
             }
         });

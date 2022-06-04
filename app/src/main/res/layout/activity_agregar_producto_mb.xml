@@ -73,6 +73,16 @@
                     android:layout_margin="15dp"/>
 
                 <TextView
+                    android:id="@+id/tvInventaroGeAMB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Cantidad en Inventario General: "
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/tvExistenciasAMB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
