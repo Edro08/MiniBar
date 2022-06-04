@@ -76,7 +76,7 @@ public class GestionarInventario implements IntrfcGestionInventarios {
         try{
             String consultaSql;
             consultaSql = "INSERT INTO ENTRADA(IDUSUARIO, IDPRODUCTO, DESCRIPCION, FECHA, CANTIDAD, PRECIO, TOTAL) " +
-                    "VALUES("+ entrada.getIdUsuario() +" ,"+ entrada.getIdUsuario() +" ,'" + entrada.getDescripcion() + "' ,'" + entrada.getFecha()+
+                    "VALUES("+ entrada.getIdUsuario() +" ,"+ entrada.getIdProducto() +" ,'" + entrada.getDescripcion() + "' ,'" + entrada.getFecha()+
                     "' ,"+ entrada.getCantidad() + " ," + entrada.getPrecio() + " ," + entrada.getTotal() + ")";
             base.execSQL(consultaSql);
             exito = true;

@@ -130,8 +130,7 @@ public class MinibarBD extends SQLiteOpenHelper {
                 "CONSTRAINT FK_IDPRODUCTO_SALIDA FOREIGN KEY (IDPRODUCTO) REFERENCES PRODUCTO(IDPRODUCTO))";
         sqLiteDatabase.execSQL(consultaSql);
 
-        Datos(sqLiteDatabase);
-        Asistencia(sqLiteDatabase);
+        AsistenciaDatos(sqLiteDatabase);
     }
 
     @Override
@@ -139,25 +138,7 @@ public class MinibarBD extends SQLiteOpenHelper {
 
     }
 
-    public void Datos(SQLiteDatabase sqLiteDatabase)
-    {
-        String consultaSql;
-        //Datos para tabla Habitación
-        consultaSql = "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Habitacion Deluxe H1',1)";
-        sqLiteDatabase.execSQL(consultaSql);
-        consultaSql = "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Habitacion normal 2 camas',1)";
-        sqLiteDatabase.execSQL(consultaSql);
-
-        //Datos para tabla InventarioHabitación
-        consultaSql = "INSERT INTO INVENTARIOHABITACION(IDHABITACION,IDPRODUCTO,EXISTENCIAS,CANTIDADMINIMA) " +
-                "VALUES(1,1,10,5)";
-        sqLiteDatabase.execSQL(consultaSql);
-        consultaSql = "INSERT INTO INVENTARIOHABITACION(IDHABITACION,IDPRODUCTO,EXISTENCIAS,CANTIDADMINIMA) " +
-                "VALUES(1,2,10,5)";
-        sqLiteDatabase.execSQL(consultaSql);
-    }
-
-    public void Asistencia(SQLiteDatabase sqLiteDatabase)
+    public void AsistenciaDatos(SQLiteDatabase sqLiteDatabase)
     {
         String consultaSql;
 
@@ -185,10 +166,26 @@ public class MinibarBD extends SQLiteOpenHelper {
                 "VALUES('Edro08','Admin',1,2)";
         sqLiteDatabase.execSQL(consultaSql);
 
-        //CATEGORIAS DE PRODUCTOS
+        //  HABITACIONES
+        String[] sqlInsertHab = {
+                "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Deluxe H1',1);",
+                "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Deluxe H2',1);",
+                "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Deluxe H3',1);",
+                "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Deluxe H4',1);",
+                "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Normal 2 Camas F1',1);",
+                "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Normal 2 Camas F2',1);",
+                "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Normal 2 Camas F3',1);",
+                "INSERT INTO HABITACION(NOMBREHABITACION,IDESTADO) VALUES('Normal 2 Camas F4',1);",
+        };
+        for(String insert : sqlInsertHab){
+            sqLiteDatabase.execSQL(insert);
+        }
+
+
+        //CATEGORIAS DE PRODUCTOS, PRODUCTOS, EXISTENCIAS
         String[] sqlInsertCat = {
                 "INSERT INTO CATEGORIA(NOMBRECATEGORIA,IDESTADO) VALUES ('Frutos Secos', 1);",
-                "INSERT INTO CATEGORIA(NOMBRECATEGORIA,IDESTADO) VALUES ('Bebidas Frias', 1);"
+                "INSERT INTO CATEGORIA(NOMBRECATEGORIA,IDESTADO) VALUES ('Bebidas Frias', 1);",
         };
         for(String insert : sqlInsertCat){
             sqLiteDatabase.execSQL(insert);
@@ -234,9 +231,6 @@ public class MinibarBD extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(insert);
         }
 
-
-
-
         String[] sqlInsrtInvt = {
                 "INSERT INTO INVENTARIO (IDPRODUCTO, CANTIDADMINIMA, CANTIDADMAXIMA, EXISTENCIAS) VALUES (1,20,200,10);",
                 "INSERT INTO INVENTARIO (IDPRODUCTO, CANTIDADMINIMA, CANTIDADMAXIMA, EXISTENCIAS) VALUES (2,20,200,20);",
@@ -267,7 +261,6 @@ public class MinibarBD extends SQLiteOpenHelper {
                 "INSERT INTO INVENTARIO (IDPRODUCTO, CANTIDADMINIMA, CANTIDADMAXIMA, EXISTENCIAS) VALUES (27,20,200,10);",
 
         };
-
         for (String insr : sqlInsrtInvt){
             sqLiteDatabase.execSQL(insr);
         }
