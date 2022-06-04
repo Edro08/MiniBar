@@ -1,6 +1,7 @@
 package com.purosurf.minibar.Printer;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -19,11 +20,15 @@ import com.purosurf.minibar.R;
 public class PrintPDF {
 
     Bitmap bmp, scaledbmp;
+    String[] Title ;
+    Cursor data;
     private static final int PERMISSION_REQUEST_CODE = 200;
 
-    public PrintPDF(Bitmap bmp, Bitmap scaledbmp) {
+    public PrintPDF(Bitmap bmp, Bitmap scaledbmp, String[] datos, Cursor cursor) {
         this.bmp = bmp;
         this.scaledbmp = scaledbmp;
+        this.Title = datos;
+        this.data = cursor;
     }
 
     public void generatePDF(Context context, int pagewidth, int pageHeight) {
@@ -37,39 +42,46 @@ public class PrintPDF {
         PdfDocument.Page myPage = pdfDocument.startPage(mypageInfo);
         Canvas canvas = myPage.getCanvas();
 
-        canvas.drawBitmap(scaledbmp, 50, 50, paint);
-        title.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL));
+        canvas.drawBitmap(scaledbmp, 45, 45, paint);
+        title.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD));
         title.setTextSize(25);
         title.setTextAlign(Paint.Align.CENTER);
+        title.setColor(ContextCompat.getColor(context, R.color.azul));
+        canvas.drawText("Puro Surf S.A DE C.V", 450, 45, title);
+        title.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL));
+        title.setTextSize(22);
         title.setColor(ContextCompat.getColor(context, R.color.black));
-        canvas.drawText("Puro Surf S.A DE C.V", 450, 60, title);
-        canvas.drawText("Reporte de Consumo por Habitacion.", 450, 90, title);
-        canvas.drawText("Habitacion: " + "", 450,120,title);
-        canvas.drawText("Usuario Genero: ",450,150, title);
-        canvas.drawText("Rango de Fechas: ",450,180,title);
+        canvas.drawText(Title[0], 450, 75, title);
+        canvas.drawText("Reporte: " + Title[1], 450,105,title);
+        canvas.drawText("Fecha Impresion: " + Title[2],450,135, title);
+        canvas.drawText("Usuario Genero: " + Title[3],450,165,title);
 
         title.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         title.setColor(ContextCompat.getColor(context, R.color.black));
         title.setTextSize(20);
         title.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("Productos",80,240,title);
-        canvas.drawText("Cantidad", 520,240, title);
-        canvas.drawText("Precio", 690,240, title);
+        canvas.drawText("Productos",220,240,title);
+        canvas.drawText("Cantidad", 505,240, title);
+        canvas.drawText("Precio", 680,240, title);
 
         title.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         title.setColor(ContextCompat.getColor(context, R.color.black));
-        title.setTextSize(19);
+        title.setTextSize(18);
+        title.setTextAlign(Paint.Align.LEFT);
         //recorrido de productos
         int y = 280;
-        for (int i = 0; i < 1; i++){
-            canvas.drawText("producto " + i ,80, y, title);
-            canvas.drawText("cantidad " +i ,520, y, title);
-            canvas.drawText("Precio "+i, 690, y, title);
+        while (data.moveToNext()){
+            canvas.drawText(data.getString(1),80,y,title);
+            canvas.drawText(data.getString(3), 500, y, title);
+            canvas.drawText("$ "+ data.getString(4),670, y, title);
             y += 30;
         }
 
         pdfDocument.finishPage(myPage);
-        File file = new File(context.getFilesDir(), "rptConsumos.pdf");
+        File file = new File(context.getFilesDir(), Title[4]);
+        if(file.exists()){
+            file.delete();
+        }
 
         try {
             pdfDocument.writeTo(new FileOutputStream(file));

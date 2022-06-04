@@ -79,7 +79,7 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
         tv_TrCampo3 = findViewById(R.id.tv_TrCampo3);
         detalleReporteConsPresentador = new DetalleReporteConsPresentador(this);
 
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.cama_azul);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.purosurf);
         scaledbmp = Bitmap.createScaledBitmap(bmp, 130, 130, false);
 
         datos = getIntent().getExtras();
@@ -263,17 +263,13 @@ public class DetalleReporteCons extends AppCompatActivity implements IDetalleRep
     @Override
     public boolean GenerarReporte(String nombreReporte) {
         boolean estado = false;
-        NombreArchivo = "rptConsumos.pdf";
+        NombreArchivo = nombreReporte + ".pdf";
         //String Informacion = "Información de mini bar";
         try
         {
-            PrintPDF print = new PrintPDF(bmp,scaledbmp);
+            String[] datos = {"Detalle de Inventario", numReport, fecha, IniciarSesion.usuario, NombreArchivo};
+            PrintPDF print = new PrintPDF(bmp, scaledbmp, datos, detalleReporteConsPresentador.DatosInventario(getApplicationContext()));
             print.generatePDF(getApplicationContext(), pagewidth, pageHeight);
-            //OutputStreamWriter Archivo = new OutputStreamWriter(
-            //        openFileOutput(NombreArchivo, Context.MODE_PRIVATE));
-            //Archivo.write(Informacion);
-            //Archivo.flush();
-            //Archivo.close();
             estado = true;
         }
         catch (Exception e)
