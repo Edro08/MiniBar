@@ -91,7 +91,7 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
 
         Calendar calendar = Calendar.getInstance();
         final int year_ = calendar.get(Calendar.YEAR);
-        final int mes_ = calendar.get(Calendar.MONTH) + 1;
+        final int mes_ = calendar.get(Calendar.MONTH);
         final int dia_ = calendar.get(Calendar.DAY_OF_MONTH);
 
         edtFechDesde.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +103,7 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         Date Fecha = null;
                         try {
-                            Fecha = simpleDateFormat.parse(year +"-" + month +"-" + day);
+                            Fecha = simpleDateFormat.parse(year +"-" + (month + 1) +"-" + day);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -124,7 +124,7 @@ public class SeleccionarReporteConsumo extends AppCompatActivity implements ISel
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         Date Fecha = null;
                         try {
-                            Fecha = simpleDateFormat.parse(year +"-" + month +"-" + day);
+                            Fecha = simpleDateFormat.parse(year +"-" + (month + 1) +"-" + day);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
